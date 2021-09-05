@@ -1,0 +1,19 @@
+img{
+    margin-left: 10px;
+    margin-right: 10px;
+    outline: 0 !important;
+}
+
+.logo{
+    margin-top: 5px;
+}
+
+.container-fluid{
+    display: block;
+}
+
+
+.navbar-brand {
+    white-space: normal; 
+}
+

@@ -1,0 +1,63 @@
+<h2 (click)="rafraichir()" class="titre noselect">Utilisateurs</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col" class="noselect" *ngIf="triId == ''" (click)="demandeDeTriId()">#</th>
+            <th scope="col" class="noselect" style="width: 50px;" *ngIf="triId == 'ASC'" (click)="demandeDeTriId()">#<img style="padding-left: 5px" src="../../assets/svg/tri/sort-numeric-down.svg" alt="tri #"/></th>
+            <th scope="col" class="noselect" style="width: 50px;" *ngIf="triId == 'DESC'" (click)="demandeDeTriId()">#<img style="padding-left: 5px" src="../../assets/svg/tri/sort-numeric-up-alt.svg" alt="tri #"/></th>
+            <th scope="col" class="noselect" *ngIf="triEmail == ''" (click)="demandeDeTriEmail()">Email</th>
+            <th scope="col" class="noselect" style="width: 50px;" *ngIf="triEmail == 'ASC'" (click)="demandeDeTriEmail()">Email<img style="padding-left: 5px" src="../../assets/svg/tri/sort-alpha-down.svg" alt="tri email"/></th>
+            <th scope="col" class="noselect" style="width: 50px;" *ngIf="triEmail == 'DESC'" (click)="demandeDeTriEmail()">Email<img style="padding-left: 5px" src="../../assets/svg/tri/sort-alpha-up-alt.svg" alt="tri email"/></th>
+            <th scope="col" class="noselect" *ngIf="triNom == ''" (click)="demandeDeTriNom()">Nom</th>
+            <th scope="col" class="noselect" *ngIf="triNom == 'ASC'" (click)="demandeDeTriNom()">Nom<img style="padding-left: 5px" src="../../assets/svg/tri/sort-alpha-down.svg" alt="tri nom"/></th>
+            <th scope="col" class="noselect" *ngIf="triNom == 'DESC'" (click)="demandeDeTriNom()">Nom<img style="padding-left: 5px" src="../../assets/svg/tri/sort-alpha-up-alt.svg" alt="tri nom"/></th>
+            <th scope="col" class="noselect" *ngIf="triPrenom == ''" (click)="demandeDeTriPrenom()">Prénom</th>
+            <th scope="col" class="noselect" *ngIf="triPrenom == 'ASC'" (click)="demandeDeTriPrenom()">Prénom<img style="padding-left: 5px" src="../../assets/svg/tri/sort-alpha-down.svg" alt="tri prénom"/></th>
+            <th scope="col" class="noselect" *ngIf="triPrenom == 'DESC'" (click)="demandeDeTriPrenom()">Prénom<img style="padding-left: 5px" src="../../assets/svg/tri/sort-alpha-up-alt.svg" alt="tri prénom"/></th>
+            <th scope="col" class="noselect" *ngIf="triAge == ''" (click)="demandeDeTriAge()">Age</th>
+            <th scope="col" class="noselect" style="width: 70px;" *ngIf="triAge == 'ASC'" (click)="demandeDeTriAge()">Age<img style="padding-left: 5px" src="../../assets/svg/tri/sort-numeric-down.svg" alt="tri age"/></th>
+            <th scope="col" class="noselect" style="width: 70px;" *ngIf="triAge == 'DESC'" (click)="demandeDeTriAge()">Age<img style="padding-left: 5px" src="../../assets/svg/tri/sort-numeric-up-alt.svg" alt="tri age"/></th>
+            <th scope="col" class="noselect" *ngIf="triNbKilometresCumules == ''" (click)="demandeDeTriNbKilometresCumules()">Nombre de kilomètres cumulés</th>
+            <th scope="col" class="noselect" *ngIf="triNbKilometresCumules == 'ASC'" (click)="demandeDeTriNbKilometresCumules()">Nombre de kilomètres cumulés<img style="padding-left: 5px" src="../../assets/svg/tri/sort-numeric-down.svg" alt="tri nombre de kilomètres cumulés"/></th>
+            <th scope="col" class="noselect" *ngIf="triNbKilometresCumules == 'DESC'" (click)="demandeDeTriNbKilometresCumules()">Nombre de kilomètres cumulés<img style="padding-left: 5px" src="../../assets/svg/tri/sort-numeric-up-alt.svg" alt="tri nombre de kilomètres cumulés"/></th>
+            <th scope="col" class="noselect" *ngIf="triEstConnecte == ''" (click)="demandeDeTriEstConnecte()">Est connecté?</th>
+            <th scope="col" class="noselect" style="width: 115px;" *ngIf="triEstConnecte == 'ASC'" (click)="demandeDeTriEstConnecte()">Est connecté?<img style="padding-left: 5px" src="../../assets/svg/tri/sort-alpha-down.svg" alt="tri est connecté"/></th>
+            <th scope="col" class="noselect" style="width: 115px;" *ngIf="triEstConnecte == 'DESC'" (click)="demandeDeTriEstConnecte()">Est connecté?<img style="padding-left: 5px" src="../../assets/svg/tri/sort-alpha-up-alt.svg" alt="tri est connecté"/></th>
+            <th scope="col" class="noselect" *ngIf="triEstAdmin == ''" (click)="demandeDeTriEstAdmin()">Est administrateur?</th>
+            <th scope="col" class="noselect" style="width: 160px;" *ngIf="triEstAdmin == 'ASC'" (click)="demandeDeTriEstAdmin()">Est administrateur?<img style="padding-left: 5px" src="../../assets/svg/tri/sort-alpha-down.svg" alt="tri est administrateur"/></th>
+            <th scope="col" class="noselect" style="width: 160px;" *ngIf="triEstAdmin == 'DESC'" (click)="demandeDeTriEstAdmin()">Est administrateur?<img style="padding-left: 5px" src="../../assets/svg/tri/sort-alpha-up-alt.svg" alt="tri est administrateur"/></th>
+            <th *ngIf="nbUtilisateurs > 0">
+                <button type="button" class="btn btn-danger" (click)="auMoinsUnASupprimer()" [disabled]="utilisateursASupprimer.length == 0">Supprimer</button>
+            </th>
+        </tr>
+    </thead>
+    <br/>
+    <tbody>
+        <tr *ngFor="let utilisateur of utilisateurs" (click)="modifierUtilisateur(utilisateur)">
+            <th scope="row">{{utilisateur['id_utilisateur']}}</th>
+            <td>{{utilisateur['email']}}</td>
+            <td>{{utilisateur['nom']}}</td>
+            <td>{{utilisateur['prenom']}}</td>
+            <td>{{utilisateur['age']}}</td>
+            <td>{{utilisateur['nbKilometresCumules']}}</td>
+            <td *ngIf="utilisateur['estConnecte'] == 1">oui</td>
+            <td *ngIf="utilisateur['estConnecte'] == 0">non</td>
+            <td *ngIf="utilisateur['estAdmin'] == 1">oui</td>
+            <td *ngIf="utilisateur['estAdmin'] == 0">non</td>
+            <td (click)="onEvent($event)">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" (change)="aSupprimer(utilisateur['id_utilisateur'])">
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div *ngIf="nbUtilisateurs>0" id="statNbUtilisateurs">Total: {{nbUtilisateurs}} utilisateur<span *ngIf="nbUtilisateurs>1">s</span> inscrit<span *ngIf="nbUtilisateurs>1">s</span> dans le système</div>
+<div *ngIf="nbUtilisateurs==0" id="statNbUtilisateurs">Aucun utilisateur inscrit dans le système</div>
+<div class="boutonAjouter">
+    <button class="w-100 btn btn-lg btn-primary" (click)="nouvelUtilisateur()">Ajouter un nouvel utilisateur</button>
+</div>
+<div id="backBar" routerLink="/accueil">
+    <h4>Retour au menu d'accueil</h4>
+    <img src="../../assets/svg/arrow-left-square-fill-back-to-accueil.svg" alt="Retour au menu d'accueil"/>
+</div>

@@ -1,0 +1,14 @@
+<form [formGroup]="motDePasseForm" (ngSubmit)="onSubmitForm()" id="formMotDePasse">
+    <h1 class="h3 mb-3 fw-normal">Voulez vous modifier votre mot de passe?</h1>
+    <div class="mb-3">
+        <label for="nouvMotDePasse" class="form-label">Nouveau mot de passe</label>
+        <input type="password" class="form-control" id="nouvMotDePasse" placeholder="mot de passe" formControlName="mdp">
+    </div>
+    <div style="padding-left:65px;padding-right:65px;margin-top:30px;">
+        <button class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="motDePasseForm.invalid">Modifier</button>
+    </div>
+</form>
+<div id="backBar" (click)="retourProfilFct()">
+    <h4>Retour au profil</h4>
+    <img src="../../assets/svg/arrow-left-square-fill-back-to-accueil.svg" alt="Retour au profil"/>
+</div>

@@ -1,0 +1,97 @@
+<h2 (click)="rafraichir()" class="titre noselect">Historique de navigation</h2>
+<div style="padding-top: 15px;max-width: 300px;margin-left: 20px;" *ngIf="checkAdminStatus()">
+    <h4>Utilisateur :</h4>
+    <select class="form-select" aria-label="Default select example" style="margin-bottom: 15px;" [(ngModel)]="selectedOption" #selectList (change)="chargerListeLignesUtilisateur(selectList.value)">
+        <option *ngFor="let utilisateur of utilisateurs" [selected]="utilisateurSelectionne != null && utilisateurSelectionne.id_utilisateur === utilisateur.id_utilisateur" value="{{utilisateur['id_utilisateur']}}">{{utilisateur['id_utilisateur']}} - {{utilisateur['email']}}, {{utilisateur['nom']}} {{utilisateur['prenom']}}</option>
+    </select>
+</div>
+<div class="boutonAjouter">
+    <button class="w-100 btn btn-lg btn-primary" (click)="nouvelleLigne()">Ajouter une nouvelle ligne</button>
+</div>
+<div class="navigation" *ngIf="nbLignes > 0">
+    <div class="noselect retourNonValide" *ngIf="limit <= 0" style="float:left;width:170px;margin-bottom:15px;cursor:context-menu;text-align:left;">
+        <img src="../../assets/svg/caret-left.svg" alt="page null"/>
+    </div>
+    <div class="noselect retourValide" *ngIf="limit > 0" style="float:left;font-weight:bold;width:170px;margin-bottom:15px;cursor:pointer;text-align:left;" (click)="pagePrecedente()">
+        <img src="../../assets/svg/caret-left-fill.svg" alt="page précédente"/>
+        Page précédente
+    </div>
+    
+    <div class="noselect suivantNonValide" *ngIf="limit+50 >= nbLignes" style="float:right;width:170px;margin-bottom:15px;;cursor:context-menu;text-align: right;">
+        <img src="../../assets/svg/caret-right.svg" alt="page null"/>
+    </div>
+    <div class="noselect suivantValide" *ngIf="limit+50 < nbLignes" style="float:right;font-weight:bold;width:170px;margin-bottom:15px;cursor:pointer;text-align:right;" (click)="pageSuivante()">
+        Page suivante
+        <img src="../../assets/svg/caret-right-fill.svg" alt="page suivante"/>
+    </div>
+</div>
+<table class="table table-bordered" *ngIf="utilisateurSelectionne != null && nbLignes>0">
+    <thead>
+        <tr>
+            <th scope="col" class="noselect" *ngIf="triId == ''" (click)="demandeDeTriId()">#</th>
+            <th scope="col" class="noselect" *ngIf="triId == 'ASC'" (click)="demandeDeTriId()">#<img style="padding-left: 5px" src="../../assets/svg/tri/sort-numeric-down.svg" alt="tri #"/></th>
+            <th scope="col" class="noselect" *ngIf="triId == 'DESC'" (click)="demandeDeTriId()">#<img style="padding-left: 5px" src="../../assets/svg/tri/sort-numeric-up-alt.svg" alt="tri #"/></th>
+            <th scope="col" class="noselect" *ngIf="triDate == ''" (click)="demandeDeTriDate()">Date</th>
+            <th scope="col" class="noselect" *ngIf="triDate == 'ASC'" (click)="demandeDeTriDate()">Date<img style="padding-left: 5px" src="../../assets/svg/tri/sort-numeric-down.svg" alt="tri par date"/></th>
+            <th scope="col" class="noselect" *ngIf="triDate == 'DESC'" (click)="demandeDeTriDate()">Date<img style="padding-left: 5px" src="../../assets/svg/tri/sort-numeric-up-alt.svg" alt="tri par date"/></th>
+            <th scope="col" class="noselect" *ngIf="triNbKilometres == ''" (click)="demandeDeTriKilometres()">Kilomètres</th>
+            <th scope="col" class="noselect" *ngIf="triNbKilometres == 'ASC'" (click)="demandeDeTriKilometres()">Kilomètres<img style="padding-left: 5px" src="../../assets/svg/tri/sort-numeric-down.svg" alt="tri nombre de kilomètres"/></th>
+            <th scope="col" class="noselect" *ngIf="triNbKilometres == 'DESC'" (click)="demandeDeTriKilometres()">Kilomètres<img style="padding-left: 5px" src="../../assets/svg/tri/sort-numeric-up-alt.svg" alt="tri nombre de kilomètres"/></th>
+
+            <th scope="col" class="noselect" *ngIf="triNbKilometresCumules == ''" (click)="demandeDeTriKilometresCumules()">Kilomètres cumulés</th>
+            <th scope="col" class="noselect" *ngIf="triNbKilometresCumules == 'ASC'" (click)="demandeDeTriKilometresCumules()">Kilomètres cumulés<img style="padding-left: 5px" src="../../assets/svg/tri/sort-numeric-down.svg" alt="tri nombre de kilomètres cumulés"/></th>
+            <th scope="col" class="noselect" *ngIf="triNbKilometresCumules == 'DESC'" (click)="demandeDeTriKilometresCumules()">Kilomètres cumulés<img style="padding-left: 5px" src="../../assets/svg/tri/sort-numeric-up-alt.svg" alt="tri nombre de kilomètres cumulés"/></th>
+
+            <th scope="col" class="noselect" *ngIf="triDescription == ''" (click)="demandeDeTriDescription()">Description</th>
+            <th scope="col" class="noselect" *ngIf="triDescription == 'ASC'" (click)="demandeDeTriDescription()">Description<img style="padding-left: 5px"src="../../assets/svg/tri/sort-alpha-down.svg" alt="tri par description"/></th>
+            <th scope="col" class="noselect" *ngIf="triDescription == 'DESC'" (click)="demandeDeTriDescription()">Description<img style="padding-left: 5px"src="../../assets/svg/tri/sort-alpha-up-alt.svg" alt="tri par description"/></th>
+            <th scope="col" class="noselect" *ngIf="triVehicule == ''" (click)="demandeDeTriVehicule()">Véhicule</th>
+            <th scope="col" class="noselect" *ngIf="triVehicule == 'ASC'" (click)="demandeDeTriVehicule()">Véhicule<img style="padding-left: 5px"src="../../assets/svg/tri/sort-alpha-down.svg" alt="tri par véhicule"/></th>
+            <th scope="col" class="noselect" *ngIf="triVehicule == 'DESC'" (click)="demandeDeTriVehicule()">Véhicule<img style="padding-left: 5px"src="../../assets/svg/tri/sort-alpha-up-alt.svg" alt="tri par véhicule"/></th>
+            <th *ngIf="nbLignes > 0">
+                <button type="button" class="btn btn-danger" (click)="auMoinsUnASupprimer()" [disabled]="lignesASupprimer.length == 0">Supprimer</button>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let ligne of lignesTriees" (click)="modifierLigne(ligne)">
+            <th scope="row">{{ligne['id_ligne']}}</th>
+            <td>{{dateToString(ligne['date'])}}</td>
+            <td>{{ligne['nbKilometres']}}</td>
+            <td>{{ligne['nbKilometresCumules']}}</td>
+            <td>{{ligne['description']}}</td>
+            <td>{{ligne['vehicule']}}</td>
+            <td (click)="onEvent($event)">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" (change)="aSupprimer(ligne['id_ligne'])">
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div class="navigation" *ngIf="nbLignes > 0">
+    <div class="noselect retourNonValide" *ngIf="limit <= 0" style="float:left;width:170px;margin-top:15px;cursor:context-menu;text-align:left;">
+        <img src="../../assets/svg/caret-left.svg" alt="page null"/>
+    </div>
+    <div class="noselect retourValide" *ngIf="limit > 0" style="float:left;font-weight:bold;width:170px;margin-top:15px;cursor:pointer;text-align:left;" (click)="pagePrecedente()">
+        <img src="../../assets/svg/caret-left-fill.svg" alt="page précédente"/>
+        Page précédente
+    </div>
+    
+    <div class="noselect suivantNonValide" *ngIf="limit+50 >= nbLignes" style="float:right;width:170px;margin-top:15px;;cursor:context-menu;text-align: right;">
+        <img src="../../assets/svg/caret-right.svg" alt="page null"/>
+    </div>
+    <div class="noselect suivantValide" *ngIf="limit+50 < nbLignes" style="float:right;font-weight:bold;width:170px;margin-top:15px;cursor:pointer;text-align:right;" (click)="pageSuivante()">
+        Page suivante
+        <img src="../../assets/svg/caret-right-fill.svg" alt="page suivante"/>
+    </div>
+</div>
+<div>
+    <div *ngIf="nbLignes>0" id="statNbLignes">Total: {{nbLignes}} enregistrement<span *ngIf="nbLignes>1">s</span></div>
+    <div *ngIf="utilisateurSelectionne != null && nbLignes>0" id="statNbLignes">Total des kilomètres cumulés: {{utilisateurSelectionne['nbKilometresCumules']}} km</div>
+    <div *ngIf="utilisateurSelectionne != null && nbLignes==0" id="statNbLignes">{{utilisateurSelectionne['nom']}} {{utilisateurSelectionne['prenom']}} ({{utilisateurSelectionne['email']}}) n'a pas encore enregistré son historique de navigation</div>
+</div>
+<div id="backBar" routerLink="/accueil">
+    <h4>Retour au menu d'accueil</h4>
+    <img src="../../assets/svg/arrow-left-square-fill-back-to-accueil.svg" alt="Retour au menu d'accueil"/>
+</div>

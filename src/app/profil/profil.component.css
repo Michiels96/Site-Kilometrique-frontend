@@ -1,0 +1,27 @@
+#formProfil{
+    max-width: 400px;
+    margin: auto;
+    font-family: 'source_sans_proregular';
+}
+
+#backBar{
+    max-width: fit-content;
+    margin: auto;
+    margin-top: 30px;
+    text-align: center;
+    outline: 0 !important;
+}
+
+#backBar>h4{
+    margin-bottom: 20px;
+}
+
+#backBar:hover{
+    cursor: pointer;
+}
+
+.form-check{
+    font-size: 20px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}

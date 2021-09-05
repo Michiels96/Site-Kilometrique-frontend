@@ -1,0 +1,62 @@
+<form [formGroup]="profilForm" (ngSubmit)="onSubmitForm()" id="formProfil">
+    <h1 class="h3 mb-3 fw-normal">Votre profil utilisateur :</h1>
+
+    <fieldset disabled>
+        <div class="mb-3">
+            <label for="id_utilisateur" class="form-label">Id</label>
+            <input type="text" id="id_utilisateur" class="form-control" formControlName="id">
+        </div>
+    </fieldset>
+
+    <div class="mb-3">
+        <label for="email" class="form-label">Adresse Email</label>
+        <input type="email" class="form-control" id="email" placeholder="albert@hotmail.com" formControlName="email">
+    </div>
+
+    <div class="mb-3" style="text-align: center;margin-top: 25px;">
+        <button type="button" class="btn btn-secondary" (click)="modifierMdp()">Modifier le mot de passe</button>
+    </div>
+
+    <div class="mb-3">
+        <label for="nom" class="form-label">Nom</label>
+        <input type="text" class="form-control" id="nom" placeholder="nom" formControlName="nom">
+    </div>
+
+    <div class="mb-3">
+        <label for="prenom" class="form-label">Prénom</label>
+        <input type="text" class="form-control" id="prenom" placeholder="prénom" formControlName="prenom">
+    </div>
+
+    <div class="mb-3">
+        <label for="age" class="form-label">Age</label>
+        <input type="number" class="form-control" id="age" placeholder="age" formControlName="age">
+    </div>
+
+    <div class="mb-3" *ngIf="modifierUtilisateur">
+        <label for="nbKilometresCumules" class="form-label">Nombre de kilomètres cumulés</label>
+        <input type="number" class="form-control" id="nbKilometresCumules" placeholder="Nombre de kilomètres cumulés" formControlName="nbKilometresCumules">
+    </div>
+
+    <div class="form-check form-switch noselect" *ngIf="modifierUtilisateur">
+        <input class="form-check-input" type="checkbox" id="estConnecte" formControlName="estConnecte">
+        <label class="form-check-label" for="estConnecte">Est connecte</label>
+    </div>
+
+    <div class="form-check form-switch noselect" *ngIf="modifierUtilisateur" style="margin-bottom: 20px;">
+        <input class="form-check-input" type="checkbox" id="estAdmin" formControlName="estAdmin">
+        <label class="form-check-label" for="estAdmin">Est administrateur</label>
+    </div>
+    <div style="padding-left:65px;padding-right:65px;margin-top:30px;">
+        <button class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="profilForm.invalid">Modifier</button>
+    </div>
+</form>
+
+<div *ngIf="!modifierUtilisateur" id="backBar" routerLink="/">
+    <h4>Retour à l'accueil</h4>
+    <img src="../../assets/svg/arrow-left-square-fill-back-to-accueil.svg" alt="Retour à l'accueil"/>
+</div>
+
+<div *ngIf="modifierUtilisateur" id="backBar" routerLink="/utilisateurs">
+    <h4>Retour à la liste des utilisateurs</h4>
+    <img src="../../assets/svg/arrow-left-square-fill-back-to-accueil.svg" alt="Retour à la liste des utilisateurs"/>
+</div>

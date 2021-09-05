@@ -1,0 +1,59 @@
+<div style="text-align: left;margin-bottom: 15px;" class="noselect" *ngIf="checkAdminStatus()"><span id="status">administrateur</span></div>
+<h2 class="noselect">{{message}}</h2>
+<div class="container marketing">
+    <!-- Three columns of text below the carousel -->
+    <div class="row">
+        
+        <!-- <div class="col-lg-4">
+            <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
+
+            <h2>Inscrire un log</h2>
+            <p>Permet d'inscrire un log</p>
+            <p><a class="btn btn-secondary" href="#">Inscrire un log &raquo;</a></p>
+        </div> -->
+
+        <div data-aos="fade-right" data-aos-duration="1000" data-aos-mirror="true" data-aos-anchor-placement="top-center" class="col-lg-4">
+            <img style="padding-bottom: 15px;" src="../../assets/svg/journal-bookmark.svg" alt="historique de navigation"/>
+            <h2>Historique de navigation</h2>
+            <p>Ajouter/supprimer l'historique de navigation</p>
+            <p><a class="btn btn-secondary" routerLink="/lignes">Voir l'historique<br/> de navigation &raquo;</a></p>
+        </div>
+
+        <div data-aos="fade-left" data-aos-duration="1000" data-aos-mirror="true" data-aos-anchor-placement="top-center" class="col-lg-4">
+            <img style="padding-bottom: 10px;" src="../../assets/svg/steering-wheel.svg" alt="vehicules"/>
+            <h2>Véhicules</h2>
+            <p style="font-family: source_sans_proregular;">Donne la liste de toutes les véhicules avec lesquelles vous avez roulé</p>
+            <p><a class="btn btn-secondary" routerLink="/vehicules" style="font-family: source_sans_proregular;">Menu véhicules &raquo;</a></p>
+        </div>
+
+        <div data-aos="fade-right" data-aos-duration="1000" data-aos-mirror="true" data-aos-anchor-placement="top-center" class="col-lg-4">
+            <img src="../../assets/svg/marque.svg" alt="marques"/>
+            <h2>Marques</h2>
+            <p style="font-family: source_sans_proregular;" >Donne la liste de toutes les marques inscrits dans le système</p>
+            <p><a class="btn btn-secondary" routerLink="/marques" style="font-family: source_sans_proregular;">Menu marques &raquo;</a></p>
+        </div>
+
+        <div data-aos="fade-left" data-aos-duration="1000" data-aos-mirror="true" data-aos-anchor-placement="top-center" class="col-lg-4" *ngIf="checkAdminStatus()">
+            <img src="../../assets/svg/people.svg" alt="utilisateurs"/>
+            <h2>Utilisateurs</h2>
+            <p style="font-family: source_sans_proregular;">Donne la liste de tous les utilisateurs inscrits dans le système</p>
+            <p><a class="btn btn-secondary" routerLink="/utilisateurs" style="font-family: source_sans_proregular;">Voir les utilisateurs &raquo;</a></p>
+        </div>
+
+        <div data-aos="fade-right" data-aos-duration="1000" data-aos-mirror="true" data-aos-anchor-placement="top-center" class="col-lg-4">
+            <img src="../../assets/svg/book.svg" alt="statistiques"/>
+            <h2>Statistiques</h2>
+            <p style="font-family: source_sans_proregular;">Statistiques de l'historique de navigation</p>
+            <p><a class="btn btn-secondary" routerLink="/statistiques" style="font-family: source_sans_proregular;">Voir les statistiques &raquo;</a></p>
+        </div>
+
+        <div data-aos="fade-left" data-aos-duration="1000" data-aos-mirror="true" data-aos-anchor-placement="top-center" class="col-lg-4">
+            <img src="../../assets/svg/file-earmark-arrow-down.svg" alt="fichier" style="margin-bottom: 15px;"/>
+            <h2>Télécharger vos données</h2>
+            <p style="font-family: source_sans_proregular;">Télécharger un fichier texte de vos données</p>
+            <p><a class="btn btn-secondary" routerLink="/download" style="font-family: source_sans_proregular;">Télécharger &raquo;</a></p>
+        </div>
+    </div>
+
+</div><!-- /.container -->
+<div style="text-align: center; font-family: source_sans_proregular;">Icônes conçues par <a href="https://www.flaticon.com/fr/auteurs/photo3idea-studio" title="photo3idea_studio">photo3idea_studio</a><br/> from <a href="https://www.flaticon.com/fr/" title="Flaticon">www.flaticon.com</a></div>

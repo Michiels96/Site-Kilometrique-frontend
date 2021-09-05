@@ -1,0 +1,35 @@
+/* .col-lg-4{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background-color: rgb(255, 255, 255);
+    opacity: 0.5;
+    transition: 0.3s;
+    border-radius: 16px;
+    text-align: center;
+}
+.col-lg-4:hover{
+    opacity: 1;
+} */
+
+.col-lg-4{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-radius: 16px;
+    text-align: center;
+}
+
+#status{
+    background-color: #cfcfcf;
+    padding: 5px;
+    max-width: fit-content;
+    border-radius: 10px;
+    font-style: italic;
+    font-weight: bold;
+    font-size: 20px;
+    font-family: 'source_sans_proregular';
+}
+

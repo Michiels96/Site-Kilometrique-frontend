@@ -1,0 +1,75 @@
+tbody>tr:hover{
+    transition: 0.3s;
+    background-color: rgb(89, 230, 255);
+}
+
+#backBar{
+    max-width: fit-content;
+    margin: auto;
+    margin-top: 30px;
+    text-align: center;
+    outline: 0 !important;
+}
+
+#backBar>h4{
+    margin-bottom: 20px;
+}
+
+#backBar:hover{
+    cursor: pointer;
+}
+
+#statNbLignes{
+    margin-top: 5px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+@media only screen and (max-width: 600px) {
+    .boutonAjouter {
+        padding-left: 79px;
+        padding-right: 79px;
+        margin-top: 30px;
+    }
+}
+@media only screen and (min-width: 601px) {
+    .boutonAjouter{
+        padding-left:265px;
+        padding-right:265px;
+        margin-top:30px;
+    }
+}
+
+.boutonAjouter{
+    margin-bottom: 20px;
+}
+
+h2{
+    cursor: pointer;
+}
+
+.titre{
+/* background-color: #ddd; */
+    background-color: white;
+    color: black;
+    transition: 0.3s;
+    padding: 5px;
+    max-width: fit-content;
+    border-radius: 10px;
+}
+
+.titre:hover {
+    background-color: #b8b8b8;
+}
+
+@media only screen and (max-width: 390px) {
+    .navigation {
+        display: flex;
+    }
+}
+@media only screen and (min-width: 391px) {
+    .navigation{
+        display: block;
+    }
+}

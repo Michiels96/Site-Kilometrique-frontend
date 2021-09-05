@@ -1,0 +1,25 @@
+<form [formGroup]="statistiqueForm" (ngSubmit)="onSubmitForm()" id="formStatistique">
+    <h1 class="h3 mb-3 fw-normal" *ngIf="statistiqueAModifier != null">Modifier la statistique du <span style="font-style: italic;">{{dateToString(statistiqueAModifier['dateDAjout'])}}</span> :</h1>
+    <fieldset disabled *ngIf="statistiqueAModifier != null">
+        <div class="mb-3">
+            <label for="id_statistique" class="form-label">Id</label>
+            <input type="text" id="id_statistique" class="form-control" formControlName="id">
+        </div>
+    </fieldset>
+    <div class="form-floating">
+        <textarea class="form-control" placeholder="Laissez un commentaire" id="description" style="height: 100px; margin-bottom: 20px;" formControlName="description"></textarea>
+        <label for="description">Description</label>
+    </div>
+    <div class="mb-3">
+        <label for="date" class="form-label">Date</label>
+        <input type="date" min="2000-01-01" max="2200-01-01" class="form-control" id="date" formControlName="date">
+    </div>
+    <div style="padding-left:65px;padding-right:65px;margin-top:30px;">
+        <button class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="statistiqueForm.invalid"><span *ngIf="statistiqueAModifier != null">Modifier</span><span *ngIf="statistiqueAModifier == null">Créer</span></button>
+    </div>
+</form>
+
+<div id="backBar" routerLink="/statistiques">
+    <h4>Retour à la liste des statistiques</h4>
+    <img src="../../assets/svg/arrow-left-square-fill-back-to-accueil.svg" alt="Retour à la liste des statistiques"/>
+</div>
