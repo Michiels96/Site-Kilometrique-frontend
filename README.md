@@ -35,22 +35,22 @@ lien du site : http://michiels.zapto.org
 1. initialiser le projet
     ng new site-kilometrique --style=scss --skip-tests:true
 
-2. se déplacer dans le dossier site-kilometrique et installer le package bootstrap
+2. se dÃ©placer dans le dossier site-kilometrique et installer le package bootstrap
     npm install bootstrap@latest --save
 
-3. créer un nouveau component
+3. crÃ©er un nouveau component
     ng g c nouveau-component
 
 
 
 
-lancer le serveur ouvert à tous:
+lancer le serveur ouvert Ã  tous:
     ng serve --host 0.0.0.0
 
 Pour rendre accessible sur internet:
-Dans le ficjier services/ip.service.tests
-Commenter l'addr IPBackend pour LAN et décommenter la ligne IPBackend publique
+Dans le fichier services/ip.service.tests
+Commenter l'adresse IPBackend pour LAN et dÃ©commenter la ligne IPBackend publique
 
-
-Automatisation pour récupérer l'addresse IP:
-le script situé dans /assets/getIp doit s'exécuter tout les jours avec l'outil 'cron'
+(DÃ©preciÃ©)
+Automatisation pour rÃ©cupÃ©rer l'addresse IP:
+le script situÃ© dans /assets/getIp doit s'exÃ©cuter tout les jours avec l'outil 'cron'
