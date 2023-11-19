@@ -76,7 +76,7 @@
             }
           },
           "options":{
-            
+
             "disableHostCheck": true
           },
           "defaultConfiguration": "development"
@@ -107,5 +107,7 @@
       }
     }
   },
-  "defaultProject": "site-kilometrique"
+  "cli": {
+    "analytics": false
+  }
 }

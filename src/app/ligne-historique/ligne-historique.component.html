@@ -13,7 +13,7 @@
             <option *ngFor="let vehicule of vehicules" value="{{vehicule['nom_unique']}}">{{vehicule['nom_unique']}}</option>
         </select>
     </div>
-    <div class="mb-3" (click)="numberOrRangeFct(1)">
+    <div class="mb-3" style="padding: 10px;" (click)="numberOrRangeFct(1)">
         <fieldset [disabled]="numberOrRange">
             <label for="nbKilometres" class="form-label">Nombre de kilomètres</label>
             <input type="number" class="form-control" id="nbKilometres" placeholder="Nombre de kilomètres" formControlName="nbKilometres" >
@@ -33,7 +33,7 @@
         </fieldset>
     </div> -->
 
-    <div class="mb-3" style="max-width: fit-content;text-align: center;margin: auto;" (click)="numberOrRangeFct(2)">
+    <div class="mb-3" style="max-width: fit-content;text-align: center;margin: auto;padding: 10px;" (click)="numberOrRangeFct(2)">
         <fieldset [disabled]="!numberOrRange">
             <label for="nbKilometresDepart" class="form-label">kilomètres de départ</label>
             <input type="number" class="form-control" id="nbKilometresDepart" placeholder="kilomètres de Départ" formControlName="nbKilometresDepart">
