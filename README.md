@@ -1,6 +1,7 @@
 # SiteKilometrique
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.1.3.
+MAJ. 19.11.23 : Update vers angular 17.
 
 ## Development server
 
@@ -29,27 +30,30 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ----------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-lien du site : http://michiels.zapto.org
+Lien du site : http://michiels.zapto.org
 
 
-1. initialiser le projet
+1. Initialiser le projet
     ng new site-kilometrique --style=scss --skip-tests:true
 
-2. se déplacer dans le dossier site-kilometrique et installer le package bootstrap
+2. Se déplacer dans le dossier site-kilometrique et installer le package bootstrap
     npm install bootstrap@latest --save
 
-3. créer un nouveau component
+3. Créer un nouveau component
     ng g c nouveau-component
 
+Pré-requis pour toute vérification : 
+```
+npm install
+```
 
 
-
-lancer le serveur ouvert à tous:
+Lancer le serveur ouvert à tous:
     ng serve --host 0.0.0.0
 
-Pour rendre accessible sur internet:
-Dans le fichier services/ip.service.tests
-Commenter l'adresse IPBackend pour LAN et décommenter la ligne IPBackend publique
+Pour le rendre accessible sur internet:
+Dans le fichier services/ip.service.tests,
+ commenter l'adresse IPBackend pour LAN et décommenter la ligne IPBackend publique.
 
 (Déprecié)
 Automatisation pour récupérer l'addresse IP:
