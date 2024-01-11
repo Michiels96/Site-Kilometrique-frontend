@@ -32,6 +32,8 @@ import { StatistiqueService } from './services/statistique.service';
 import { StatistiqueComponent } from './menu-statistiques/statistique/statistique.component';
 import { TelechargerFichierComponent } from './telecharger-fichier/telecharger-fichier.component';
 import { DownloadService } from './services/download.service';
+import { LanguageService } from './services/language.service';
+
 
 
 @NgModule({
@@ -63,6 +65,7 @@ import { DownloadService } from './services/download.service';
     HttpClientModule
   ],
   providers: [
+    LanguageService,
     IPService,
     UtilisateurService,
     AuthGuard,

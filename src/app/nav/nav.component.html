@@ -9,6 +9,14 @@
       
   
       <div style="display: inline-flex; float: right;">
+
+        <ul class="navbar-nav me-auto mb-2 mb-md-0 logo">
+          <li class="nav-item">
+            <img src="../../assets/svg/en.svg" alt="english"/>
+          </li>
+        </ul>
+
+
         <ul class="navbar-nav me-auto mb-2 mb-md-0" *ngIf="!connecte" style="height: 30px;font-family: source_sans_proregular;font-size: 20px;">
           <li class="nav-item" *ngIf="componentAffiche !== 'componentConnexion'">
             <a class="nav-link active" aria-current="page" routerLink="/connexion">Connexion</a>
@@ -18,22 +26,20 @@
           </li>
         </ul>
 
-        <div style="display: inherit;">
-          <ul class="navbar-nav me-auto mb-2 mb-md-0 logo" *ngIf="connecte && componentAffiche !== 'componentProfil'">
-            <li class="nav-item">
-              <!-- <a class="nav-link active" aria-current="page" routerLink="/connexion" (click)="deconnexion()">Déconnexion</a> -->
-              <img src="../../assets/svg/person-circle.svg" alt="profil" (click)="modifierProfil()"/>
-            </li>
-          </ul>
-  
-          <ul class="navbar-nav me-auto mb-2 mb-md-0 logo" *ngIf="connecte">
-            <li class="nav-item">
-              <!-- <a class="nav-link active" aria-current="page" routerLink="/connexion" (click)="deconnexion()">Déconnexion</a> -->
-              <img src="../../assets/svg/box-arrow-up.svg" alt="déconnexion" routerLink="/connexion" (click)="deconnexion()"/>
-            </li>
-          </ul>
-        </div>
-        
+
+        <ul class="navbar-nav me-auto mb-2 mb-md-0 logo" *ngIf="connecte && componentAffiche !== 'componentProfil'">
+          <li class="nav-item">
+            <!-- <a class="nav-link active" aria-current="page" routerLink="/connexion" (click)="deconnexion()">Déconnexion</a> -->
+            <img src="../../assets/svg/person-circle.svg" alt="profil" (click)="modifierProfil()"/>
+          </li>
+        </ul>
+        <ul class="navbar-nav me-auto mb-2 mb-md-0 logo" *ngIf="connecte">
+          <li class="nav-item">
+            <!-- <a class="nav-link active" aria-current="page" routerLink="/connexion" (click)="deconnexion()">Déconnexion</a> -->
+            <img src="../../assets/svg/box-arrow-up.svg" alt="déconnexion" routerLink="/connexion" (click)="deconnexion()"/>
+          </li>
+        </ul>
+
 
       </div>
 

@@ -5,7 +5,7 @@ import { Observable } from "rxjs";
 
 
 @Injectable()
-export class IPService {
+export class LanguageService {
     // private headers = {
     //     headers: new HttpHeaders({ 
     //         'Access-Control-Allow-Origin': '*',
@@ -15,19 +15,15 @@ export class IPService {
     //         'Access-Control-Allow-Headers': 'Content-Type',
     //     })
     // };
-    private ipBackend = "";
+    private selected_lang = "";
 
     constructor() { 
-        // local (LAN) (development)
-        //this.ipBackend = "http://192.168.1.3:3000";
-
-        // internet (production)
-        // ne pas oublier le port forwarding
-        this.ipBackend = "http://michiels.zapto.org:3000";
+        // set French as default language
+        this.selected_lang = "fr";
     }
 
-    getIPBackend(){
-        return this.ipBackend;
+    getSelectedLanguage(){
+        return this.selected_lang;
     }
 }
 
