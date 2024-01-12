@@ -58,3 +58,12 @@ Dans le fichier services/ip.service.tests,
 (Déprecié)
 Automatisation pour récupérer l'addresse IP:
 le script situé dans /assets/getIp doit s'exécuter tout les jours avec l'outil 'cron'
+
+---
+To crop images and convert them as SVG files : 
+
+https://boxy-svg.com/app
+
+https://boxy-svg.com/questions/38/slice-crop-image-in-boxy-svg
+
+https://png2svg.com/
