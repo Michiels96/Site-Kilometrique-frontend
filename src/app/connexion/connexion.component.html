@@ -1,16 +1,16 @@
 <form [formGroup]="connexionForm" (ngSubmit)="onSubmitForm()" id="formConnexion"> 
-  <h1 class="h3 mb-3 fw-normal">Page de Connexion</h1>
+  <h1 class="h3 mb-3 fw-normal">{{connection}}</h1>
 
   <div class="mb-3">
-    <label for="email" class="form-label">Adresse Email</label>
+    <label for="email" class="form-label">{{email}}</label>
     <input type="email" class="form-control" id="email" placeholder="email@hotmail.com" formControlName="email">
   </div>
 
   <div class="mb-3">
-      <label for="password" class="form-label">Mot de passe</label>
+      <label for="password" class="form-label">{{password}}</label>
       <input type="password" class="form-control" id="password" placeholder="mot de passe" formControlName="password">
   </div>
   <div style="padding-left:65px;padding-right:65px;margin-top:30px;">
-      <button class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="connexionForm.invalid">Connexion</button>
+      <button class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="connexionForm.invalid">{{submitConnection}}</button>
   </div>
 </form>

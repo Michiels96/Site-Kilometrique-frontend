@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Utilisateur } from '../models/Utilisateur.model';
 import { UtilisateurService } from '../services/utilisateur.service';
 import { Emitters } from '../emitters/emitters';
+import { LanguageService } from '../services/language.service';
 
 @Component({
   selector: 'app-connexion',
@@ -14,13 +15,37 @@ export class ConnexionComponent implements OnInit, OnDestroy {
 
   connexionForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private utilisateurService: UtilisateurService) {}
+  // language terms
+  connection: string;
+  email: string;
+  password: string;
+  submitConnection: string;
+
+  constructor(private formBuilder: FormBuilder, private router: Router, private utilisateurService: UtilisateurService, private languageService: LanguageService) {}
 
   ngOnInit(): void {
-    this.clearCache();
     Emitters.componentAffiche.emit("componentConnexion");
     this.checkConnected();
     this.initForm();
+    this.setLanguageTerms();
+  }
+
+  setLanguageTerms(){
+    let french_lib = this.languageService.getFrenchLib();
+    if (this.languageService.getSelectedLanguage() == 'fr'){
+      this.connection = french_lib['connexion']['Connection'];
+      this.email = french_lib['connexion']['Email address'];
+      this.password = french_lib['connexion']['Password'];
+      this.submitConnection = french_lib['connexion']['submitConnection'];
+    }
+
+    let english_lib = this.languageService.getEnglishLib();
+    if (this.languageService.getSelectedLanguage() == 'en'){
+      this.connection = english_lib['connexion']['Connection'];
+      this.email = english_lib['connexion']['Email address'];
+      this.password = english_lib['connexion']['Password'];
+      this.submitConnection = english_lib['connexion']['submitConnection'];
+    }
   }
 
   ngOnDestroy(): void{
@@ -77,10 +102,5 @@ export class ConnexionComponent implements OnInit, OnDestroy {
         }
       }
     );
-  }
-
-  clearCache(){
-    sessionStorage.clear();
-    localStorage.clear();
   }
 }

@@ -4,7 +4,6 @@ import { Emitters } from './emitters/emitters';
 import { UtilisateurService } from './services/utilisateur.service';
 import { Utilisateur } from './models/Utilisateur.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { IPService } from './services/ip.service';
 
 
 
@@ -26,5 +25,4 @@ export class AppComponent implements OnInit {
       this.componentAffiche = pageStatus;
     });
   }
-
 }

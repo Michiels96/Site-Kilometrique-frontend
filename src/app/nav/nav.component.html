@@ -3,26 +3,31 @@
       <div style="float: left;">
         <p>
         <a class="navbar-brand" routerLink="/" *ngIf="connecte" style="font-family: source_sans_proregular;font-size: 30px;">Site Kilométrique</a>
-        <a class="navbar-brand" routerLink="/" *ngIf="!connecte">Site Kilométrique - Page de Connexion</a> 
+        <a class="navbar-brand" routerLink="/" *ngIf="!connecte">Site Kilométrique - {{connection_page}}</a> 
       </p>
       </div>
       
   
       <div style="display: inline-flex; float: right;">
 
-        <ul class="navbar-nav me-auto mb-2 mb-md-0 logo">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0 logo" *ngIf="language == 'en'">
           <li class="nav-item">
-            <img src="../../assets/svg/fr.svg" alt="english"/>
+            <img src="../../assets/svg/en.svg" alt="english" (click)="changeLanguage()"/>
+          </li>
+        </ul>
+        <ul class="navbar-nav me-auto mb-2 mb-md-0 logo" *ngIf="language == 'fr'">
+          <li class="nav-item">
+            <img src="../../assets/svg/fr.svg" alt="french" (click)="changeLanguage()"/>
           </li>
         </ul>
 
 
         <ul class="navbar-nav me-auto mb-2 mb-md-0" *ngIf="!connecte" style="height: 30px;font-family: source_sans_proregular;font-size: 20px;">
           <li class="nav-item" *ngIf="componentAffiche !== 'componentConnexion'">
-            <a class="nav-link active" aria-current="page" routerLink="/connexion">Connexion</a>
+            <a class="nav-link active" aria-current="page" routerLink="/connexion">{{connection}}</a>
           </li>
           <li class="nav-item" *ngIf="componentAffiche !== 'componentInscription'">
-            <a class="nav-link active" aria-current="page" routerLink="/inscription">S'inscrire</a>
+            <a class="nav-link active" aria-current="page" routerLink="/inscription">{{register}}</a>
           </li>
         </ul>
 

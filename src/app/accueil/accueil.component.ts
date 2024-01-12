@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Emitters } from '../emitters/emitters';
 import { UtilisateurService } from '../services/utilisateur.service';
+import { LanguageService } from '../services/language.service';
 
 @Component({
   selector: 'app-accueil',
@@ -11,7 +12,7 @@ import { UtilisateurService } from '../services/utilisateur.service';
 export class AccueilComponent implements OnInit, OnDestroy {
   message: string = "message";
 
-  constructor(private httpClient: HttpClient, private utilisateurService: UtilisateurService){}
+  constructor(private httpClient: HttpClient, private utilisateurService: UtilisateurService, private languageService: LanguageService){}
 
   ngOnInit(): void {
     Emitters.componentAffiche.emit("componentAccueil");
@@ -28,5 +29,4 @@ export class AccueilComponent implements OnInit, OnDestroy {
     }
     return false;
   }
-
 }

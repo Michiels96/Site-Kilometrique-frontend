@@ -43,6 +43,12 @@ export class AuthGuard implements CanActivate {
   logout(err){
     //console.log("Erreur "+JSON.stringify(err))
     Emitters.connexionEmitter.emit(false);
+    this.clearCache();
     return this.router.navigate(['/connexion']);
+  }
+
+  clearCache(){
+    sessionStorage.clear();
+    localStorage.clear();
   }
 }

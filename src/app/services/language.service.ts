@@ -22,8 +22,61 @@ export class LanguageService {
         this.selected_lang = "fr";
     }
 
+
     getSelectedLanguage(){
-        return this.selected_lang;
+        if(localStorage.getItem('lang') == null){
+            // set French as default language
+            this.selected_lang = "fr";
+            localStorage.setItem('lang', this.selected_lang)
+        }
+        return localStorage.getItem('lang');
+    }
+
+    changeSelectedLanguage(){
+        if(this.selected_lang == "fr"){
+            this.selected_lang = "en";
+        }
+        else{
+            this.selected_lang = "fr";
+        }
+        localStorage.setItem('lang', this.selected_lang)
+    }
+
+
+    private english_lib = {
+        'nav': {
+            'Connection page': 'Connection page',
+            'Connection': 'Connection',
+            'Register': 'Register'
+        },
+        'connexion': {
+            'Connection': 'Sign in',
+            'Email address': 'Email',
+            'Password': 'Password',
+            'submitConnection': 'Sign in'
+        }
+    };
+
+    private french_lib = {
+        'nav': {
+            'Connection page': 'Page de connexion',
+            'Connection': 'Connexion',
+            'Register': 'S\'inscrire'
+        },
+        'connexion': {
+            'Connection': 'Page de connexion',
+            'Email address': 'Adresse Email',
+            'Password': 'Mot de passe',
+            'submitConnection': 'Connexion'
+        }
+    }
+
+    getFrenchLib(){
+        return this.french_lib;
+    }
+
+    getEnglishLib(){
+        return this.english_lib;
     }
 }
 
