@@ -9,7 +9,6 @@
       
   
       <div style="display: inline-flex; float: right;">
-
         <ul class="navbar-nav me-auto mb-2 mb-md-0 logo" *ngIf="language == 'en'">
           <li class="nav-item">
             <img src="../../assets/svg/en.svg" alt="english" (click)="changeLanguage()"/>
@@ -21,16 +20,14 @@
           </li>
         </ul>
 
-
         <ul class="navbar-nav me-auto mb-2 mb-md-0" *ngIf="!connecte" style="height: 30px;font-family: source_sans_proregular;font-size: 20px;">
           <li class="nav-item" *ngIf="componentAffiche !== 'componentConnexion'">
-            <a class="nav-link active" aria-current="page" routerLink="/connexion">{{connection}}</a>
+            <a class="nav-link active" aria-current="page" routerLink="/connexion" (click)="this.componentAffiche = 'componentConnexion';setLanguageTerms()">{{connection}}</a>
           </li>
           <li class="nav-item" *ngIf="componentAffiche !== 'componentInscription'">
-            <a class="nav-link active" aria-current="page" routerLink="/inscription">{{register}}</a>
+            <a class="nav-link active" aria-current="page" routerLink="/inscription" (click)="this.componentAffiche = 'componentInscription';setLanguageTerms()">{{register}}</a>
           </li>
         </ul>
-
 
         <ul class="navbar-nav me-auto mb-2 mb-md-0 logo" *ngIf="connecte && componentAffiche !== 'componentProfil'">
           <li class="nav-item">
@@ -44,12 +41,7 @@
             <img src="../../assets/svg/box-arrow-up.svg" alt="déconnexion" routerLink="/connexion" (click)="deconnexion()"/>
           </li>
         </ul>
-
-
       </div>
-
     </div>
   </nav>
-
-
   

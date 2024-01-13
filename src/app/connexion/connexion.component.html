@@ -8,7 +8,7 @@
 
   <div class="mb-3">
       <label for="password" class="form-label">{{password}}</label>
-      <input type="password" class="form-control" id="password" placeholder="mot de passe" formControlName="password">
+      <input type="password" class="form-control" id="password" placeholder="{{password}}" formControlName="password">
   </div>
   <div style="padding-left:65px;padding-right:65px;margin-top:30px;">
       <button class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="connexionForm.invalid">{{submitConnection}}</button>

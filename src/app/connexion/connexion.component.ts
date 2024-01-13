@@ -1,10 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { Utilisateur } from '../models/Utilisateur.model';
 import { UtilisateurService } from '../services/utilisateur.service';
 import { Emitters } from '../emitters/emitters';
 import { LanguageService } from '../services/language.service';
+import { ReloadService } from '../services/component-reload.service';
 
 @Component({
   selector: 'app-connexion',
@@ -12,7 +14,7 @@ import { LanguageService } from '../services/language.service';
   styleUrls: ['./connexion.component.css']
 })
 export class ConnexionComponent implements OnInit, OnDestroy {
-
+  private reloadSubscription: Subscription;
   connexionForm: FormGroup;
 
   // language terms
@@ -21,10 +23,16 @@ export class ConnexionComponent implements OnInit, OnDestroy {
   password: string;
   submitConnection: string;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private utilisateurService: UtilisateurService, private languageService: LanguageService) {}
+  constructor(private formBuilder: FormBuilder, private router: Router, private reloadService: ReloadService, private utilisateurService: UtilisateurService, private languageService: LanguageService) {}
 
   ngOnInit(): void {
     Emitters.componentAffiche.emit("componentConnexion");
+    // Observable to reload from 'nav' component when there is a language change
+    this.reloadSubscription = this.reloadService.getReloadObservable().subscribe((reload) => {
+      if (reload) {
+        this.setLanguageTerms();
+      }
+    });
     this.checkConnected();
     this.initForm();
     this.setLanguageTerms();
@@ -50,6 +58,10 @@ export class ConnexionComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void{
     Emitters.componentAffiche.emit("");
+    // delete the observable to avoid component memory leak
+    if (this.reloadSubscription) {
+      this.reloadSubscription.unsubscribe();
+    }
   }
 
   checkConnected(){

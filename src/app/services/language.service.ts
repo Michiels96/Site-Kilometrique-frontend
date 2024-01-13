@@ -45,8 +45,9 @@ export class LanguageService {
 
     private english_lib = {
         'nav': {
-            'Connection page': 'Connection page',
-            'Connection': 'Connection',
+            'Connection page': 'Sign in page',
+            'Connection': 'Sign in',
+            'register page': 'Register page',
             'Register': 'Register'
         },
         'connexion': {
@@ -54,6 +55,17 @@ export class LanguageService {
             'Email address': 'Email',
             'Password': 'Password',
             'submitConnection': 'Sign in'
+        },
+        'inscription': {
+            'register': 'Register',
+            'emailAddress': 'Email',
+            'password': 'Password',
+            'name': 'Name',
+            'lastname': 'Lastname',
+            'age': 'Age',
+            'submitRegister': 'Register',
+            'createUser': 'Create user',
+            'backToUsers': 'Back to users list'
         }
     };
 
@@ -61,6 +73,7 @@ export class LanguageService {
         'nav': {
             'Connection page': 'Page de connexion',
             'Connection': 'Connexion',
+            'register page': 'Page d\'inscription',
             'Register': 'S\'inscrire'
         },
         'connexion': {
@@ -68,6 +81,17 @@ export class LanguageService {
             'Email address': 'Adresse Email',
             'Password': 'Mot de passe',
             'submitConnection': 'Connexion'
+        },
+        'inscription': {
+            'register': 'Page d\'inscription',
+            'emailAddress': 'Email',
+            'password': 'Mot de passe',
+            'name': 'Nom',
+            'lastname': 'Prénom',
+            'age': 'Age',
+            'submitRegister': 'Inscription',
+            'createUser': 'Créer utilisateur',
+            'backToUsers': 'Retour à la liste des utilisateurs'
         }
     }
 

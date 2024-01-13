@@ -1,35 +1,34 @@
 <form [formGroup]="inscriptionForm" (ngSubmit)="onSubmitForm()" id="formInscription">
-    <h1 class="h3 mb-3 fw-normal">Page d'inscription</h1>
+    <h1 class="h3 mb-3 fw-normal">{{register}}</h1>
 
     <div class="mb-3">
-        <label for="email" class="form-label">Adresse Email*</label>
+        <label for="email" class="form-label">{{email}}*</label>
         <input type="email" class="form-control" id="email" placeholder="albert@hotmail.com" formControlName="email">
     </div>
 
     <div class="mb-3">
-        <label for="password" class="form-label">Mot de passe*</label>
-        <input type="password" class="form-control" id="password" placeholder="mot de passe" formControlName="password">
+        <label for="password" class="form-label">{{password}}*</label>
+        <input type="password" class="form-control" id="{{password}}" placeholder="{{password}}" formControlName="password">
     </div>
 
     <div class="mb-3">
-        <label for="nom" class="form-label">Nom*</label>
-        <input type="text" class="form-control" id="nom" placeholder="nom" value="" formControlName="nom">
+        <label for="nom" class="form-label">{{name}}*</label>
+        <input type="text" class="form-control" id="name" placeholder="{{name}}" value="" formControlName="name">
     </div>
 
     <div class="mb-3">
-        <label for="prenom" class="form-label">Prénom*</label>
-        <input type="text" class="form-control" id="prenom" placeholder="prénom" formControlName="prenom">
+        <label for="prenom" class="form-label">{{lastname}}*</label>
+        <input type="text" class="form-control" id="lastname" placeholder="{{lastname}}" formControlName="lastname">
     </div>
 
     <div class="mb-3">
-        <label for="age" class="form-label">Age</label>
-        <input type="number" class="form-control" id="age" placeholder="age" formControlName="age">
+        <label for="age" class="form-label">{{age}}</label>
+        <input type="number" class="form-control" id="age" placeholder="{{age}}" formControlName="age">
     </div>
-
-    <button class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="inscriptionForm.invalid"><span *ngIf="!nouvelUtilisateur">Inscription</span><span *ngIf="nouvelUtilisateur">Créer l'utilisateur</span></button>
+    <button class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="inscriptionForm.invalid"><span *ngIf="!nouvelUtilisateur">{{submitRegister}}</span><span *ngIf="nouvelUtilisateur">{{createUser}}</span></button>
 </form>
 
 <div *ngIf="nouvelUtilisateur" id="backBar" routerLink="/utilisateurs">
-    <h4>Retour à la liste des utilisateurs</h4>
-    <img src="../../assets/svg/arrow-left-square-fill-back-to-accueil.svg" alt="Retour à la liste des utilisateurs"/>
+    <h4>{{backToUsers}}</h4>
+    <img src="../../assets/svg/arrow-left-square-fill-back-to-accueil.svg" alt="{{backToUsers}}"/>
 </div>
