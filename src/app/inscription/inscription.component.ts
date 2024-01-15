@@ -96,7 +96,6 @@ export class InscriptionComponent implements OnInit, OnDestroy {
 
   onSubmitForm() {
     const formValue = this.inscriptionForm.value;
-
     //trouver l'utilisateur et voir si il existe, si oui, on change son flag 'connecte' à 1
     let utilisateur: Utilisateur;
     if(formValue['age'] == ''){
@@ -116,7 +115,6 @@ export class InscriptionComponent implements OnInit, OnDestroy {
         formValue['age']
       );
     }
-
 
     this.utilisateurService.getByEmail(utilisateur)
       .then((response) => {

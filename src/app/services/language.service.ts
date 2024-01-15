@@ -89,6 +89,20 @@ export class LanguageService {
             'down_menu_button': 'Download',
             'footer': 'Icons designed by'
         },
+        'profil': {
+            'user_title': 'Your User Profile',
+            'user_email': 'Email address',
+            'user_password': 'Change Password',
+            'user_name': 'Name',
+            'user_lastname': 'Lastname',
+            'user_age': 'Age',
+            'user_total_kms': 'Total accumulated kilometers',
+            'user_connection_status': 'Is connected',
+            'user_admin_status': 'Is admin',
+            'user_modify': 'Modify',
+            'user_back_home': 'Back home',
+            'user_back_users': 'Return to the list of users'
+        }
     };
 
     private french_lib = {
@@ -137,6 +151,20 @@ export class LanguageService {
             'down_menu_button': 'Télécharger',
             'footer': 'Icônes conçues par'
         },
+        'profil': {
+            'user_title': 'Votre profil utilisateur',
+            'user_email': 'Adresse email',
+            'user_password': 'Modifier le mot de passe',
+            'user_name': 'Nom',
+            'user_lastname': 'Prénom',
+            'user_age': 'Age',
+            'user_total_kms': 'Nombre de kilomètres cumulés',
+            'user_connection_status': 'Est connecte',
+            'user_admin_status': 'Est administrateur',
+            'user_modify': 'Modifier',
+            'user_back_home': 'Retour à l\'accueil',
+            'user_back_users': 'Retour à la liste des utilisateurs'
+        }
     }
 
     getFrenchLib(){

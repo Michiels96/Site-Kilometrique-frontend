@@ -5,6 +5,9 @@ import { Emitters } from '../emitters/emitters';
 import { Utilisateur } from '../models/Utilisateur.model';
 import { StatistiqueService } from '../services/statistique.service';
 import { UtilisateurService } from '../services/utilisateur.service';
+import { LanguageService } from '../services/language.service';
+import { Subscription } from 'rxjs';
+import { ReloadService } from '../services/component-reload.service';
 
 @Component({
   selector: 'app-profil',
@@ -12,6 +15,7 @@ import { UtilisateurService } from '../services/utilisateur.service';
   styleUrls: ['./profil.component.css']
 })
 export class ProfilComponent implements OnInit {
+  private reloadSubscription: Subscription;
   profilAModifier:any = null;
 
   profilForm: FormGroup;
@@ -19,10 +23,30 @@ export class ProfilComponent implements OnInit {
   modifierUtilisateur: boolean = false;
   modifierMDP: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private utilisateurService: UtilisateurService, private statistiqueService: StatistiqueService) { }
+  // language terms
+  user_title: string;
+  user_email: string;
+  user_password: string;
+  user_name: string;
+  user_lastname: string;
+  user_age: string;
+  user_total_kms: string;
+  user_connection_status: string;
+  user_admin_status: string;
+  user_modify: string;
+  user_back_home: string;
+  user_back_users: string;
+
+  constructor(private formBuilder: FormBuilder, private router: Router, private reloadService: ReloadService, private languageService: LanguageService, private utilisateurService: UtilisateurService, private statistiqueService: StatistiqueService) { }
 
   ngOnInit(): void {
     Emitters.componentAffiche.emit("componentProfil");
+    // Observable to reload from 'nav' component when there is a language change
+    this.reloadSubscription = this.reloadService.getReloadObservable().subscribe((reload) => {
+      if (reload) {
+        this.setLanguageTerms();
+      }
+    });
     if(sessionStorage.getItem('profilAModifierStatus') != null && sessionStorage.getItem('profilAModifierStatus') == "oui"){
       this.modifierUtilisateur = true;
     }
@@ -30,8 +54,46 @@ export class ProfilComponent implements OnInit {
     this.initForm();
   }
 
+  setLanguageTerms(){
+    let french_lib = this.languageService.getFrenchLib();
+    if (this.languageService.getSelectedLanguage() == 'fr'){
+      this.user_title = french_lib['profil']['user_title'];
+      this.user_email = french_lib['profil']['user_email'];
+      this.user_password = french_lib['profil']['user_password'];
+      this.user_name = french_lib['profil']['user_name'];
+      this.user_lastname = french_lib['profil']['user_lastname'];
+      this.user_age = french_lib['profil']['user_age'];
+      this.user_total_kms = french_lib['profil']['user_total_kms'];
+      this.user_connection_status = french_lib['profil']['user_connection_status'];
+      this.user_admin_status = french_lib['profil']['user_admin_status'];
+      this.user_modify = french_lib['profil']['user_modify'];
+      this.user_back_home = french_lib['profil']['user_back_home'];
+      this.user_back_users = french_lib['profil']['user_back_users'];
+    }
+
+    let english_lib = this.languageService.getEnglishLib();
+    if (this.languageService.getSelectedLanguage() == 'en'){
+      this.user_title = english_lib['profil']['user_title'];
+      this.user_email = english_lib['profil']['user_email'];
+      this.user_password = english_lib['profil']['user_password'];
+      this.user_name = english_lib['profil']['user_name'];
+      this.user_lastname = english_lib['profil']['user_lastname'];
+      this.user_age = english_lib['profil']['user_age'];
+      this.user_total_kms = english_lib['profil']['user_total_kms'];
+      this.user_connection_status = english_lib['profil']['user_connection_status'];
+      this.user_admin_status = english_lib['profil']['user_admin_status'];
+      this.user_modify = english_lib['profil']['user_modify'];
+      this.user_back_home = english_lib['profil']['user_back_home'];
+      this.user_back_users = english_lib['profil']['user_back_users'];
+    }
+  }
+
   ngOnDestroy(): void{
     Emitters.componentAffiche.emit("");
+    // delete the observable to avoid component memory leak
+    if (this.reloadSubscription) {
+      this.reloadSubscription.unsubscribe();
+    }
     this.resetProfilSelectionnee();
   }
 
