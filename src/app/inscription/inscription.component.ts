@@ -1,12 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { Emitters } from '../emitters/emitters';
 import { Utilisateur } from '../models/Utilisateur.model';
 import { StatistiqueService } from '../services/statistique.service';
 import { UtilisateurService } from '../services/utilisateur.service';
 import { LanguageService } from '../services/language.service';
+import { Subscription } from 'rxjs';
 import { ReloadService } from '../services/component-reload.service';
 
 @Component({

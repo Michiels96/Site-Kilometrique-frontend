@@ -19,11 +19,11 @@ export class IPService {
 
     constructor() { 
         // local (LAN) (development)
-        this.ipBackend = "http://192.168.1.50:3000";
+        //this.ipBackend = "http://192.168.1.50:3000";
 
         // internet (production)
         // ne pas oublier le port forwarding
-        //this.ipBackend = "http://michiels.zapto.org:3000";
+        this.ipBackend = "http://michiels.zapto.org:3000";
     }
 
     getIPBackend(){
