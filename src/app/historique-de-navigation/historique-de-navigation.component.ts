@@ -82,16 +82,16 @@ export class HistoriqueDeNavigationComponent implements OnInit, OnDestroy {
       }
     );
     //this.utilisateurService.emitListeUtilisateursSubject();
-
+    
     this.ligneSubscription = this.ligneService.lignesSubject.subscribe(
       (lignes: any[]) => {
         this.lignes = lignes;
         this.lignesTriees = this.lignes.slice(this.limit, this.limit+50);
         //this.nbLignes = this.lignes.length;
         this.nbLignes = this.ligneService.getNbLignesTotales();
+        this.setLanguageTerms();
       }
     );
-    this.setLanguageTerms();
   }
 
   setLanguageTerms(){
@@ -138,6 +138,7 @@ export class HistoriqueDeNavigationComponent implements OnInit, OnDestroy {
       this.logs_tab_vhs_alt = english_lib['historique-de-navigation']['logs_tab_vhs_alt'];
       this.logs_tab_del = english_lib['historique-de-navigation']['logs_tab_del'];
       this.total_logs = "Total : "+this.nbLignes+" log";
+    
       this.total_kms = "Total accumulated kilometers : "+this.utilisateurSelectionne['nbKilometresCumules']+" km";
       this.empty_logs_msg = english_lib['historique-de-navigation']['empty_logs_msg'];
       this.logs_back_to_main = english_lib['historique-de-navigation']['logs_back_to_main'];

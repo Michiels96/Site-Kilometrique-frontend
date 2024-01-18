@@ -126,6 +126,22 @@ export class LanguageService {
             'logs_tab_del': 'Delete',
             'empty_logs_msg': 'has not yet recorded browsing history.',
             'logs_back_to_main': 'Return to the home menu'
+        },
+        'ligne-historique': {
+            'log_title': 'Edit the log of ',
+            'log_vhs': 'Vehicle',
+            'log_vhs_legend': 'Choose a vehicle',
+            'log_kms': 'Number of kilometers',
+            'log_start_kms': 'Starting kilometers',
+            'log_end_kms': 'Ending kilometers',
+            'log_range_kms_legend': 'e.g., 874 to 889 (=> 15km in total)',
+            'log_range_kms_legend_supp': 'You can fill in the ending kilometers later',
+            'log_desc_comm': 'Leave a comment',
+            'log_desc': 'Description',
+            'log_date': 'Date',
+            'log_modify': 'Modify',
+            'log_create': 'Create',
+            'log_back_home': 'Back to the list of logs'
         }
     };
 
@@ -212,6 +228,22 @@ export class LanguageService {
             'logs_tab_del': 'Supprimer',
             'empty_logs_msg': 'n\'a pas encore enregistré son historique de navigation',
             'logs_back_to_main': 'Retour au menu d\'accueil'
+        },
+        'ligne-historique': {
+            'log_title': 'Modifier la ligne du ',
+            'log_vhs': 'Véhicule',
+            'log_vhs_legend': 'Choissisez un véhicule',
+            'log_kms': 'Nombre de kilomètres',
+            'log_start_kms': 'kilomètres de départ',
+            'log_end_kms': 'kilomètres d\'arrivée',
+            'log_range_kms_legend': 'ex: 874 et 889 (=> 15km au total)',
+            'log_range_kms_legend_supp': 'Vous pouvez remplir les km d\'arrivée plus tard',
+            'log_desc_comm': 'Laissez un commentaire',
+            'log_desc': 'Description',
+            'log_date': 'Date',
+            'log_modify': 'Modifier',
+            'log_create': 'Créer',
+            'log_back_home': 'Retour à la liste de l\'historique de navigation'
         }
     }
 

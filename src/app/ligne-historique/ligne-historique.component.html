@@ -1,5 +1,5 @@
 <form [formGroup]="ligneForm" (ngSubmit)="onSubmitForm()" id="formLigne">
-    <h1 class="h3 mb-3 fw-normal" *ngIf="ligneAModifier != null">Modifier la ligne du <span style="font-style: italic;">{{dateToString(ligneAModifier['date'])}}</span> :</h1>
+    <h1 class="h3 mb-3 fw-normal" *ngIf="ligneAModifier != null">{{log_title}} <span style="font-style: italic;">{{dateToString(ligneAModifier['date'])}}</span> :</h1>
     <fieldset disabled *ngIf="ligneAModifier != null">
         <div class="mb-3">
             <label for="id_ligne" class="form-label">Id</label>
@@ -7,16 +7,16 @@
         </div>
     </fieldset>
     <div class="mb-3">
-        <label for="vehicule" class="form-label">Véhicule</label>
+        <label for="vehicule" class="form-label">{{log_vhs}}</label>
         <select id="vehicule" class="form-select" aria-label="Default select example" formControlName="vehicule" style="margin-bottom: 15px;">
-            <option value="" disabled [selected]="nouvelleLigne" *ngIf="nouvelleLigne">Choissisez un véhicule</option>
+            <option value="" disabled [selected]="nouvelleLigne" *ngIf="nouvelleLigne">{{log_vhs_legend}}</option>
             <option *ngFor="let vehicule of vehicules" value="{{vehicule['nom_unique']}}">{{vehicule['nom_unique']}}</option>
         </select>
     </div>
     <div class="mb-3" style="padding: 10px;" (click)="numberOrRangeFct(1)">
         <fieldset [disabled]="numberOrRange">
-            <label for="nbKilometres" class="form-label">Nombre de kilomètres</label>
-            <input type="number" class="form-control" id="nbKilometres" placeholder="Nombre de kilomètres" formControlName="nbKilometres" >
+            <label for="nbKilometres" class="form-label">{{log_kms}}</label>
+            <input type="number" class="form-control" id="nbKilometres" placeholder="{{log_kms}}" formControlName="nbKilometres" >
         </fieldset>
     </div>
     
@@ -35,33 +35,30 @@
 
     <div class="mb-3" style="max-width: fit-content;text-align: center;margin: auto;padding: 10px;" (click)="numberOrRangeFct(2)">
         <fieldset [disabled]="!numberOrRange">
-            <label for="nbKilometresDepart" class="form-label">kilomètres de départ</label>
-            <input type="number" class="form-control" id="nbKilometresDepart" placeholder="kilomètres de Départ" formControlName="nbKilometresDepart">
+            <label for="nbKilometresDepart" class="form-label">{{log_start_kms}}</label>
+            <input type="number" class="form-control" id="nbKilometresDepart" placeholder="{{log_start_kms}}" formControlName="nbKilometresDepart">
             
-            <label for="nbKilometresDArivee" class="form-label" style="margin-top: 10px;">kilomètres d'arrivée</label>
-            <input type="number" class="form-control" id="nbKilometresDArivee" placeholder="kilomètres d'arrivée" formControlName="nbKilometresDArivee">
+            <label for="nbKilometresDArivee" class="form-label" style="margin-top: 10px;">{{log_end_kms}}</label>
+            <input type="number" class="form-control" id="nbKilometresDArivee" placeholder="{{log_end_kms}}" formControlName="nbKilometresDArivee">
             <p *ngIf="numberOrRange" style="margin-top: 10px;font-style: italic;color: rgb(151, 151, 151);">
-                ex: 874 et 889 (=> 15km au total) 
-                <span *ngIf="ligneAModifier == null"><br/>Vous pouvez remplir les km d'arrivée plus tard</span>
+                {{log_range_kms_legend}}
+                <span *ngIf="ligneAModifier == null"><br/>{{log_range_kms_legend_supp}}</span>
             </p>
         </fieldset>
     </div>
-
-
-
     <div class="form-floating">
-        <textarea class="form-control" placeholder="Laissez un commentaire" id="description" style="height: 100px; margin-bottom: 20px;" formControlName="description"></textarea>
-        <label for="description">Description</label>
+        <textarea class="form-control" placeholder="{{log_desc_comm}}" id="description" style="height: 100px; margin-bottom: 20px;" formControlName="description"></textarea>
+        <label for="description">{{log_desc}}</label>
     </div>
     <div class="mb-3">
-        <label for="date" class="form-label">Date</label>
+        <label for="date" class="form-label">{{log_date}}</label>
         <input type="date" min="2000-01-01" max="2200-01-01" class="form-control" id="date" formControlName="date">
     </div>
     <div style="padding-left:65px;padding-right:65px;margin-top:30px;">
-        <button class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="ligneForm.invalid"><span *ngIf="ligneAModifier != null">Modifier</span><span *ngIf="ligneAModifier == null">Créer</span></button>
+        <button class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="ligneForm.invalid"><span *ngIf="ligneAModifier != null">{{log_modify}}</span><span *ngIf="ligneAModifier == null">{{log_create}}</span></button>
     </div>
 </form>
 <div id="backBar" routerLink="/lignes">
-    <h4>Retour à la liste de l'historique de navigation</h4>
+    <h4>{{log_back_home}}</h4>
     <img src="../../assets/svg/arrow-left-square-fill-back-to-accueil.svg" alt="Retour à la l'historique de navigation"/>
 </div>
