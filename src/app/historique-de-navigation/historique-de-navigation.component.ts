@@ -5,6 +5,8 @@ import { Emitters } from '../emitters/emitters';
 import { Utilisateur } from '../models/Utilisateur.model';
 import { LigneService } from '../services/ligne.service';
 import { UtilisateurService } from '../services/utilisateur.service';
+import { LanguageService } from '../services/language.service';
+import { ReloadService } from '../services/component-reload.service';
 
 @Component({
   selector: 'app-historique-de-navigation',
@@ -12,12 +14,12 @@ import { UtilisateurService } from '../services/utilisateur.service';
   styleUrls: ['./historique-de-navigation.component.css']
 })
 export class HistoriqueDeNavigationComponent implements OnInit, OnDestroy {
+  private reloadSubscription: Subscription;
 
   lignesTriees:any = [{}];
   lignes:any = [{}];
   ligneSubscription: Subscription;
   nbLignes: number;
-
 
   // Pour le select (uniquement dispo pour un administrateur)
   utilisateurs:any = [{}];
@@ -37,11 +39,39 @@ export class HistoriqueDeNavigationComponent implements OnInit, OnDestroy {
 
   limit: number = 0;
 
-  constructor(private ligneService: LigneService, private router: Router, private utilisateurService: UtilisateurService) { }
+  // language terms
+  logs_page_title: string;
+  logs_user: string;
+  logs_add_line: string;
+  logs_back_page: string;
+  logs_next_page: string;
+  logs_tab_date: string;
+  logs_tab_date_alt: string;
+  logs_tab_kms: string;
+  logs_tab_kms_alt: string;
+  logs_tab_total_kms: string;
+  logs_tab_total_kms_alt: string;
+  logs_tab_desc: string;
+  logs_tab_desc_alt: string;
+  logs_tab_vhs: string;
+  logs_tab_vhs_alt: string;
+  logs_tab_del: string;
+  total_logs: string;
+  total_kms: string;
+  empty_logs_msg: string;
+  logs_back_to_main: string;
+
+
+  constructor(private ligneService: LigneService, private router: Router, private utilisateurService: UtilisateurService, private languageService: LanguageService, private reloadService: ReloadService) { }
 
   ngOnInit(): void {
     Emitters.componentAffiche.emit("componentHistoriqueDeNavigation");
-    
+    // Observable to reload from 'nav' component when there is a language change
+    this.reloadSubscription = this.reloadService.getReloadObservable().subscribe((reload) => {
+      if (reload) {
+        this.setLanguageTerms();
+      }
+    });
     this.utilisateurService.getUtilisateursFromServer();
     this.utilisateurSubscription = this.utilisateurService.utilisateursSubject.subscribe(
       (utilisateurs: any[]) => {
@@ -61,10 +91,65 @@ export class HistoriqueDeNavigationComponent implements OnInit, OnDestroy {
         this.nbLignes = this.ligneService.getNbLignesTotales();
       }
     );
+    this.setLanguageTerms();
+  }
+
+  setLanguageTerms(){
+    let french_lib = this.languageService.getFrenchLib();
+    if (this.languageService.getSelectedLanguage() == 'fr'){
+      this.logs_page_title = french_lib['historique-de-navigation']['logs_page_title'];
+      this.logs_user = french_lib['historique-de-navigation']['logs_user'];
+      this.logs_add_line = french_lib['historique-de-navigation']['logs_add_line'];
+      this.logs_back_page = french_lib['historique-de-navigation']['logs_back_page'];
+      this.logs_next_page = french_lib['historique-de-navigation']['logs_next_page'];
+      this.logs_tab_date = french_lib['historique-de-navigation']['logs_tab_date'];
+      this.logs_tab_date_alt = french_lib['historique-de-navigation']['logs_tab_date_alt'];
+      this.logs_tab_kms = french_lib['historique-de-navigation']['logs_tab_kms'];
+      this.logs_tab_kms_alt = french_lib['historique-de-navigation']['logs_tab_kms_alt'];
+      this.logs_tab_total_kms = french_lib['historique-de-navigation']['logs_tab_total_kms'];
+      this.logs_tab_total_kms_alt = french_lib['historique-de-navigation']['logs_tab_total_kms_alt'];
+      this.logs_tab_desc = french_lib['historique-de-navigation']['logs_tab_desc'];
+      this.logs_tab_desc_alt = french_lib['historique-de-navigation']['logs_tab_desc_alt'];
+      this.logs_tab_vhs = french_lib['historique-de-navigation']['logs_tab_vhs'];
+      this.logs_tab_vhs_alt = french_lib['historique-de-navigation']['logs_tab_vhs_alt'];
+      this.logs_tab_del = french_lib['historique-de-navigation']['logs_tab_del'];
+      this.total_logs = "Total : "+this.nbLignes+" enregistrement";
+      this.total_kms = "Total des kilomètres cumulés : "+this.utilisateurSelectionne['nbKilometresCumules']+" km";
+      this.empty_logs_msg = french_lib['historique-de-navigation']['empty_logs_msg'];
+      this.logs_back_to_main = french_lib['historique-de-navigation']['logs_back_to_main'];
+    }
+
+    let english_lib = this.languageService.getEnglishLib();
+    if (this.languageService.getSelectedLanguage() == 'en'){
+      this.logs_page_title = english_lib['historique-de-navigation']['logs_page_title'];
+      this.logs_user = english_lib['historique-de-navigation']['logs_user'];
+      this.logs_add_line = english_lib['historique-de-navigation']['logs_add_line'];
+      this.logs_back_page = english_lib['historique-de-navigation']['logs_back_page'];
+      this.logs_next_page = english_lib['historique-de-navigation']['logs_next_page'];
+      this.logs_tab_date = english_lib['historique-de-navigation']['logs_tab_date'];
+      this.logs_tab_date_alt = english_lib['historique-de-navigation']['logs_tab_date_alt'];
+      this.logs_tab_kms = english_lib['historique-de-navigation']['logs_tab_kms'];
+      this.logs_tab_kms_alt = english_lib['historique-de-navigation']['logs_tab_kms_alt'];
+      this.logs_tab_total_kms = english_lib['historique-de-navigation']['logs_tab_total_kms'];
+      this.logs_tab_total_kms_alt = english_lib['historique-de-navigation']['logs_tab_total_kms_alt'];
+      this.logs_tab_desc = english_lib['historique-de-navigation']['logs_tab_desc'];
+      this.logs_tab_desc_alt = english_lib['historique-de-navigation']['logs_tab_desc_alt'];
+      this.logs_tab_vhs = english_lib['historique-de-navigation']['logs_tab_vhs'];
+      this.logs_tab_vhs_alt = english_lib['historique-de-navigation']['logs_tab_vhs_alt'];
+      this.logs_tab_del = english_lib['historique-de-navigation']['logs_tab_del'];
+      this.total_logs = "Total : "+this.nbLignes+" log";
+      this.total_kms = "Total accumulated kilometers : "+this.utilisateurSelectionne['nbKilometresCumules']+" km";
+      this.empty_logs_msg = english_lib['historique-de-navigation']['empty_logs_msg'];
+      this.logs_back_to_main = english_lib['historique-de-navigation']['logs_back_to_main'];
+    }
   }
 
   ngOnDestroy(): void{
     Emitters.componentAffiche.emit("");
+    // delete the observable to avoid component memory leak
+    if (this.reloadSubscription) {
+      this.reloadSubscription.unsubscribe();
+    }
   }
 
   pageSuivante(){

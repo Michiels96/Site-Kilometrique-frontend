@@ -35,6 +35,7 @@ export class ConnexionComponent implements OnInit, OnDestroy {
     });
     this.checkConnected();
     this.initForm();
+    Emitters.connexionEmitter.emit(false);
     this.setLanguageTerms();
   }
 

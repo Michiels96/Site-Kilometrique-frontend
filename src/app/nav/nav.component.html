@@ -2,9 +2,9 @@
     <div class="container-fluid">
       <div style="float: left;">
         <p>
-        <a class="navbar-brand" routerLink="/" *ngIf="connecte" style="font-family: source_sans_proregular;font-size: 30px;">Site Kilométrique</a>
-        <a class="navbar-brand" routerLink="/" *ngIf="!connecte">Site Kilométrique - {{connection_page}}</a> 
-      </p>
+          <a class="navbar-brand" [routerLink]="componentAffiche != 'componentConnexion' && componentAffiche != 'componentInscription' ? '/' : null" *ngIf="connecte || this.componentAffiche == 'component404'" style="font-family: source_sans_proregular;font-size: 30px;">Site Kilométrique</a>
+          <a class="navbar-brand" [routerLink]="componentAffiche != 'componentConnexion' && componentAffiche != 'componentInscription' ? '/' : null" *ngIf="!connecte && this.componentAffiche != 'component404'">Site Kilométrique - {{connection_page}}</a> 
+        </p>
       </div>
       
   
@@ -20,11 +20,11 @@
           </li>
         </ul>
 
-        <ul class="navbar-nav me-auto mb-2 mb-md-0" *ngIf="!connecte" style="height: 30px;font-family: source_sans_proregular;font-size: 20px;">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0" *ngIf="!connecte && this.componentAffiche != 'component404'" style="height: 30px;font-family: source_sans_proregular;font-size: 20px;">
           <li class="nav-item" *ngIf="componentAffiche !== 'componentConnexion'">
             <a class="nav-link active" aria-current="page" routerLink="/connexion" (click)="this.componentAffiche = 'componentConnexion';setLanguageTerms()">{{connection}}</a>
           </li>
-          <li class="nav-item" *ngIf="componentAffiche !== 'componentInscription'">
+          <li class="nav-item" *ngIf="componentAffiche !== 'componentInscription' && this.componentAffiche != 'component404'">
             <a class="nav-link active" aria-current="page" routerLink="/inscription" (click)="this.componentAffiche = 'componentInscription';setLanguageTerms()">{{register}}</a>
           </li>
         </ul>

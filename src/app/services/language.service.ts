@@ -90,9 +90,9 @@ export class LanguageService {
             'footer': 'Icons designed by'
         },
         'profil': {
-            'user_title': 'Your User Profile',
+            'user_title': 'Your User profile',
             'user_email': 'Email address',
-            'user_password': 'Change Password',
+            'user_password': 'Change password',
             'user_name': 'Name',
             'user_lastname': 'Lastname',
             'user_age': 'Age',
@@ -102,6 +102,30 @@ export class LanguageService {
             'user_modify': 'Modify',
             'user_back_home': 'Back home',
             'user_back_users': 'Return to the list of users'
+        },
+        '404': {
+            't404_title': '404 error',
+            't404_legend': 'The page you are looking for does not exist'
+        },
+        'historique-de-navigation': {
+            'logs_page_title': 'Navigation logs',
+            'logs_user': 'User',
+            'logs_add_line': 'Add a new log',
+            'logs_back_page': 'Previous page',
+            'logs_next_page': 'Next page',
+            'logs_tab_date': 'Date',
+            'logs_tab_date_alt': 'Sort by date',
+            'logs_tab_kms': 'Kilometers',
+            'logs_tab_kms_alt': 'Sort by kilometers',
+            'logs_tab_total_kms': 'Accumulated kilometers',
+            'logs_tab_total_kms_alt': 'Sort by total accumulated kilometers',
+            'logs_tab_desc': 'Description',
+            'logs_tab_desc_alt': 'Sort by description',
+            'logs_tab_vhs': 'Vehicle',
+            'logs_tab_vhs_alt': 'Sort by vehicle',
+            'logs_tab_del': 'Delete',
+            'empty_logs_msg': 'has not yet recorded browsing history.',
+            'logs_back_to_main': 'Return to the home menu'
         }
     };
 
@@ -164,6 +188,30 @@ export class LanguageService {
             'user_modify': 'Modifier',
             'user_back_home': 'Retour à l\'accueil',
             'user_back_users': 'Retour à la liste des utilisateurs'
+        },
+        '404': {
+            't404_title': 'Erreur 404',
+            't404_legend': 'La page que vous cherchez n\'existe pas'
+        },
+        'historique-de-navigation': {
+            'logs_page_title': 'Historique de navigation',
+            'logs_user': 'Utilisateur',
+            'logs_add_line': 'Ajouter une nouvelle ligne',
+            'logs_back_page': 'Page précédente',
+            'logs_next_page': 'Page suivante',
+            'logs_tab_date': 'Date',
+            'logs_tab_date_alt': 'tri par date',
+            'logs_tab_kms': 'Kilomètres',
+            'logs_tab_kms_alt': 'tri nombre de kilomètres',
+            'logs_tab_total_kms': 'Kilomètres cumulés',
+            'logs_tab_total_kms_alt': 'tri nombre de kilomètres cumulés',
+            'logs_tab_desc': 'Description',
+            'logs_tab_desc_alt': 'tri par description',
+            'logs_tab_vhs': 'Véhicule',
+            'logs_tab_vhs_alt': 'tri par véhicule',
+            'logs_tab_del': 'Supprimer',
+            'empty_logs_msg': 'n\'a pas encore enregistré son historique de navigation',
+            'logs_back_to_main': 'Retour au menu d\'accueil'
         }
     }
 
