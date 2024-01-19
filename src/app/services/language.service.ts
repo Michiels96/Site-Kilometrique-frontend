@@ -113,6 +113,7 @@ export class LanguageService {
             'logs_add_line': 'Add a new log',
             'logs_back_page': 'Previous page',
             'logs_next_page': 'Next page',
+            'logs_tab_num': 'sort',
             'logs_tab_date': 'Date',
             'logs_tab_date_alt': 'Sort by date',
             'logs_tab_kms': 'Kilometers',
@@ -142,6 +143,23 @@ export class LanguageService {
             'log_modify': 'Modify',
             'log_create': 'Create',
             'log_back_home': 'Back to the list of logs'
+        },
+        'vehicule': {
+            'vhs_title': 'Vehicles',
+            'vhs_user_menu': 'User',
+            'vhs_num_alt': 'Sort',
+            'vhs_name': 'Unique Name',
+            'vhs_name_alt': 'Sort by unique name',
+            'vhs_brand': 'Brand',
+            'vhs_brand_alt': 'Sort by brand',
+            'vhs_type': 'Type',
+            'vhs_type_alt': 'Sort by type',
+            'vhs_detail': 'Detail',
+            'vhs_detail_alt': 'Sort by detail',
+            'vhs_del': 'Delete',
+            'vhs_empty_total': 'has not driven any vehicles yet',
+            'vhs_add_vh': 'Add a new vehicle',
+            'vhs_back_home': 'Back to the home menu'
         }
     };
 
@@ -215,6 +233,7 @@ export class LanguageService {
             'logs_add_line': 'Ajouter une nouvelle ligne',
             'logs_back_page': 'Page précédente',
             'logs_next_page': 'Page suivante',
+            'logs_tab_num': 'tri',
             'logs_tab_date': 'Date',
             'logs_tab_date_alt': 'tri par date',
             'logs_tab_kms': 'Kilomètres',
@@ -244,6 +263,23 @@ export class LanguageService {
             'log_modify': 'Modifier',
             'log_create': 'Créer',
             'log_back_home': 'Retour à la liste de l\'historique de navigation'
+        },
+        'vehicule': {
+            'vhs_title': 'Véhicules',
+            'vhs_user_menu': 'Utilisateur',
+            'vhs_num_alt': 'tri',
+            'vhs_name': 'Nom unique',
+            'vhs_name_alt': 'tri nom unique',
+            'vhs_brand': 'Marque',
+            'vhs_brand_alt': 'tri par marque',
+            'vhs_type': 'Type',
+            'vhs_type_alt': 'tri par type',
+            'vhs_detail': 'Détail',
+            'vhs_detail_alt': 'tri par détail',
+            'vhs_del': 'Supprimer',
+            'vhs_empty_total': 'n\'a pas encore conduit de véhicules',
+            'vhs_add_vh': 'Ajouter un nouveau véhicule',
+            'vhs_back_home': 'Retour au menu d\'accueil'
         }
     }
 

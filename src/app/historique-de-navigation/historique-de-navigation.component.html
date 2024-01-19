@@ -29,8 +29,8 @@
     <thead>
         <tr>
             <th scope="col" class="noselect" *ngIf="triId == ''" (click)="demandeDeTriId()">#</th>
-            <th scope="col" class="noselect" *ngIf="triId == 'ASC'" (click)="demandeDeTriId()">#<img style="padding-left: 5px" src="../../assets/svg/tri/sort-numeric-down.svg" alt="tri #"/></th>
-            <th scope="col" class="noselect" *ngIf="triId == 'DESC'" (click)="demandeDeTriId()">#<img style="padding-left: 5px" src="../../assets/svg/tri/sort-numeric-up-alt.svg" alt="tri #"/></th>
+            <th scope="col" class="noselect" *ngIf="triId == 'ASC'" (click)="demandeDeTriId()">#<img style="padding-left: 5px" src="../../assets/svg/tri/sort-numeric-down.svg" alt="{{logs_tab_num}} #"/></th>
+            <th scope="col" class="noselect" *ngIf="triId == 'DESC'" (click)="demandeDeTriId()">#<img style="padding-left: 5px" src="../../assets/svg/tri/sort-numeric-up-alt.svg" alt="{{logs_tab_num}} #"/></th>
             <th scope="col" class="noselect" *ngIf="triDate == ''" (click)="demandeDeTriDate()">{{logs_tab_date}}</th>
             <th scope="col" class="noselect" *ngIf="triDate == 'ASC'" (click)="demandeDeTriDate()">{{logs_tab_date}}<img style="padding-left: 5px" src="../../assets/svg/tri/sort-numeric-down.svg" alt="{{logs_tab_date_alt}}"/></th>
             <th scope="col" class="noselect" *ngIf="triDate == 'DESC'" (click)="demandeDeTriDate()">{{logs_tab_date}}<img style="padding-left: 5px" src="../../assets/svg/tri/sort-numeric-up-alt.svg" alt="{{logs_tab_date_alt}}"/></th>

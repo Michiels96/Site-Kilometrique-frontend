@@ -45,6 +45,7 @@ export class HistoriqueDeNavigationComponent implements OnInit, OnDestroy {
   logs_add_line: string;
   logs_back_page: string;
   logs_next_page: string;
+  logs_tab_num: string;
   logs_tab_date: string;
   logs_tab_date_alt: string;
   logs_tab_kms: string;
@@ -102,6 +103,7 @@ export class HistoriqueDeNavigationComponent implements OnInit, OnDestroy {
       this.logs_add_line = french_lib['historique-de-navigation']['logs_add_line'];
       this.logs_back_page = french_lib['historique-de-navigation']['logs_back_page'];
       this.logs_next_page = french_lib['historique-de-navigation']['logs_next_page'];
+      this.logs_tab_num = french_lib['historique-de-navigation']['logs_tab_num'];
       this.logs_tab_date = french_lib['historique-de-navigation']['logs_tab_date'];
       this.logs_tab_date_alt = french_lib['historique-de-navigation']['logs_tab_date_alt'];
       this.logs_tab_kms = french_lib['historique-de-navigation']['logs_tab_kms'];
@@ -126,6 +128,7 @@ export class HistoriqueDeNavigationComponent implements OnInit, OnDestroy {
       this.logs_add_line = english_lib['historique-de-navigation']['logs_add_line'];
       this.logs_back_page = english_lib['historique-de-navigation']['logs_back_page'];
       this.logs_next_page = english_lib['historique-de-navigation']['logs_next_page'];
+      this.logs_tab_num = english_lib['historique-de-navigation']['logs_tab_num'];
       this.logs_tab_date = english_lib['historique-de-navigation']['logs_tab_date'];
       this.logs_tab_date_alt = english_lib['historique-de-navigation']['logs_tab_date_alt'];
       this.logs_tab_kms = english_lib['historique-de-navigation']['logs_tab_kms'];

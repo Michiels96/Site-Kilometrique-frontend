@@ -6,6 +6,8 @@ import { Utilisateur } from '../models/Utilisateur.model';
 import { Vehicule } from '../models/Vehicule.model';
 import { UtilisateurService } from '../services/utilisateur.service';
 import { VehiculeService } from '../services/vehicule.service';
+import { LanguageService } from '../services/language.service';
+import { ReloadService } from '../services/component-reload.service';
 
 @Component({
   selector: 'app-menu-vehicules',
@@ -13,6 +15,7 @@ import { VehiculeService } from '../services/vehicule.service';
   styleUrls: ['./menu-vehicules.component.css']
 })
 export class MenuVehiculesComponent implements OnInit, OnDestroy {
+  private reloadSubscription: Subscription;
 
   vehicules:any = [{}];
   vehiculeSubscription: Subscription;
@@ -33,11 +36,35 @@ export class MenuVehiculesComponent implements OnInit, OnDestroy {
   triMarque: string = "";
   triDetail: string = "";
 
-  constructor(private vehiculeService: VehiculeService, private router: Router, private utilisateurService: UtilisateurService) { }
+  // language terms
+  vhs_title: string;
+  vhs_user_menu: string;
+  vhs_num_alt: string;
+  vhs_name: string;
+  vhs_name_alt: string;
+  vhs_brand: string;
+  vhs_brand_alt: string;
+  vhs_type: string;
+  vhs_type_alt: string;
+  vhs_detail: string;
+  vhs_detail_alt: string;
+  vhs_del: string;
+  vhs_total: string;
+  vhs_empty_total: string;
+  vhs_add_vh: string;
+  vhs_back_home: string;
+
+  constructor(private vehiculeService: VehiculeService, private router: Router, private utilisateurService: UtilisateurService, private reloadService: ReloadService, private languageService: LanguageService) { }
 
   ngOnInit(): void {
     Emitters.componentAffiche.emit("componentMenuVehicules");
-    
+    // Observable to reload from 'nav' component when there is a language change
+    this.reloadSubscription = this.reloadService.getReloadObservable().subscribe((reload) => {
+      if (reload) {
+        this.setLanguageTerms();
+      }
+    });
+
     this.utilisateurService.getUtilisateursFromServer();
     this.utilisateurSubscription = this.utilisateurService.utilisateursSubject.subscribe(
       (utilisateurs: any[]) => {
@@ -52,13 +79,61 @@ export class MenuVehiculesComponent implements OnInit, OnDestroy {
       (vehicules: any[]) => {
         this.vehicules = vehicules;
         this.nbVehicules = this.vehicules.length;
+        this.setLanguageTerms();
       }
     );
     //this.vehiculeService.emitListeVehiculesSubject();
+    this.setLanguageTerms();
+  }
+
+  setLanguageTerms(){
+    let french_lib = this.languageService.getFrenchLib();
+    if (this.languageService.getSelectedLanguage() == 'fr'){
+      this.vhs_title = french_lib['vehicule']['vhs_title'];
+      this.vhs_user_menu = french_lib['vehicule']['vhs_user_menu'];
+      this.vhs_num_alt = french_lib['vehicule']['vhs_num_alt'];
+      this.vhs_name = french_lib['vehicule']['vhs_name'];
+      this.vhs_name_alt = french_lib['vehicule']['vhs_name_alt'];
+      this.vhs_brand = french_lib['vehicule']['vhs_brand'];
+      this.vhs_brand_alt = french_lib['vehicule']['vhs_brand_alt'];
+      this.vhs_type = french_lib['vehicule']['vhs_type'];
+      this.vhs_type_alt = french_lib['vehicule']['vhs_type_alt'];
+      this.vhs_detail = french_lib['vehicule']['vhs_detail'];
+      this.vhs_detail_alt = french_lib['vehicule']['vhs_detail_alt'];
+      this.vhs_del = french_lib['vehicule']['vhs_del'];
+      this.vhs_total = "Total : "+this.nbVehicules+" véhicule";
+      this.vhs_empty_total = french_lib['vehicule']['vhs_empty_total'];
+      this.vhs_add_vh = french_lib['vehicule']['vhs_add_vh'];
+      this.vhs_back_home = french_lib['vehicule']['vhs_back_home'];
+    }
+
+    let english_lib = this.languageService.getEnglishLib();
+    if (this.languageService.getSelectedLanguage() == 'en'){
+      this.vhs_title = english_lib['vehicule']['vhs_title'];
+      this.vhs_user_menu = english_lib['vehicule']['vhs_user_menu'];
+      this.vhs_num_alt = english_lib['vehicule']['vhs_num_alt'];
+      this.vhs_name = english_lib['vehicule']['vhs_name'];
+      this.vhs_name_alt = english_lib['vehicule']['vhs_name_alt'];
+      this.vhs_brand = english_lib['vehicule']['vhs_brand'];
+      this.vhs_brand_alt = english_lib['vehicule']['vhs_brand_alt'];
+      this.vhs_type = english_lib['vehicule']['vhs_type'];
+      this.vhs_type_alt = english_lib['vehicule']['vhs_type_alt'];
+      this.vhs_detail = english_lib['vehicule']['vhs_detail'];
+      this.vhs_detail_alt = english_lib['vehicule']['vhs_detail_alt'];
+      this.vhs_del = english_lib['vehicule']['vhs_del'];
+      this.vhs_total = "Total : "+this.nbVehicules+" vehicle";
+      this.vhs_empty_total = english_lib['vehicule']['vhs_empty_total'];
+      this.vhs_add_vh = english_lib['vehicule']['vhs_add_vh'];
+      this.vhs_back_home = english_lib['vehicule']['vhs_back_home'];
+    }
   }
 
   ngOnDestroy(): void{
     Emitters.componentAffiche.emit("");
+    // delete the observable to avoid component memory leak
+    if(this.reloadSubscription){
+      this.reloadSubscription.unsubscribe();
+    }
   }
 
   onEvent(event) {
