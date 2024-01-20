@@ -126,7 +126,7 @@ export class LanguageService {
             'logs_tab_vhs_alt': 'Sort by vehicle',
             'logs_tab_del': 'Delete',
             'empty_logs_msg': 'has not yet recorded browsing history.',
-            'logs_back_to_main': 'Return to the home menu'
+            'logs_back_to_main': 'Back to home menu'
         },
         'ligne-historique': {
             'log_title': 'Edit the log of ',
@@ -167,6 +167,18 @@ export class LanguageService {
             'passwd_placeholder': 'password',
             'passwd_confirm': 'Change',
             'passwd_back_profile': 'Back to profile'
+        },
+        'marques': {
+            'brands_title': 'Brands',
+            'brands_num_alt': 'Sort',
+            'brands_name': 'Unique name',
+            'brands_name_alt': 'Sort by unique name',
+            'brands_num_vhs': 'Number of vehicles',
+            'brands_num_vhs_alt': 'Sort by number of vehicles',
+            'brands_del': 'Delete',
+            'brands_empty': 'No brand registered in the system',
+            'brands_add': 'Add a new brand',
+            'brands_back_home': 'Back to the home menu'
         }
     };
 
@@ -294,6 +306,18 @@ export class LanguageService {
             'passwd_placeholder': 'mot de passe',
             'passwd_confirm': 'Modifier',
             'passwd_back_profile': 'Retour au profil'
+        },
+        'marques': {
+            'brands_title': 'Marques',
+            'brands_num_alt': 'tri',
+            'brands_name': 'Nom unique',
+            'brands_name_alt': 'tri nom unique',
+            'brands_num_vhs': 'Nombre de Véhicules',
+            'brands_num_vhs_alt': 'tri nombre de véhicules',
+            'brands_del': 'Supprimer',
+            'brands_empty': 'Aucune marque inscrit dans le système',
+            'brands_add': 'Ajouter une nouvelle marque',
+            'brands_back_home': 'Retour au menu d\'accueil'
         }
     }
 

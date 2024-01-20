@@ -1,18 +1,18 @@
-<h2 (click)="rafraichir()" class="titre noselect">Marques</h2>
+<h2 (click)="rafraichir()" class="titre noselect">{{brands_title}}</h2>
 <table class="table">
     <thead>
         <tr>
             <th scope="col" class="noselect" *ngIf="triId == ''" (click)="demandeDeTriId()">#</th>
-            <th scope="col" class="noselect" *ngIf="triId == 'ASC'" (click)="demandeDeTriId()">#<img style="padding-left: 5px" src="../../assets/svg/tri/sort-numeric-down.svg" alt="tri #"/></th>
-            <th scope="col" class="noselect" *ngIf="triId == 'DESC'" (click)="demandeDeTriId()">#<img style="padding-left: 5px" src="../../assets/svg/tri/sort-numeric-up-alt.svg" alt="tri #"/></th>
-            <th scope="col" class="noselect" *ngIf="triNomUnique == ''" (click)="demandeDeTriNomUnique()">Nom unique</th>
-            <th scope="col" class="noselect" *ngIf="triNomUnique == 'ASC'" (click)="demandeDeTriNomUnique()">Nom unique<img style="padding-left: 5px"src="../../assets/svg/tri/sort-alpha-down.svg" alt="tri nom unique"/></th>
-            <th scope="col" class="noselect" *ngIf="triNomUnique == 'DESC'" (click)="demandeDeTriNomUnique()">Nom unique<img style="padding-left: 5px"src="../../assets/svg/tri/sort-alpha-up-alt.svg" alt="tri nom unique"/></th>
-            <th scope="col" class="noselect" *ngIf="triNbVehicules == ''" (click)="demandeDeTriNbVehicules()">Nombre de Véhicules</th>
-            <th scope="col" class="noselect" *ngIf="triNbVehicules == 'ASC'" (click)="demandeDeTriNbVehicules()">Nombre de Véhicules<img style="padding-left: 5px" src="../../assets/svg/tri/sort-numeric-down.svg" alt="tri nombre de véhicules"/></th>
-            <th scope="col" class="noselect" *ngIf="triNbVehicules == 'DESC'" (click)="demandeDeTriNbVehicules()">Nombre de Véhicules<img style="padding-left: 5px" src="../../assets/svg/tri/sort-numeric-up-alt.svg" alt="tri nombre de véhicules"/></th>
+            <th scope="col" class="noselect" *ngIf="triId == 'ASC'" (click)="demandeDeTriId()">#<img style="padding-left: 5px" src="../../assets/svg/tri/sort-numeric-down.svg" alt="{{brands_num_alt}} #"/></th>
+            <th scope="col" class="noselect" *ngIf="triId == 'DESC'" (click)="demandeDeTriId()">#<img style="padding-left: 5px" src="../../assets/svg/tri/sort-numeric-up-alt.svg" alt="{{brands_num_alt}} #"/></th>
+            <th scope="col" class="noselect" *ngIf="triNomUnique == ''" (click)="demandeDeTriNomUnique()">{{brands_name}}</th>
+            <th scope="col" class="noselect" *ngIf="triNomUnique == 'ASC'" (click)="demandeDeTriNomUnique()">{{brands_name}}<img style="padding-left: 5px"src="../../assets/svg/tri/sort-alpha-down.svg" alt="{{brands_name_alt}}"/></th>
+            <th scope="col" class="noselect" *ngIf="triNomUnique == 'DESC'" (click)="demandeDeTriNomUnique()">{{brands_name}}<img style="padding-left: 5px"src="../../assets/svg/tri/sort-alpha-up-alt.svg" alt="{{brands_name_alt}}"/></th>
+            <th scope="col" class="noselect" *ngIf="triNbVehicules == ''" (click)="demandeDeTriNbVehicules()">{{brands_num_vhs}}</th>
+            <th scope="col" class="noselect" *ngIf="triNbVehicules == 'ASC'" (click)="demandeDeTriNbVehicules()">{{brands_num_vhs}}<img style="padding-left: 5px" src="../../assets/svg/tri/sort-numeric-down.svg" alt="{{brands_num_vhs_alt}}"/></th>
+            <th scope="col" class="noselect" *ngIf="triNbVehicules == 'DESC'" (click)="demandeDeTriNbVehicules()">{{brands_num_vhs}}<img style="padding-left: 5px" src="../../assets/svg/tri/sort-numeric-up-alt.svg" alt="{{brands_num_vhs_alt}}"/></th>
             <th *ngIf="nbMarques > 0 && checkAdminStatus()">
-                <button type="button" class="btn btn-danger" (click)="auMoinsUnASupprimer()" [disabled]="marquesASupprimer.length == 0">Supprimer</button>
+                <button type="button" class="btn btn-danger" (click)="auMoinsUnASupprimer()" [disabled]="marquesASupprimer.length == 0">{{brands_del}}</button>
             </th>
         </tr>
     </thead>
@@ -30,13 +30,13 @@
         </tr>
     </tbody>
 </table>
-<div *ngIf="nbMarques>0" id="statNbMarques">Total: {{nbMarques}} marque<span *ngIf="nbMarques>1">s</span></div>
-<div *ngIf="nbMarques==0" id="statNbMarques">Aucune marque inscrit dans le système</div>
+<div *ngIf="nbMarques>0" id="statNbMarques">{{brands_total}}<span *ngIf="nbMarques>1">s</span></div>
+<div *ngIf="nbMarques==0" id="statNbMarques">{{brands_empty}}</div>
 
 <div class="boutonAjouter">
-    <button class="w-100 btn btn-lg btn-primary" (click)="nouvelleMarque()">Ajouter une nouvelle marque</button>
+    <button class="w-100 btn btn-lg btn-primary" (click)="nouvelleMarque()">{{brands_add}}</button>
 </div>
 <div id="backBar" routerLink="/accueil">
-    <h4>Retour au menu d'accueil</h4>
-    <img src="../../assets/svg/arrow-left-square-fill-back-to-accueil.svg" alt="Retour au menu d'accueil"/>
+    <h4>{{brands_back_home}}</h4>
+    <img src="../../assets/svg/arrow-left-square-fill-back-to-accueil.svg" alt="{{brands_back_home}}"/>
 </div>
