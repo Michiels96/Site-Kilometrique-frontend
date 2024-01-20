@@ -160,6 +160,13 @@ export class LanguageService {
             'vhs_empty_total': 'has not driven any vehicles yet',
             'vhs_add_vh': 'Add a new vehicle',
             'vhs_back_home': 'Back to the home menu'
+        },
+        'mot-de-passe': {
+            'passwd_title': 'Do you want to change your password',
+            'passwd_legend': 'New password',
+            'passwd_placeholder': 'password',
+            'passwd_confirm': 'Change',
+            'passwd_back_profile': 'Back to profile'
         }
     };
 
@@ -280,6 +287,13 @@ export class LanguageService {
             'vhs_empty_total': 'n\'a pas encore conduit de véhicules',
             'vhs_add_vh': 'Ajouter un nouveau véhicule',
             'vhs_back_home': 'Retour au menu d\'accueil'
+        },
+        'mot-de-passe': {
+            'passwd_title': 'Voulez vous modifier votre mot de passe',
+            'passwd_legend': 'Nouveau mot de passe',
+            'passwd_placeholder': 'mot de passe',
+            'passwd_confirm': 'Modifier',
+            'passwd_back_profile': 'Retour au profil'
         }
     }
 

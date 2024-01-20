@@ -52,6 +52,7 @@ export class ProfilComponent implements OnInit {
     }
     this.profilAModifier = JSON.parse(sessionStorage.getItem('profilAModifier'));
     this.initForm();
+    this.setLanguageTerms();
   }
 
   setLanguageTerms(){
@@ -101,7 +102,6 @@ export class ProfilComponent implements OnInit {
     this.profilForm = this.formBuilder.group({
       id: [this.profilAModifier['id_utilisateur']],
       email: [this.profilAModifier['email'], [Validators.required, Validators.email]],
-      //email: [this.profilAModifier['email'], Validators.required],
       nom: [this.profilAModifier['nom'], Validators.required],
       prenom: [this.profilAModifier['prenom'], Validators.required],
       age: [this.profilAModifier['age']],
