@@ -161,6 +161,18 @@ export class LanguageService {
             'vhs_add_vh': 'Add a new vehicle',
             'vhs_back_home': 'Back to the home menu'
         },
+        'modifier-vehicule': {
+            'vhs_modify_title': 'Modify',
+            'vhs_modify_name': 'Unique Name',
+            'vhs_modify_brand': 'Brand',
+            'vhs_modify_brand_choice': 'Choose the brand',
+            'vhs_modify_type': 'Type',
+            'vhs_modify_type_choice': 'Choose the type',
+            'vhs_modify_details': 'Details',
+            'vhs_modify_submit': 'Modify',
+            'vhs_create_submit': 'Create',
+            'vhs_modify_back_home': 'Back to the list of vehicles'
+        },        
         'mot-de-passe': {
             'passwd_title': 'Do you want to change your password',
             'passwd_legend': 'New password',
@@ -299,6 +311,18 @@ export class LanguageService {
             'vhs_empty_total': 'n\'a pas encore conduit de véhicules',
             'vhs_add_vh': 'Ajouter un nouveau véhicule',
             'vhs_back_home': 'Retour au menu d\'accueil'
+        },
+        'modifier-vehicule': {
+            'vhs_modify_title': 'Modifier',
+            'vhs_modify_name': 'Nom unique',
+            'vhs_modify_brand': 'Marque',
+            'vhs_modify_brand_choice': 'Choissisez la marque',
+            'vhs_modify_type': 'Type',
+            'vhs_modify_type_choice': 'Choissisez le type',
+            'vhs_modify_details': 'Détails',
+            'vhs_modify_submit': 'Modifier',
+            'vhs_create_submit': 'Créer',
+            'vhs_modify_back_home': 'Retour à la liste des vehicules'
         },
         'mot-de-passe': {
             'passwd_title': 'Voulez vous modifier votre mot de passe',

@@ -2,9 +2,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+
 import { UtilisateurService } from 'src/app/services/utilisateur.service';
 import { Emitters } from '../../emitters/emitters';
 import { Vehicule } from '../../models/Vehicule.model';
+import { ReloadService } from '../../services/component-reload.service';
+import { LanguageService } from '../../services/language.service';
 import { MarqueService } from '../../services/marque.service';
 import { TypeVehiculeService } from '../../services/type.service';
 import { VehiculeService } from '../../services/vehicule.service';
@@ -15,6 +18,20 @@ import { VehiculeService } from '../../services/vehicule.service';
   styleUrls: ['./vehicule.component.css']
 })
 export class VehiculeComponent implements OnInit, OnDestroy {
+  private reloadSubscription: Subscription;
+
+  // language terms
+  vhs_modify_title: string;
+  vhs_modify_name: string;
+  vhs_modify_brand: string;
+  vhs_modify_brand_choice: string;
+  vhs_modify_type: string;
+  vhs_modify_type_choice: string;
+  vhs_modify_details: string;
+  vhs_modify_submit: string;
+  vhs_create_submit: string;
+  vhs_modify_back_home: string;
+
 
   vehiculeAModifier:any = null;
   vehiculeModifiee:boolean = false;
@@ -30,11 +47,16 @@ export class VehiculeComponent implements OnInit, OnDestroy {
   idUtilisateurNouveauVehicule: number = -1;
 
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private vehiculeService: VehiculeService, private marqueService: MarqueService, private typeVehiculeService: TypeVehiculeService, private utilisateurService:UtilisateurService) { }
+  constructor(private router: Router, private formBuilder: FormBuilder, private vehiculeService: VehiculeService, private marqueService: MarqueService, private typeVehiculeService: TypeVehiculeService, private utilisateurService:UtilisateurService, private reloadService: ReloadService, private languageService: LanguageService) { }
 
   ngOnInit(): void {
     Emitters.componentAffiche.emit("componentVehicule");
-    
+    // Observable to reload from 'nav' component when there is a language change
+    this.reloadSubscription = this.reloadService.getReloadObservable().subscribe((reload) => {
+      if (reload) {
+        this.setLanguageTerms();
+      }
+    });
     this.marqueSubscription = this.marqueService.marqueSubject.subscribe(
       (marques: any[]) => {
         this.marques = marques;
@@ -62,11 +84,46 @@ export class VehiculeComponent implements OnInit, OnDestroy {
     if(sessionStorage.getItem('vehiculeAModifier') == null && sessionStorage.getItem('vehiculeAAjouter') == null){
       this.router.navigate(['/vehicules']);
     }
+    this.setLanguageTerms();
+  }
+
+  setLanguageTerms(){
+    let french_lib = this.languageService.getFrenchLib();
+    if (this.languageService.getSelectedLanguage() == 'fr'){
+      this.vhs_modify_title = french_lib['modifier-vehicule']['vhs_modify_title'];
+      this.vhs_modify_name = french_lib['modifier-vehicule']['vhs_modify_name'];
+      this.vhs_modify_brand = french_lib['modifier-vehicule']['vhs_modify_brand'];
+      this.vhs_modify_brand_choice = french_lib['modifier-vehicule']['vhs_modify_brand_choice'];
+      this.vhs_modify_type = french_lib['modifier-vehicule']['vhs_modify_type'];
+      this.vhs_modify_type_choice = french_lib['modifier-vehicule']['vhs_modify_type_choice'];
+      this.vhs_modify_details = french_lib['modifier-vehicule']['vhs_modify_details'];
+      this.vhs_modify_submit = french_lib['modifier-vehicule']['vhs_modify_submit'];
+      this.vhs_create_submit = french_lib['modifier-vehicule']['vhs_create_submit'];
+      this.vhs_modify_back_home = french_lib['modifier-vehicule']['vhs_modify_back_home'];
+    }
+
+    let english_lib = this.languageService.getEnglishLib();
+    if (this.languageService.getSelectedLanguage() == 'en'){
+      this.vhs_modify_title = english_lib['modifier-vehicule']['vhs_modify_title'];
+      this.vhs_modify_name = english_lib['modifier-vehicule']['vhs_modify_name'];
+      this.vhs_modify_brand = english_lib['modifier-vehicule']['vhs_modify_brand'];
+      this.vhs_modify_brand_choice = english_lib['modifier-vehicule']['vhs_modify_brand_choice'];
+      this.vhs_modify_type = english_lib['modifier-vehicule']['vhs_modify_type'];
+      this.vhs_modify_type_choice = english_lib['modifier-vehicule']['vhs_modify_type_choice'];
+      this.vhs_modify_details = english_lib['modifier-vehicule']['vhs_modify_details'];
+      this.vhs_modify_submit = english_lib['modifier-vehicule']['vhs_modify_submit'];
+      this.vhs_create_submit = english_lib['modifier-vehicule']['vhs_create_submit'];
+      this.vhs_modify_back_home = english_lib['modifier-vehicule']['vhs_modify_back_home'];
+    }
   }
 
   ngOnDestroy(): void{
     Emitters.componentAffiche.emit("");
     this.resetVehiculeSelectionnee();
+    // delete the observable to avoid component memory leak
+    if (this.reloadSubscription) {
+      this.reloadSubscription.unsubscribe();
+    }
   }
 
   initFormModification() {

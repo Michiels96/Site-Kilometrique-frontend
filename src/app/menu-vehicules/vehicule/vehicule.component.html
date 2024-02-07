@@ -1,5 +1,5 @@
 <form [formGroup]="vehiculeForm" (ngSubmit)="onSubmitForm()" id="formModifierVehicule">
-    <h1 class="h3 mb-3 fw-normal" *ngIf="vehiculeAModifier != null">Modifier <span style="font-style: italic;">{{vehiculeAModifier['nom_unique']}}</span> :</h1>
+    <h1 class="h3 mb-3 fw-normal" *ngIf="vehiculeAModifier != null">{{vhs_modify_title}} <span style="font-style: italic;">{{vehiculeAModifier['nom_unique']}}</span> :</h1>
     <fieldset disabled *ngIf="vehiculeAModifier != null">
         <div class="mb-3">
             <label for="id_vehicule" class="form-label">Id</label>
@@ -8,36 +8,36 @@
     </fieldset>
 
     <div class="mb-3">
-        <label for="nom" class="form-label">Nom unique</label>
-        <input type="text" class="form-control" id="nom" placeholder="nom" formControlName="nom">
+        <label for="nom" class="form-label">{{vhs_modify_name}}</label>
+        <input type="text" class="form-control" id="nom" placeholder="{{vhs_modify_name}}" formControlName="nom">
     </div>
 
     <div class="mb-3">
-        <label for="marque" class="form-label">Marque</label>
+        <label for="marque" class="form-label">{{vhs_modify_brand}}</label>
         <select id="marque" class="form-select" aria-label="Default select example" formControlName="marque" style="margin-bottom: 15px;">
-            <option value="" disabled [selected]="idUtilisateurNouveauVehicule != -1" *ngIf="idUtilisateurNouveauVehicule != -1">Choissisez la marque</option>
+            <option value="" disabled [selected]="idUtilisateurNouveauVehicule != -1" *ngIf="idUtilisateurNouveauVehicule != -1">{{vhs_modify_brand_choice}}</option>
             <option *ngFor="let marque of marques" value="{{marque['nom_unique']}}">{{marque['nom_unique']}}</option>
         </select>
     </div>
     
     <div class="mb-3">
-        <label for="type" class="form-label">Type</label>
+        <label for="type" class="form-label">{{vhs_modify_type}}</label>
         <select id="type" class="form-select" aria-label="Default select example" formControlName="type" style="margin-bottom: 15px;">
-            <option value="" disabled [selected]="idUtilisateurNouveauVehicule != -1" *ngIf="idUtilisateurNouveauVehicule != -1">Choissisez le type</option>
+            <option value="" disabled [selected]="idUtilisateurNouveauVehicule != -1" *ngIf="idUtilisateurNouveauVehicule != -1">{{vhs_modify_type_choice}}</option>
             <option *ngFor="let type of types" value="{{type}}">{{type}}</option>
         </select>
     </div>
 
     <div class="form-floating">
         <textarea class="form-control" placeholder="Laissez un commentaire" id="detail" style="height: 100px; margin-bottom: 20px;" formControlName="detail"></textarea>
-        <label for="detail">Détails</label>
+        <label for="detail">{{vhs_modify_details}}</label>
     </div>
     <div style="padding-left:65px;padding-right:65px;margin-top:30px;">
-        <button class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="vehiculeForm.invalid"><span *ngIf="vehiculeAModifier != null">Modifier</span><span *ngIf="vehiculeAModifier == null">Créer</span></button>
+        <button class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="vehiculeForm.invalid"><span *ngIf="vehiculeAModifier != null">{{vhs_modify_submit}}</span><span *ngIf="vehiculeAModifier == null">{{vhs_create_submit}}</span></button>
     </div>
 </form>
 
 <div id="backBar" routerLink="/vehicules" (click)="resetVehiculeSelectionnee()">
-    <h4>Retour à la liste des vehicules</h4>
-    <img src="../../assets/svg/arrow-left-square-fill-back-to-accueil.svg" alt="Retour à la liste des vehicules"/>
+    <h4>{{vhs_modify_back_home}}</h4>
+    <img src="../../assets/svg/arrow-left-square-fill-back-to-accueil.svg" alt="{{vhs_modify_back_home}}"/>
 </div>
