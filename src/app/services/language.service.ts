@@ -193,7 +193,7 @@ export class LanguageService {
             'users_delete': 'Delete',
             'users_no_users': 'No user registered in the system',
             'users_add_user': 'Add a new user',
-            'users_back_home': 'Back to the main menu'
+            'users_back_home': 'Back to the home menu'
         },
         'mot-de-passe': {
             'passwd_title': 'Do you want to change your password',
@@ -213,6 +213,13 @@ export class LanguageService {
             'brands_empty': 'No brand registered in the system',
             'brands_add': 'Add a new brand',
             'brands_back_home': 'Back to the home menu'
+        },
+        'marque': {
+            'brand_modify': 'Modify',
+            'brand_unique_name': 'Unique Name',
+            'brand_name': 'name',
+            'brand_create': 'Create',
+            'brand_back_home': 'Back to brand List'
         }
     };
 
@@ -386,6 +393,13 @@ export class LanguageService {
             'brands_empty': 'Aucune marque inscrit dans le système',
             'brands_add': 'Ajouter une nouvelle marque',
             'brands_back_home': 'Retour au menu d\'accueil'
+        },
+        'marque': {
+            'brand_modify': 'Modifier',
+            'brand_unique_name': 'Nom unique',
+            'brand_name': 'nom',
+            'brand_create': 'Créer',
+            'brand_back_home': 'Retour à la liste des marques'
         }
     }
 

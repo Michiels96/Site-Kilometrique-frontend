@@ -1,10 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { UtilisateurService } from 'src/app/services/utilisateur.service';
 import { Emitters } from '../../emitters/emitters';
 import { Marque } from '../../models/Marque.model';
 import { MarqueService } from '../../services/marque.service';
+import { ReloadService } from '../../services/component-reload.service';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'app-marque',
@@ -12,15 +15,29 @@ import { MarqueService } from '../../services/marque.service';
   styleUrls: ['./marque.component.css']
 })
 export class MarqueComponent implements OnInit, OnDestroy {
+  private reloadSubscription: Subscription;
+
+  // language terms
+  brand_modify: string;
+  brand_unique_name: string;
+  brand_name: string;
+  brand_create: string;
+  brand_back_home: string;
 
   marqueAModifier:any = null;
   marqueForm: FormGroup;
   nouvelleMarque: boolean = false;
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private marqueService: MarqueService, private utilisateurService:UtilisateurService) { }
+  constructor(private router: Router, private formBuilder: FormBuilder, private marqueService: MarqueService, private utilisateurService:UtilisateurService, private reloadService: ReloadService, private languageService: LanguageService) { }
 
   ngOnInit(): void {
     Emitters.componentAffiche.emit("componentMarque");
+    // Observable to reload from 'nav' component when there is a language change
+    this.reloadSubscription = this.reloadService.getReloadObservable().subscribe((reload) => {
+      if (reload) {
+        this.setLanguageTerms();
+      }
+    });
     // modifier une marque
     if(sessionStorage.getItem('marqueAModifier') != null){
       this.marqueAModifier = JSON.parse(sessionStorage.getItem('marqueAModifier'));
@@ -34,10 +51,35 @@ export class MarqueComponent implements OnInit, OnDestroy {
     if(sessionStorage.getItem('marqueAModifier') == null && sessionStorage.getItem('marqueAAjouter') == null){
       this.router.navigate(['/marques']);
     }
+    this.setLanguageTerms();
+  }
+
+  setLanguageTerms(){
+    let french_lib = this.languageService.getFrenchLib();
+    if (this.languageService.getSelectedLanguage() == 'fr'){
+      this.brand_modify = french_lib['marque']['brand_modify'];
+      this.brand_unique_name = french_lib['marque']['brand_unique_name'];
+      this.brand_name = french_lib['marque']['brand_name'];
+      this.brand_create = french_lib['marque']['brand_create'];
+      this.brand_back_home = french_lib['marque']['brand_back_home'];
+    }
+
+    let english_lib = this.languageService.getEnglishLib();
+    if (this.languageService.getSelectedLanguage() == 'en'){
+      this.brand_modify = english_lib['marque']['brand_modify'];
+      this.brand_unique_name = english_lib['marque']['brand_unique_name'];
+      this.brand_name = english_lib['marque']['brand_name'];
+      this.brand_create = english_lib['marque']['brand_create'];
+      this.brand_back_home = english_lib['marque']['brand_back_home'];
+    }
   }
 
   ngOnDestroy(): void{
     Emitters.componentAffiche.emit("");
+    // delete the observable to avoid component memory leak
+    if (this.reloadSubscription) {
+      this.reloadSubscription.unsubscribe();
+    }
     this.resetMarqueSessionMemory();
   }
 

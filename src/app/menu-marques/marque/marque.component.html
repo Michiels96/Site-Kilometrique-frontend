@@ -1,5 +1,5 @@
 <form [formGroup]="marqueForm" (ngSubmit)="onSubmitForm()" id="formMarque">
-    <h1 class="h3 mb-3 fw-normal" *ngIf="marqueAModifier != null">Modifier <span style="font-style: italic;">{{marqueAModifier['nom_unique']}}</span> :</h1>
+    <h1 class="h3 mb-3 fw-normal" *ngIf="marqueAModifier != null">{{brand_modify}} <span style="font-style: italic;">{{marqueAModifier['nom_unique']}}</span> :</h1>
     <fieldset disabled *ngIf="marqueAModifier != null">
         <div class="mb-3">
             <label for="id_marque" class="form-label">Id</label>
@@ -8,15 +8,15 @@
     </fieldset>
 
     <div class="mb-3">
-        <label for="nom" class="form-label">Nom unique</label>
-        <input type="text" class="form-control" id="nom" placeholder="nom" formControlName="nom">
+        <label for="nom" class="form-label">{{brand_unique_name}}</label>
+        <input type="text" class="form-control" id="nom" placeholder="{{brand_name}}" formControlName="nom">
     </div>
     <div style="padding-left:65px;padding-right:65px;margin-top:30px;">
-        <button class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="marqueForm.invalid"><span *ngIf="marqueAModifier != null">Modifier</span><span *ngIf="marqueAModifier == null">Créer</span></button>
+        <button class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="marqueForm.invalid"><span *ngIf="marqueAModifier != null">{{brand_modify}}</span><span *ngIf="marqueAModifier == null">{{brand_create}}</span></button>
     </div>
 </form>
 
 <div id="backBar" routerLink="/marques">
-    <h4>Retour à la liste des marques</h4>
-    <img src="../../assets/svg/arrow-left-square-fill-back-to-accueil.svg" alt="Retour à la liste des marques"/>
+    <h4>{{brand_back_home}}</h4>
+    <img src="../../assets/svg/arrow-left-square-fill-back-to-accueil.svg" alt="{{brand_back_home}}"/>
 </div>
