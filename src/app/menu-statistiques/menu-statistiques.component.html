@@ -1,26 +1,26 @@
-<h2 (click)="rafraichir()" class="titre noselect">Statistiques</h2>
+<h2 (click)="rafraichir()" class="titre noselect">{{stats_title}}</h2>
 <div style="padding-top: 15px;max-width: 300px;margin-left: 20px;" *ngIf="checkAdminStatus()">
-    <h4>Utilisateur :</h4>
+    <h4>{{stats_user}} :</h4>
     <select class="form-select" aria-label="Default select example" style="margin-bottom: 15px;" [(ngModel)]="selectedOption" #selectList (change)="chargerListeStatistiquesUtilisateur(selectList.value)">
         <option *ngFor="let utilisateur of utilisateurs" [selected]="utilisateurSelectionne != null && utilisateurSelectionne.id_utilisateur === utilisateur.id_utilisateur" value="{{utilisateur['id_utilisateur']}}">{{utilisateur['id_utilisateur']}} - {{utilisateur['email']}}, {{utilisateur['nom']}} {{utilisateur['prenom']}}</option>
     </select>
 </div>
 <div class="boutonAjouter">
-    <button class="w-100 btn btn-lg btn-primary" (click)="nouvelleStatistique()">Ajouter une nouvelle statistique</button>
+    <button class="w-100 btn btn-lg btn-primary" (click)="nouvelleStatistique()">{{stats_add_stat}}</button>
 </div>
 <div *ngIf="nbStatistiques > 0" style="display: flex;justify-content: space-evenly;font-family: source_sans_proregular;">
     <div style="margin-bottom: 15px;">
-        <button type="button" class="btn btn-secondary" (click)="demandeDeTriDateDAjout()">Trier par date d'ajout</button>
+        <button type="button" class="btn btn-secondary" (click)="demandeDeTriDateDAjout()">{{stats_add_date_sort}}</button>
     </div>
-    <img style="margin-bottom: 10px;" *ngIf="triDate == 'ASC'" src="../../assets/svg/tri/sort-numeric-down-big.svg" alt="tri nombre de date"/>
-    <img style="margin-bottom: 10px;" *ngIf="triDate == 'DESC'" src="../../assets/svg/tri/sort-numeric-up-alt-big.svg" alt="tri nombre de date"/>
+    <img style="margin-bottom: 10px;" *ngIf="triDate == 'ASC'" src="../../assets/svg/tri/sort-numeric-down-big.svg" alt="{{stats_add_date_sort_legend}}"/>
+    <img style="margin-bottom: 10px;" *ngIf="triDate == 'DESC'" src="../../assets/svg/tri/sort-numeric-up-alt-big.svg" alt="{{stats_add_date_sort_legend}}"/>
 
     <div style="margin-bottom: 15px;">
-        <button type="button" class="btn btn-secondary" (click)="demandeDeTriDateDeModification()">Trier par date de modification</button>
+        <button type="button" class="btn btn-secondary" (click)="demandeDeTriDateDeModification()">{{stats_modify_date_sort}}</button>
     </div>
 </div>
 <div style="display: flow-root" *ngIf="nbStatistiques > 0">
-    <button type="button" class="btn btn-danger" style="float:right;margin-bottom:15px;" (click)="auMoinsUnASupprimer()" [disabled]="statistiquesASupprimer.length == 0">Supprimer</button>
+    <button type="button" class="btn btn-danger" style="float:right;margin-bottom:15px;" (click)="auMoinsUnASupprimer()" [disabled]="statistiquesASupprimer.length == 0">{{stats_delete}}</button>
 </div>
 <div class="list-group">
     <a *ngFor="let statistique of statistiquesTriees" class="list-group-item list-group-item-action noselect" aria-current="true" (click)="modifierStatistique(statistique)">
@@ -28,17 +28,17 @@
             <h5 class="mb-1 text-break" style="max-width: 500px;">{{statistique['description']}}</h5>
             <small>{{calculerTempsPasse(statistique['dateDAjout'])}}</small>
         </div>
-        <p class="mb-1" style="font-family:balooregular;margin-top:15px">Date d'ajout {{dateToString(statistique['dateDAjout'])}}</p>
-        <p class="mb-1" style="font-family:balooregular;">Date de dernière modification {{dateToString(statistique['dateDeModification'])}}</p> 
+        <p class="mb-1" style="font-family:balooregular;margin-top:15px">{{stats_add_date}} {{dateToString(statistique['dateDAjout'])}}</p>
+        <p class="mb-1" style="font-family:balooregular;">{{stats_modify_date}} {{dateToString(statistique['dateDeModification'])}}</p> 
         <div class="form-check" (click)="onEvent($event)" style="margin-top: 10px;float:right">
-            Supprimer
+            {{stats_delete}}
             <input class="form-check-input" type="checkbox" (change)="aSupprimer(statistique['id_statistique'])">
         </div>
         <small style="font-family: source_sans_proregular;">(# {{statistique['id_statistique']}})</small>
     </a>
 </div>
-<div *ngIf="utilisateurSelectionne != null && nbStatistiques==0" id="statNbStatistiques">{{utilisateurSelectionne['nom']}} {{utilisateurSelectionne['prenom']}} ({{utilisateurSelectionne['email']}}) n'a pas encore enregistré de statistiques</div>
+<div *ngIf="utilisateurSelectionne != null && nbStatistiques==0" id="statNbStatistiques">{{utilisateurSelectionne['nom']}} {{utilisateurSelectionne['prenom']}} ({{utilisateurSelectionne['email']}}) {{stats_empty_msg}}</div>
 <div id="backBar" routerLink="/accueil">
-    <h4>Retour au menu d'accueil</h4>
-    <img src="../../assets/svg/arrow-left-square-fill-back-to-accueil.svg" alt="Retour au menu d'accueil"/>
+    <h4>{{stats_back_home}}</h4>
+    <img src="../../assets/svg/arrow-left-square-fill-back-to-accueil.svg" alt="{{stats_back_home}}"/>
 </div>

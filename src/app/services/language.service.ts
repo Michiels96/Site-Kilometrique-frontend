@@ -220,6 +220,28 @@ export class LanguageService {
             'brand_name': 'name',
             'brand_create': 'Create',
             'brand_back_home': 'Back to brand List'
+        },
+        'statistiques': {
+            'stats_title': 'Statistics',
+            'stats_user': 'User',
+            'stats_add_stat': 'Add a new statistic',
+            'stats_add_date_sort': 'Sort by date added',
+            'stats_add_date_sort_legend': 'sort by number of dates',
+            'stats_modify_date_sort': 'Sort by modification date',
+            'stats_delete': 'Delete',
+            'stats_add_date': 'Date added',
+            'stats_modify_date': 'Last modification date',
+            'stats_empty_msg': 'has not yet recorded any statistics',
+            'stats_back_home': 'Back to home menu',
+            'thereIs': '',
+            'year': ' years ',
+            'monthPlus': ' months and ',
+            'month': ' months ',
+            'day': ' day',
+            'days': ' days',
+            'today': 'today',
+            'delStats': 'Are you sure you want to delete these statistics?',
+            'errDelStats': 'Error deleting statistics'
         }
     };
 
@@ -400,6 +422,28 @@ export class LanguageService {
             'brand_name': 'nom',
             'brand_create': 'Créer',
             'brand_back_home': 'Retour à la liste des marques'
+        },
+        'statistiques': {
+            'stats_title': 'Statistiques',
+            'stats_user': 'Utilisateur',
+            'stats_add_stat': 'Ajouter une nouvelle statistique',
+            'stats_add_date_sort': 'Trier par date d\'ajout',
+            'stats_add_date_sort_legend': 'tri nombre de date',
+            'stats_modify_date_sort': 'Trier par date de modification',
+            'stats_delete': 'Supprimer',
+            'stats_add_date': 'Date d\'ajout',
+            'stats_modify_date': 'Date de dernière modification',
+            'stats_empty_msg': 'n\'a pas encore enregistré de statistiques',
+            'stats_back_home': 'Retour au menu d\'accueil',
+            'thereIs': 'Il y a ',
+            'year': ' ans ',
+            'monthPlus': ' mois et ',
+            'month': ' mois ',
+            'day': ' jour',
+            'days': ' jours',
+            'today': 'aujourd\'hui',
+            'delStats': 'Etes-vous sur de vouloir supprimer ces statistiques?',
+            'errDelStats': 'Erreur de suppression statistiques'
         }
     }
 
