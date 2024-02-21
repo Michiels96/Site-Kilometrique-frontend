@@ -225,7 +225,7 @@ export class LanguageService {
             'stats_title': 'Statistics',
             'stats_user': 'User',
             'stats_add_stat': 'Add a new statistic',
-            'stats_add_date_sort': 'Sort by date added',
+            'stats_add_date_sort': 'Sort by added date',
             'stats_add_date_sort_legend': 'sort by number of dates',
             'stats_modify_date_sort': 'Sort by modification date',
             'stats_delete': 'Delete',
@@ -242,6 +242,15 @@ export class LanguageService {
             'today': 'today',
             'delStats': 'Are you sure you want to delete these statistics?',
             'errDelStats': 'Error deleting statistics'
+        },
+        'statistique': {
+            'stat_title': 'Edit the statistic of',
+            'stat_description_legend': 'Leave a comment',
+            'stat_description': 'Description',
+            'stat_date': 'Date',
+            'stat_modify': 'Modify',
+            'stat_create': 'Create',
+            'stat_back_home': 'Back to the list of statistics'
         }
     };
 
@@ -444,6 +453,15 @@ export class LanguageService {
             'today': 'aujourd\'hui',
             'delStats': 'Etes-vous sur de vouloir supprimer ces statistiques?',
             'errDelStats': 'Erreur de suppression statistiques'
+        },
+        'statistique': {
+            'stat_title': 'Modifier la statistique du',
+            'stat_description_legend': 'Laissez un commentaire',
+            'stat_description': 'Description',
+            'stat_date': 'Date',
+            'stat_modify': 'Modifier', 
+            'stat_create': 'Créer',
+            'stat_back_home': 'Retour à la liste des statistiques'
         }
     }
 
