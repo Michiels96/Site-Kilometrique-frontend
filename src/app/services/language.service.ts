@@ -186,9 +186,9 @@ export class LanguageService {
             'users_age_sort': 'Sort by age',
             'users_cumulatedkms': 'Cumulated Kilometers',
             'users_cumulatedkms_sort': 'Sort by cumulated kilometers',
-            'users_loggedin_status': 'Is Logged In?',
+            'users_loggedin_status': 'Is logged in?',
             'users_loggedin_status_sort': 'Sort by logged in status',
-            'users_is_admin': 'Is Administrator?',
+            'users_is_admin': 'Is administrator?',
             'users_is_admin_sort': 'Sort by administrator status',
             'users_delete': 'Delete',
             'users_no_users': 'No user registered in the system',
@@ -251,6 +251,15 @@ export class LanguageService {
             'stat_modify': 'Modify',
             'stat_create': 'Create',
             'stat_back_home': 'Back to the list of statistics'
+        },
+        'telechargement': {
+            'down_title': 'Download your data',
+            'down_user': 'User',
+            'down_with_out_history': 'With/Without browsing history',
+            'down_with_out_vhs': 'With/Without vehicles',
+            'down_with_out_stats': 'With/Without statistics',
+            'download': 'Download',
+            'down_back_home': 'Back to home menu'
         }
     };
 
@@ -462,6 +471,15 @@ export class LanguageService {
             'stat_modify': 'Modifier', 
             'stat_create': 'Créer',
             'stat_back_home': 'Retour à la liste des statistiques'
+        },
+        'telechargement': {
+            'down_title': 'Télécharcher vos données',
+            'down_user': 'Utilisateur',
+            'down_with_out_history': 'Avec/Sans l\'historique de navigation',
+            'down_with_out_vhs': 'Avec/Sans les véhicules',
+            'down_with_out_stats': 'Avec/Sans les statistiques',
+            'download': 'Télécharger',
+            'down_back_home': 'Retour au menu d\'accueil'
         }
     }
 

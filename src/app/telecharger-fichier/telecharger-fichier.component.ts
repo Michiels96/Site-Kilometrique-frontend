@@ -6,6 +6,8 @@ import { Utilisateur } from '../models/Utilisateur.model';
 import { DownloadService } from '../services/download.service';
 import { UtilisateurService } from '../services/utilisateur.service';
 import { saveAs } from 'file-saver';
+import { LanguageService } from '../services/language.service';
+import { ReloadService } from '../services/component-reload.service';
 
 
 @Component({
@@ -14,6 +16,16 @@ import { saveAs } from 'file-saver';
   styleUrls: ['./telecharger-fichier.component.css']
 })
 export class TelechargerFichierComponent implements OnInit, OnDestroy {
+  private reloadSubscription: Subscription;
+
+  // language terms
+  down_title: string;
+  down_user: string;
+  down_with_out_history: string;
+  down_with_out_vhs: string;
+  down_with_out_stats: string;
+  download: string;
+  down_back_home: string;
 
   telechargerForm: FormGroup;
 
@@ -23,10 +35,16 @@ export class TelechargerFichierComponent implements OnInit, OnDestroy {
   selectedOption: string;
   utilisateurSelectionne: Utilisateur = null;
 
-  constructor(private formBuilder: FormBuilder, private utilisateurService: UtilisateurService, private downloadService: DownloadService) { }
+  constructor(private formBuilder: FormBuilder, private utilisateurService: UtilisateurService, private downloadService: DownloadService, private reloadService: ReloadService, private languageService: LanguageService) { }
 
   ngOnInit(): void {
     Emitters.componentAffiche.emit("componentTelechargerFichier");
+    // Observable to reload from 'nav' component when there is a language change
+    this.reloadSubscription = this.reloadService.getReloadObservable().subscribe((reload) => {
+      if (reload) {
+        this.setLanguageTerms();
+      }
+    });
     this.utilisateurService.getUtilisateursFromServer();
     this.utilisateurSubscription = this.utilisateurService.utilisateursSubject.subscribe(
       (utilisateurs: any[]) => {
@@ -35,10 +53,39 @@ export class TelechargerFichierComponent implements OnInit, OnDestroy {
       }
     );
     this.initForm();
+    this.setLanguageTerms();
+  }
+
+  setLanguageTerms(){
+    let french_lib = this.languageService.getFrenchLib();
+    if (this.languageService.getSelectedLanguage() == 'fr'){
+      this.down_title = french_lib['telechargement']['down_title'];
+      this.down_user = french_lib['telechargement']['down_user'];
+      this.down_with_out_history = french_lib['telechargement']['down_with_out_history'];
+      this.down_with_out_vhs = french_lib['telechargement']['down_with_out_vhs'];
+      this.down_with_out_stats = french_lib['telechargement']['down_with_out_stats'];
+      this.download = french_lib['telechargement']['download'];
+      this.down_back_home = french_lib['telechargement']['down_back_home'];
+    }
+
+    let english_lib = this.languageService.getEnglishLib();
+    if (this.languageService.getSelectedLanguage() == 'en'){
+      this.down_title = english_lib['telechargement']['down_title'];
+      this.down_user = english_lib['telechargement']['down_user'];
+      this.down_with_out_history = english_lib['telechargement']['down_with_out_history'];
+      this.down_with_out_vhs = english_lib['telechargement']['down_with_out_vhs'];
+      this.down_with_out_stats = english_lib['telechargement']['down_with_out_stats'];
+      this.download = english_lib['telechargement']['download'];
+      this.down_back_home = english_lib['telechargement']['down_back_home'];
+    }
   }
 
   ngOnDestroy(): void{
     Emitters.componentAffiche.emit("");
+    // delete the observable to avoid component memory leak
+    if (this.reloadSubscription) {
+      this.reloadSubscription.unsubscribe();
+    }
   }
 
   initForm() {
