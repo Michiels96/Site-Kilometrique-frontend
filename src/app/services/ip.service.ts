@@ -23,7 +23,7 @@ export class IPService {
 
         // internet (production)
         // ne pas oublier le port forwarding
-        this.ipBackend = "http://michiels.zapto.org:3000";
+        this.ipBackend = "https://michiels.zapto.org:3000";
     }
 
     getIPBackend(){
