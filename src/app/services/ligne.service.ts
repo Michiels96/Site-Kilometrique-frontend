@@ -109,7 +109,14 @@ export class LigneService{
       })
     };
     let query = this.IPBackend+"/lignes/";
-    let body = {'id_utilisateur': id_utilisateur, 'id_ligne': ligne.id_ligne, 'vehicule': ligne.vehicule, 'nbKilometres': ligne.nbKilometres, 'description': ligne.description, 'date': ligne.date};
+    let body = {
+      'id_utilisateur': id_utilisateur, 
+      'id_ligne': ligne.id_ligne, 
+      'vehicule': ligne.vehicule, 
+      'nbKilometres': ligne.nbKilometres, 
+      'description': ligne.description, 
+      'date': ligne.date
+    };
     return this.httpClient
       .put<any[]>(query, body, headers)
       .toPromise();

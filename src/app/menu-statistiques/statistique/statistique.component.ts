@@ -2,8 +2,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Emitters } from 'src/app/emitters/emitters';
+import { Subscription } from 'rxjs';
 import { Statistique } from 'src/app/models/Statistique.model';
 import { StatistiqueService } from 'src/app/services/statistique.service';
+import { ReloadService } from 'src/app/services/component-reload.service';
+import { LanguageService } from 'src/app/services/language.service';
 
 @Component({
   selector: 'app-statistique',
@@ -11,6 +14,16 @@ import { StatistiqueService } from 'src/app/services/statistique.service';
   styleUrls: ['./statistique.component.css']
 })
 export class StatistiqueComponent implements OnInit, OnDestroy {
+  private reloadSubscription: Subscription;
+
+  // language terms
+  stat_title: string;
+  stat_description_legend: string;
+  stat_description: string;
+  stat_date: string;
+  stat_modify: string;
+  stat_create: string;
+  stat_back_home: string;
 
   statistiqueAModifier:any = null;
   statistiqueModifiee: boolean = false;
@@ -19,21 +32,19 @@ export class StatistiqueComponent implements OnInit, OnDestroy {
 
   private idUtilisateurDesStatistiques: number;
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private statistiqueService: StatistiqueService) { }
+  constructor(private router: Router, private formBuilder: FormBuilder, private statistiqueService: StatistiqueService, private reloadService: ReloadService, private languageService: LanguageService) { }
 
   ngOnInit(): void {
     Emitters.componentAffiche.emit("componentStatistique");
-
+    // Observable to reload from 'nav' component when there is a language change
+    this.reloadSubscription = this.reloadService.getReloadObservable().subscribe((reload) => {
+      if (reload) {
+        this.setLanguageTerms();
+      }
+    });
     // modifier une statistique
     if(sessionStorage.getItem('statistiqueAModifier') != null){
       this.statistiqueAModifier = JSON.parse(sessionStorage.getItem('statistiqueAModifier'));
-
-      // this.vehiculeService.getByNomUnique(this.statistiqueAModifier['vehicule'])
-      //   .then((resp) => {
-      //     this.idUtilisateurDesVehicules = resp[0]['utilisateur'];
-      //     this.vehiculeService.getVehiculesFromServer(this.idUtilisateurDesVehicules);
-      //   });
-      
       this.initFormModification();
     }
     //ajouter une statistique
@@ -47,10 +58,39 @@ export class StatistiqueComponent implements OnInit, OnDestroy {
     if(sessionStorage.getItem('statistiqueAModifier') == null && sessionStorage.getItem('statistiqueAAjouter') == null){
       this.router.navigate(['/statistiques']);
     }
+    this.setLanguageTerms();
+  }
+
+  setLanguageTerms(){
+    let french_lib = this.languageService.getFrenchLib();
+    if (this.languageService.getSelectedLanguage() == 'fr'){
+      this.stat_title = french_lib['statistique']['stat_title'];
+      this.stat_description_legend = french_lib['statistique']['stat_description_legend'];
+      this.stat_description = french_lib['statistique']['stat_description'];
+      this.stat_date = french_lib['statistique']['stat_date'];
+      this.stat_modify = french_lib['statistique']['stat_modify'];
+      this.stat_create = french_lib['statistique']['stat_create'];
+      this.stat_back_home = french_lib['statistique']['stat_back_home'];
+    }
+
+    let english_lib = this.languageService.getEnglishLib();
+    if (this.languageService.getSelectedLanguage() == 'en'){
+      this.stat_title = english_lib['statistique']['stat_title'];
+      this.stat_description_legend = english_lib['statistique']['stat_description_legend'];
+      this.stat_description = english_lib['statistique']['stat_description'];
+      this.stat_date = english_lib['statistique']['stat_date'];
+      this.stat_modify = english_lib['statistique']['stat_modify'];
+      this.stat_create = english_lib['statistique']['stat_create'];
+      this.stat_back_home = english_lib['statistique']['stat_back_home'];
+    }
   }
 
   ngOnDestroy(): void{
     Emitters.componentAffiche.emit("");
+    // delete the observable to avoid component memory leak
+    if (this.reloadSubscription) {
+      this.reloadSubscription.unsubscribe();
+    }
     this.resetStatistiqueSessionMemory();
   }
 

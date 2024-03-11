@@ -5,6 +5,8 @@ import { Emitters } from '../emitters/emitters';
 import { Utilisateur } from '../models/Utilisateur.model';
 import { StatistiqueService } from '../services/statistique.service';
 import { UtilisateurService } from '../services/utilisateur.service';
+import { ReloadService } from '../services/component-reload.service';
+import { LanguageService } from '../services/language.service';
 
 @Component({
   selector: 'app-menu-statistiques',
@@ -12,8 +14,32 @@ import { UtilisateurService } from '../services/utilisateur.service';
   styleUrls: ['./menu-statistiques.component.css']
 })
 export class MenuStatistiquesComponent implements OnInit, OnDestroy {
+  private reloadSubscription: Subscription;
 
-  // Pour le select (uniquement dispo pour un administrateur)
+  // language terms
+  stats_title: string;
+  stats_user: string;
+  stats_add_stat: string;
+  stats_add_date_sort: string;
+  stats_add_date_sort_legend: string;
+  stats_modify_date_sort: string;
+  stats_delete: string;
+  stats_add_date: string;
+  stats_modify_date: string;
+  stats_empty_msg: string;
+  stats_back_home: string;
+  thereIs: string;
+  year: string;
+  monthPlus: string;
+  month: string;
+  day: string;
+  days: string;
+  today: string;
+  delStats: string;
+  errDelStats: string;
+
+
+  // Administrator 'select' input
   utilisateurs:any = [{}];
   utilisateurSubscription: Subscription;
   selectedOption: string;
@@ -31,10 +57,15 @@ export class MenuStatistiquesComponent implements OnInit, OnDestroy {
   statistiquesASupprimer = [];
 
 
-  constructor(private statistiqueService: StatistiqueService, private utilisateurService: UtilisateurService, private router: Router) { }
+  constructor(private statistiqueService: StatistiqueService, private utilisateurService: UtilisateurService, private router: Router, private reloadService: ReloadService, private languageService: LanguageService) { }
 
   ngOnInit(): void {
     Emitters.componentAffiche.emit("componentStatistiques");
+    this.reloadSubscription = this.reloadService.getReloadObservable().subscribe((reload) => {
+      if (reload) {
+        this.setLanguageTerms();
+      }
+    });
     this.utilisateurService.getUtilisateursFromServer();
     this.utilisateurSubscription = this.utilisateurService.utilisateursSubject.subscribe(
       (utilisateurs: any[]) => {
@@ -50,12 +81,67 @@ export class MenuStatistiquesComponent implements OnInit, OnDestroy {
         //this.statistiques = statistiques;
         this.statistiquesTriees = statistiques;
         this.nbStatistiques = this.statistiquesTriees.length;
+        this.setLanguageTerms();
       }
     );
   }
 
+  setLanguageTerms(){
+    let french_lib = this.languageService.getFrenchLib();
+    if (this.languageService.getSelectedLanguage() == 'fr'){
+      this.stats_title = french_lib['statistiques']['stats_title'];
+      this.stats_user = french_lib['statistiques']['stats_user'];
+      this.stats_add_stat = french_lib['statistiques']['stats_add_stat'];
+      this.stats_add_date_sort = french_lib['statistiques']['stats_add_date_sort'];
+      this.stats_add_date_sort_legend = french_lib['statistiques']['stats_add_date_sort_legend'];
+      this.stats_modify_date_sort = french_lib['statistiques']['stats_modify_date_sort'];
+      this.stats_delete = french_lib['statistiques']['stats_delete'];
+      this.stats_add_date = french_lib['statistiques']['stats_add_date'];
+      this.stats_modify_date = french_lib['statistiques']['stats_modify_date'];
+      this.stats_empty_msg = french_lib['statistiques']['stats_empty_msg'];
+      this.stats_back_home = french_lib['statistiques']['stats_back_home'];
+      this.thereIs = french_lib['statistiques']['thereIs'];
+      this.year = french_lib['statistiques']['year'];
+      this.monthPlus = french_lib['statistiques']['monthPlus'];
+      this.month = french_lib['statistiques']['month'];
+      this.day = french_lib['statistiques']['day'];
+      this.days = french_lib['statistiques']['days'];
+      this.today = french_lib['statistiques']['today'];
+      this.delStats = french_lib['statistiques']['delStats'];
+      this.errDelStats = french_lib['statistiques']['errDelStats'];
+    }
+
+    let english_lib = this.languageService.getEnglishLib();
+    if (this.languageService.getSelectedLanguage() == 'en'){
+      this.stats_title = english_lib['statistiques']['stats_title'];
+      this.stats_user = english_lib['statistiques']['stats_user'];
+      this.stats_add_stat = english_lib['statistiques']['stats_add_stat'];
+      this.stats_add_date_sort = english_lib['statistiques']['stats_add_date_sort'];
+      this.stats_add_date_sort_legend = english_lib['statistiques']['stats_add_date_sort_legend'];
+      this.stats_modify_date_sort = english_lib['statistiques']['stats_modify_date_sort'];
+      this.stats_delete = english_lib['statistiques']['stats_delete'];
+      this.stats_add_date = english_lib['statistiques']['stats_add_date'];
+      this.stats_modify_date = english_lib['statistiques']['stats_modify_date'];
+      this.stats_empty_msg = english_lib['statistiques']['stats_empty_msg'];
+      this.stats_back_home = english_lib['statistiques']['stats_back_home'];
+      this.thereIs = english_lib['statistiques']['thereIs'];
+      this.year = english_lib['statistiques']['year'];
+      this.monthPlus = english_lib['statistiques']['monthPlus'];
+      this.month = english_lib['statistiques']['month'];
+      this.day = english_lib['statistiques']['day'];
+      this.days = english_lib['statistiques']['days'];
+      this.today = english_lib['statistiques']['today'];
+      this.delStats = english_lib['statistiques']['delStats'];
+      this.errDelStats = english_lib['statistiques']['errDelStats'];
+    }
+  }
+
   ngOnDestroy(): void{
     Emitters.componentAffiche.emit("");
+    // delete the observable to avoid component memory leak
+    if (this.reloadSubscription) {
+      this.reloadSubscription.unsubscribe();
+    }
   }
 
   rafraichir(){
@@ -118,30 +204,30 @@ export class MenuStatistiquesComponent implements OnInit, OnDestroy {
     var convert = Date.parse(timestamp)/1000;
     var date = new Date(convert * 1000);
 
-    let returnDate = "Il y a ";
+    let returnDate = this.thereIs;
     let dateString = this.dateDiff(new Date(), date);
     let dateArray = dateString.split(";");
     if(dateArray[0] != '0'){
-      returnDate += dateArray[0]+" ans ";
+      returnDate += dateArray[0]+this.year;
     }
     if(dateArray[1] != '0'){
       if(dateArray[2] != '0'){
-        returnDate += dateArray[1]+" mois et ";
+        returnDate += dateArray[1]+this.monthPlus;
       }
       else{
-        returnDate += dateArray[1]+" mois ";
+        returnDate += dateArray[1]+this.month;
       }
     }
     if(dateArray[2] != '0'){
       if(+dateArray[2] == 1){
-        returnDate += dateArray[2]+" jour";
+        returnDate += dateArray[2]+this.day;
       }
       else{
-        returnDate += dateArray[2]+" jours";
+        returnDate += dateArray[2]+this.days;
       }
     }
-    if(returnDate == "Il y a "){
-      returnDate = "aujourd'hui";
+    if(returnDate == this.thereIs){
+      returnDate = this.today;
     }
     return returnDate;
   }
@@ -186,14 +272,14 @@ export class MenuStatistiquesComponent implements OnInit, OnDestroy {
   }
 
   auMoinsUnASupprimer(){
-    if(confirm("Etes-vous sur de vouloir supprimer ces statistiques?")){
+    if(confirm(this.delStats)){
       this.statistiqueService.supprimerStatistiques(this.statistiquesASupprimer, this.utilisateurSelectionne.id_utilisateur)
         .then((response) => {
           if(response['status'] == "ok"){
             this.rafraichir();
           }
           else{
-            console.log("erreur de suppression statistiques: "+JSON.stringify(response));
+            console.log(this.errDelStats+" : "+JSON.stringify(response));
           }
         }).catch((err) => {console.log("Erreur : "+err)});
     }

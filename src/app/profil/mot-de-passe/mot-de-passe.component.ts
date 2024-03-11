@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { Emitters } from '../../emitters/emitters';
 import { Utilisateur } from '../../models/Utilisateur.model';
 import { UtilisateurService } from '../../services/utilisateur.service';
+import { LanguageService } from '../../services/language.service';
+import { Subscription } from 'rxjs';
+import { ReloadService } from '../../services/component-reload.service';
 
 @Component({
   selector: 'app-mot-de-passe',
@@ -11,26 +14,65 @@ import { UtilisateurService } from '../../services/utilisateur.service';
   styleUrls: ['./mot-de-passe.component.css']
 })
 export class MotDePasseComponent implements OnInit, OnDestroy {
+  private reloadSubscription: Subscription;
+
   profilAModifier:any = null;
   modifierUtilisateur: boolean = false;
   private retourProfil: boolean = false;
 
   motDePasseForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private utilisateurService: UtilisateurService) {}
+  // language terms
+  passwd_title: string;
+  passwd_legend: string;
+  passwd_placeholder: string;
+  passwd_confirm: string;
+  passwd_back_profile: string;
+
+  constructor(private formBuilder: FormBuilder, private router: Router, private utilisateurService: UtilisateurService, private reloadService: ReloadService, private languageService: LanguageService) {}
 
   ngOnInit(): void {
     Emitters.componentAffiche.emit("componentMotDePasse");
+    // Observable to reload from 'nav' component when there is a language change
+    this.reloadSubscription = this.reloadService.getReloadObservable().subscribe((reload) => {
+      if (reload) {
+        this.setLanguageTerms();
+      }
+    });
     if(sessionStorage.getItem('profilAModifierStatus') != null && sessionStorage.getItem('profilAModifierStatus') == "oui"){
       this.modifierUtilisateur = true;
     }
-    
     this.profilAModifier = JSON.parse(sessionStorage.getItem('profilAModifier'));
     this.initForm();
+    this.setLanguageTerms();
+  }
+
+  setLanguageTerms(){
+    let french_lib = this.languageService.getFrenchLib();
+    if (this.languageService.getSelectedLanguage() == 'fr'){
+      this.passwd_title = french_lib['mot-de-passe']['passwd_title'];
+      this.passwd_legend = french_lib['mot-de-passe']['passwd_legend'];
+      this.passwd_placeholder = french_lib['mot-de-passe']['passwd_placeholder'];
+      this.passwd_confirm = french_lib['mot-de-passe']['passwd_confirm'];
+      this.passwd_back_profile = french_lib['mot-de-passe']['passwd_back_profile'];
+    }
+
+    let english_lib = this.languageService.getEnglishLib();
+    if (this.languageService.getSelectedLanguage() == 'en'){
+      this.passwd_title = english_lib['mot-de-passe']['passwd_title'];
+      this.passwd_legend = english_lib['mot-de-passe']['passwd_legend'];
+      this.passwd_placeholder = english_lib['mot-de-passe']['passwd_placeholder'];
+      this.passwd_confirm = english_lib['mot-de-passe']['passwd_confirm'];
+      this.passwd_back_profile = english_lib['mot-de-passe']['passwd_back_profile'];
+    }
   }
 
   ngOnDestroy(): void{
     Emitters.componentAffiche.emit("");
+    // delete the observable to avoid component memory leak
+    if (this.reloadSubscription) {
+      this.reloadSubscription.unsubscribe();
+    }
     this.resetProfilSelectionnee();
   }
 

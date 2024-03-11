@@ -2,43 +2,46 @@
     <div class="container-fluid">
       <div style="float: left;">
         <p>
-        <a class="navbar-brand" routerLink="/" *ngIf="connecte" style="font-family: source_sans_proregular;font-size: 30px;">Site Kilométrique</a>
-        <a class="navbar-brand" routerLink="/" *ngIf="!connecte">Site Kilométrique - Page de Connexion</a> 
-      </p>
+          <a class="navbar-brand" [routerLink]="componentAffiche != 'componentConnexion' && componentAffiche != 'componentInscription' ? '/' : null" *ngIf="connecte || this.componentAffiche == 'component404'" style="font-family: source_sans_proregular;font-size: 30px;">Site Kilométrique</a>
+          <a class="navbar-brand" [routerLink]="componentAffiche != 'componentConnexion' && componentAffiche != 'componentInscription' ? '/' : null" *ngIf="!connecte && this.componentAffiche != 'component404'">Site Kilométrique - {{connection_page}}</a> 
+        </p>
       </div>
       
   
       <div style="display: inline-flex; float: right;">
-        <ul class="navbar-nav me-auto mb-2 mb-md-0" *ngIf="!connecte" style="height: 30px;font-family: source_sans_proregular;font-size: 20px;">
-          <li class="nav-item" *ngIf="componentAffiche !== 'componentConnexion'">
-            <a class="nav-link active" aria-current="page" routerLink="/connexion">Connexion</a>
+        <ul class="navbar-nav me-auto mb-2 mb-md-0 logo" *ngIf="language == 'en'">
+          <li class="nav-item">
+            <img src="../../assets/svg/en.svg" alt="english" (click)="changeLanguage()"/>
           </li>
-          <li class="nav-item" *ngIf="componentAffiche !== 'componentInscription'">
-            <a class="nav-link active" aria-current="page" routerLink="/inscription">S'inscrire</a>
+        </ul>
+        <ul class="navbar-nav me-auto mb-2 mb-md-0 logo" *ngIf="language == 'fr'">
+          <li class="nav-item">
+            <img src="../../assets/svg/fr.svg" alt="french" (click)="changeLanguage()"/>
           </li>
         </ul>
 
-        <div style="display: inherit;">
-          <ul class="navbar-nav me-auto mb-2 mb-md-0 logo" *ngIf="connecte && componentAffiche !== 'componentProfil'">
-            <li class="nav-item">
-              <!-- <a class="nav-link active" aria-current="page" routerLink="/connexion" (click)="deconnexion()">Déconnexion</a> -->
-              <img src="../../assets/svg/person-circle.svg" alt="profil" (click)="modifierProfil()"/>
-            </li>
-          </ul>
-  
-          <ul class="navbar-nav me-auto mb-2 mb-md-0 logo" *ngIf="connecte">
-            <li class="nav-item">
-              <!-- <a class="nav-link active" aria-current="page" routerLink="/connexion" (click)="deconnexion()">Déconnexion</a> -->
-              <img src="../../assets/svg/box-arrow-up.svg" alt="déconnexion" routerLink="/connexion" (click)="deconnexion()"/>
-            </li>
-          </ul>
-        </div>
-        
+        <ul class="navbar-nav me-auto mb-2 mb-md-0" *ngIf="!connecte && this.componentAffiche != 'component404'" style="height: 30px;font-family: source_sans_proregular;font-size: 20px;">
+          <li class="nav-item" *ngIf="componentAffiche !== 'componentConnexion'">
+            <a class="nav-link active" aria-current="page" routerLink="/connexion" (click)="this.componentAffiche = 'componentConnexion';setLanguageTerms()">{{connection}}</a>
+          </li>
+          <li class="nav-item" *ngIf="componentAffiche !== 'componentInscription' && this.componentAffiche != 'component404'">
+            <a class="nav-link active" aria-current="page" routerLink="/inscription" (click)="this.componentAffiche = 'componentInscription';setLanguageTerms()">{{register}}</a>
+          </li>
+        </ul>
 
+        <ul class="navbar-nav me-auto mb-2 mb-md-0 logo" *ngIf="connecte && componentAffiche !== 'componentProfil'">
+          <li class="nav-item">
+            <!-- <a class="nav-link active" aria-current="page" routerLink="/connexion" (click)="deconnexion()">Déconnexion</a> -->
+            <img src="../../assets/svg/person-circle.svg" alt="profil" (click)="modifierProfil()"/>
+          </li>
+        </ul>
+        <ul class="navbar-nav me-auto mb-2 mb-md-0 logo" *ngIf="connecte">
+          <li class="nav-item">
+            <!-- <a class="nav-link active" aria-current="page" routerLink="/connexion" (click)="deconnexion()">Déconnexion</a> -->
+            <img src="../../assets/svg/box-arrow-up.svg" alt="déconnexion" routerLink="/connexion" (click)="deconnexion()"/>
+          </li>
+        </ul>
       </div>
-
     </div>
   </nav>
-
-
   

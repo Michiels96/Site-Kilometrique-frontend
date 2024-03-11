@@ -19,7 +19,6 @@ export class VehiculeService{
       this.getVehiculesFromServer(this.utilisateurService.getInfoUtilisateur().id_utilisateur);
   }
 
-  // informe tous les components abboné au service que un de ses attibuts à été maj.
   emitListeVehiculesSubject(){
     this.vehiculesSubject.next(this.vehicules.slice());
   }
@@ -152,7 +151,6 @@ export class VehiculeService{
     };
     this.httpClient
       .get<any[]>(query, {headers: headers.headers, params: params})
-      //.get<any[]>(query, headers)
       .subscribe(
         (resp) => {
           this.vehicules = resp;

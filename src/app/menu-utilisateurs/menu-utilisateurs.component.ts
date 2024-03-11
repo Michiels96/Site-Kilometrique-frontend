@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Emitters } from '../emitters/emitters';
 import { UtilisateurService } from '../services/utilisateur.service';
+import { LanguageService } from '../services/language.service';
+import { ReloadService } from '../services/component-reload.service';
 
 @Component({
   selector: 'app-menu-utilisateurs',
@@ -10,6 +12,30 @@ import { UtilisateurService } from '../services/utilisateur.service';
   styleUrls: ['./menu-utilisateurs.component.css']
 })
 export class MenuUtilisateursComponent implements OnInit, OnDestroy {
+  private reloadSubscription: Subscription;
+
+  // language terms
+  users_title: string;
+  nbr_sort: string;
+  users_email: string;
+  users_email_sort: string;
+  users_lastname: string;
+  users_lastname_sort: string;
+  users_firstname: string;
+  users_firstname_sort: string;
+  users_age: string;
+  users_age_sort: string;
+  users_cumulatedkms: string;
+  users_cumulatedkms_sort: string;
+  users_loggedin_status: string;
+  users_loggedin_status_sort: string;
+  users_is_admin: string;
+  users_is_admin_sort: string;
+  users_delete: string;
+  users_nb_users: string;
+  users_no_users: string;
+  users_add_user: string;
+  users_back_home: string;
 
   utilisateurs:any = [{}];
   utilisateurSubscription: Subscription;
@@ -29,23 +55,93 @@ export class MenuUtilisateursComponent implements OnInit, OnDestroy {
 
   utilisateursASupprimer = [];
   
-  constructor(private router: Router, private utilisateurService: UtilisateurService) { }
+  constructor(private router: Router, private utilisateurService: UtilisateurService, private reloadService: ReloadService, private languageService: LanguageService) { }
 
   ngOnInit(): void {
     Emitters.componentAffiche.emit("componentMenuUtilisateurs");
-    
+    // Observable to reload from 'nav' component when there is a language change
+    this.reloadSubscription = this.reloadService.getReloadObservable().subscribe((reload) => {
+      if (reload) {
+        this.setLanguageTerms();
+      }
+    });
     this.utilisateurService.getUtilisateursFromServer();
     this.utilisateurSubscription = this.utilisateurService.utilisateursSubject.subscribe(
       (utilisateurs: any[]) => {
         this.utilisateurs = utilisateurs;
         this.nbUtilisateurs = utilisateurs.length;
+        this.setLanguageTerms();
       }
     );
     //this.utilisateurService.emitListeUtilisateursSubject();
   }
 
+  setLanguageTerms(){
+    let french_lib = this.languageService.getFrenchLib();
+    if (this.languageService.getSelectedLanguage() == 'fr'){
+      this.users_title = french_lib['menu-utilisateurs']['users_title'];
+      this.nbr_sort = french_lib['menu-utilisateurs']['nbr_sort'];
+      this.users_email = french_lib['menu-utilisateurs']['users_email'];
+      this.users_email_sort = french_lib['menu-utilisateurs']['users_email_sort'];
+      this.users_lastname = french_lib['menu-utilisateurs']['users_lastname'];
+      this.users_lastname_sort = french_lib['menu-utilisateurs']['users_lastname_sort'];
+      this.users_firstname = french_lib['menu-utilisateurs']['users_firstname'];
+      this.users_firstname_sort = french_lib['menu-utilisateurs']['users_firstname_sort'];
+      this.users_age = french_lib['menu-utilisateurs']['users_age'];
+      this.users_age_sort = french_lib['menu-utilisateurs']['users_age_sort'];
+      this.users_cumulatedkms = french_lib['menu-utilisateurs']['users_cumulatedkms'];
+      this.users_cumulatedkms_sort = french_lib['menu-utilisateurs']['users_cumulatedkms_sort'];
+      this.users_loggedin_status = french_lib['menu-utilisateurs']['users_loggedin_status'];
+      this.users_loggedin_status_sort = french_lib['menu-utilisateurs']['users_loggedin_status_sort'];
+      this.users_is_admin = french_lib['menu-utilisateurs']['users_is_admin'];
+      this.users_is_admin_sort = french_lib['menu-utilisateurs']['users_is_admin_sort'];
+      this.users_delete = french_lib['menu-utilisateurs']['users_delete'];
+      if(this.nbUtilisateurs>1){
+        this.users_nb_users = "Total: "+this.nbUtilisateurs+" utilisateurs inscrits dans le système"
+      }else{
+        this.users_nb_users = "Total: "+this.nbUtilisateurs+" utilisateur inscrit dans le système"
+      }
+      this.users_no_users = french_lib['menu-utilisateurs']['users_no_users'];
+      this.users_add_user = french_lib['menu-utilisateurs']['users_add_user'];
+      this.users_back_home = french_lib['menu-utilisateurs']['users_back_home'];
+    }
+
+    let english_lib = this.languageService.getEnglishLib();
+    if (this.languageService.getSelectedLanguage() == 'en'){
+      this.users_title = english_lib['menu-utilisateurs']['users_title'];
+      this.nbr_sort = english_lib['menu-utilisateurs']['nbr_sort'];
+      this.users_email = english_lib['menu-utilisateurs']['users_email'];
+      this.users_email_sort = english_lib['menu-utilisateurs']['users_email_sort'];
+      this.users_lastname = english_lib['menu-utilisateurs']['users_lastname'];
+      this.users_lastname_sort = english_lib['menu-utilisateurs']['users_lastname_sort'];
+      this.users_firstname = english_lib['menu-utilisateurs']['users_firstname'];
+      this.users_firstname_sort = english_lib['menu-utilisateurs']['users_firstname_sort'];
+      this.users_age = english_lib['menu-utilisateurs']['users_age'];
+      this.users_age_sort = english_lib['menu-utilisateurs']['users_age_sort'];
+      this.users_cumulatedkms = english_lib['menu-utilisateurs']['users_cumulatedkms'];
+      this.users_cumulatedkms_sort = english_lib['menu-utilisateurs']['users_cumulatedkms_sort'];
+      this.users_loggedin_status = english_lib['menu-utilisateurs']['users_loggedin_status'];
+      this.users_loggedin_status_sort = english_lib['menu-utilisateurs']['users_loggedin_status_sort'];
+      this.users_is_admin = english_lib['menu-utilisateurs']['users_is_admin'];
+      this.users_is_admin_sort = english_lib['menu-utilisateurs']['users_is_admin_sort'];
+      this.users_delete = english_lib['menu-utilisateurs']['users_delete'];
+      if(this.nbUtilisateurs>1){
+        this.users_nb_users = "Total: "+this.nbUtilisateurs+" users signed in"
+      }else{
+        this.users_nb_users = "Total: "+this.nbUtilisateurs+" user signed in"
+      }
+      this.users_no_users = english_lib['menu-utilisateurs']['users_no_users'];
+      this.users_add_user = english_lib['menu-utilisateurs']['users_add_user'];
+      this.users_back_home = english_lib['menu-utilisateurs']['users_back_home'];
+    }
+  }
+
   ngOnDestroy(): void{
     Emitters.componentAffiche.emit("");
+    // delete the observable to avoid component memory leak
+    if (this.reloadSubscription) {
+      this.reloadSubscription.unsubscribe();
+    }
   }
 
   onEvent(event){

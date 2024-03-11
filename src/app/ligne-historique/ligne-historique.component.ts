@@ -8,6 +8,8 @@ import { LigneService } from '../services/ligne.service';
 import { StatistiqueService } from '../services/statistique.service';
 import { UtilisateurService } from '../services/utilisateur.service';
 import { VehiculeService } from '../services/vehicule.service';
+import { LanguageService } from '../services/language.service';
+import { ReloadService } from '../services/component-reload.service';
 
 @Component({
   selector: 'app-ligne-historique',
@@ -15,6 +17,7 @@ import { VehiculeService } from '../services/vehicule.service';
   styleUrls: ['./ligne-historique.component.css']
 })
 export class LigneHistoriqueComponent implements OnInit, OnDestroy {
+  private reloadSubscription: Subscription;
 
   ligneAModifier:any = null;
   ligneModifiee: boolean = false;
@@ -27,11 +30,32 @@ export class LigneHistoriqueComponent implements OnInit, OnDestroy {
 
   numberOrRange: boolean = false;
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private ligneService: LigneService, private vehiculeService: VehiculeService, private utilisateurService: UtilisateurService, private statistiqueService: StatistiqueService) { }
+  // language terms
+  log_title: string;
+  log_vhs: string;
+  log_vhs_legend: string;
+  log_kms: string;
+  log_start_kms: string;
+  log_end_kms: string;
+  log_range_kms_legend: string;
+  log_range_kms_legend_supp: string;
+  log_desc_comm: string;
+  log_desc: string;
+  log_date: string;
+  log_modify: string;
+  log_create: string;
+  log_back_home: string;
+
+  constructor(private router: Router, private formBuilder: FormBuilder, private ligneService: LigneService, private vehiculeService: VehiculeService, private utilisateurService: UtilisateurService, private statistiqueService: StatistiqueService, private reloadService: ReloadService, private languageService: LanguageService) { }
 
   ngOnInit(): void {
     Emitters.componentAffiche.emit("componentLigneHistorique");
-
+    // Observable to reload from 'nav' component when there is a language change
+    this.reloadSubscription = this.reloadService.getReloadObservable().subscribe((reload) => {
+      if (reload) {
+        this.setLanguageTerms();
+      }
+    });
     this.vehiculeSubscription = this.vehiculeService.vehiculesSubject.subscribe(
       (vehicules: any[]) => {
         this.vehicules = vehicules;
@@ -60,11 +84,54 @@ export class LigneHistoriqueComponent implements OnInit, OnDestroy {
     if(sessionStorage.getItem('ligneAModifier') == null && sessionStorage.getItem('ligneAAjouter') == null){
       this.router.navigate(['/lignes']);
     }
+    this.setLanguageTerms();
+  }
+
+  setLanguageTerms(){
+    let french_lib = this.languageService.getFrenchLib();
+    if (this.languageService.getSelectedLanguage() == 'fr'){
+      this.log_title = french_lib['ligne-historique']['log_title'];
+      this.log_vhs = french_lib['ligne-historique']['log_vhs'];
+      this.log_vhs_legend = french_lib['ligne-historique']['log_vhs_legend'];
+      this.log_kms = french_lib['ligne-historique']['log_kms'];
+      this.log_start_kms = french_lib['ligne-historique']['log_start_kms'];
+      this.log_end_kms = french_lib['ligne-historique']['log_end_kms'];
+      this.log_range_kms_legend = french_lib['ligne-historique']['log_range_kms_legend'];
+      this.log_range_kms_legend_supp = french_lib['ligne-historique']['log_range_kms_legend_supp'];
+      this.log_desc_comm = french_lib['ligne-historique']['log_desc_comm'];
+      this.log_desc = french_lib['ligne-historique']['log_desc'];
+      this.log_date = french_lib['ligne-historique']['log_date'];
+      this.log_modify = french_lib['ligne-historique']['log_modify'];
+      this.log_create = french_lib['ligne-historique']['log_create'];
+      this.log_back_home = french_lib['ligne-historique']['log_back_home'];
+    }
+
+    let english_lib = this.languageService.getEnglishLib();
+    if (this.languageService.getSelectedLanguage() == 'en'){
+      this.log_title = english_lib['ligne-historique']['log_title'];
+      this.log_vhs = english_lib['ligne-historique']['log_vhs'];
+      this.log_vhs_legend = english_lib['ligne-historique']['log_vhs_legend'];
+      this.log_kms = english_lib['ligne-historique']['log_kms'];
+      this.log_start_kms = english_lib['ligne-historique']['log_start_kms'];
+      this.log_end_kms = english_lib['ligne-historique']['log_end_kms'];
+      this.log_range_kms_legend = english_lib['ligne-historique']['log_range_kms_legend'];
+      this.log_range_kms_legend_supp = english_lib['ligne-historique']['log_range_kms_legend_supp'];
+      this.log_desc_comm = english_lib['ligne-historique']['log_desc_comm'];
+      this.log_desc = english_lib['ligne-historique']['log_desc'];
+      this.log_date = english_lib['ligne-historique']['log_date'];
+      this.log_modify = english_lib['ligne-historique']['log_modify'];
+      this.log_create = english_lib['ligne-historique']['log_create'];
+      this.log_back_home = english_lib['ligne-historique']['log_back_home'];
+    }
   }
 
   ngOnDestroy(): void{
     Emitters.componentAffiche.emit("");
     this.resetLigneSessionMemory();
+    // delete the observable to avoid component memory leak
+    if (this.reloadSubscription) {
+      this.reloadSubscription.unsubscribe();
+    }
   }
 
   initFormModification() {
