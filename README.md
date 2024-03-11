@@ -1,69 +1,52 @@
 # SiteKilometrique
 
+- [SiteKilometrique](#sitekilometrique)
+  - [Usefull commands](#usefull-commands)
+    - [Development mode](#development-mode)
+    - [Production mode](#production-mode)
+  - [Version](#version)
+  - [Further info](#further-info)
+
+
+## Usefull commands
+
+### Development mode
+
+Install required node packages :
+
+*\# npm install*
+
+Run in development mode :
+
+*\# ng serve --host 0.0.0.0*
+
+The default port is 4200
+
+> Edit **ipBackend** variable in *./src/app/services/ip.service.ts* file to allow this frontend app to communicate with an external backend API.
+
+### Production mode
+
+Build this app with :
+
+*\# ng build*
+
+The build artifacts will be stored in the `dist/` directory.
+
+## Version
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.1.3.
-MAJ. 19.11.23 : Update vers angular 17.
+Last update : 19.11.23 - Update towards angular 17.
 
-## Development server
+## Further info
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
-
-----------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-Lien du site : http://michiels.zapto.org
-
-
-1. Initialiser le projet
-    ng new site-kilometrique --style=scss --skip-tests:true
-
-2. Se déplacer dans le dossier site-kilometrique et installer le package bootstrap
-    npm install bootstrap@latest --save
-
-3. Créer un nouveau component
-    ng g c nouveau-component
-
-Pré-requis pour toute vérification : 
-```
-npm install
-```
-
-
-Lancer le serveur ouvert à tous:
-    ng serve --host 0.0.0.0
-
-Pour le rendre accessible sur internet:
-Dans le fichier services/ip.service.tests,
- commenter l'adresse IPBackend pour LAN et décommenter la ligne IPBackend publique.
-
-(Déprecié)
-Automatisation pour récupérer l'addresse IP:
-le script situé dans /assets/getIp doit s'exécuter tout les jours avec l'outil 'cron'
-
----
-To crop images and convert them as SVG files : 
-
-https://boxy-svg.com/app
+Some pictures used in this project were made with
 
 https://boxy-svg.com/questions/38/slice-crop-image-in-boxy-svg
 
 https://png2svg.com/
+
+https://boxy-svg.com/app
+
+(To crop images and convert them as SVG files)
+
+website : https://michiels.zapto.org
+

@@ -22,7 +22,7 @@ export class IPService {
         //this.ipBackend = "http://192.168.1.50:3000";
 
         // internet (production)
-        // ne pas oublier le port forwarding
+        // don't forget port forwarding
         this.ipBackend = "https://michiels.zapto.org:3000";
     }
 
