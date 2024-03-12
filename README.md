@@ -1,39 +1,40 @@
-# SiteKilometrique
+# ⚡️ SiteKilometrique - frontend ⚡️
 
-- [SiteKilometrique](#sitekilometrique)
-  - [Usefull commands](#usefull-commands)
-    - [Development mode](#development-mode)
-    - [Production mode](#production-mode)
+- [⚡️ SiteKilometrique - frontend ⚡️](#️-sitekilometrique---frontend-️)
+  - [Setup](#setup)
+  - [Development mode](#development-mode)
+  - [Production mode](#production-mode)
   - [Version](#version)
   - [Further info](#further-info)
 
+## Setup
 
-## Usefull commands
-
-### Development mode
-
-Install required node packages :
+Install node dependencies :
 
 *\# npm install*
+
+## Development mode
 
 Run in development mode :
 
 *\# ng serve --host 0.0.0.0*
 
-The default port is 4200
+The default port is **4200**
 
 > Edit **ipBackend** variable in *./src/app/services/ip.service.ts* file to allow this frontend app to communicate with an external backend API.
 
-### Production mode
+## Production mode
 
-Build this app with :
+Build this project with :
 
 *\# ng build*
 
 The build artifacts will be stored in the `dist/` directory.
 
 ## Version
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.1.3.
+
 Last update : 19.11.23 - Update towards angular 17.
 
 ## Further info
