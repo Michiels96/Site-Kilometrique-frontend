@@ -146,7 +146,7 @@ export class UtilisateurService {
               'password': utilisateur.password, 
               'nom': utilisateur.nom, 
               'prenom': utilisateur.prenom,
-              'age': utilisateur.age
+              'date_naissance': utilisateur.date_naissance
           };
       }
       else{
@@ -190,7 +190,7 @@ export class UtilisateurService {
               'password': utilisateur.password,
               'nom': utilisateur.nom, 
               'prenom': utilisateur.prenom,
-              'age': utilisateur.age,
+              'date_naissance': utilisateur.date_naissance,
               'modifierAge': 1,
               'nbKilometresCumules': utilisateur.nbKilometresCumules,
               'estConnecte': utilisateur.estConnecte,

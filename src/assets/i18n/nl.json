@@ -20,7 +20,8 @@
     "age": "Leeftijd",
     "submitRegister": "Registreren",
     "createUser": "Gebruiker aanmaken",
-    "backToUsers": "Terug naar gebruikerslijst"
+    "backToUsers": "Terug naar gebruikerslijst",
+    "birthdate": "Geboortedatum"
   },
   "accueil": {
     "adminStatus": "Beheerder",
@@ -56,7 +57,8 @@
     "userAdminStatus": "Is beheerder",
     "userModify": "Wijzigen",
     "userBackHome": "Terug naar hoofdpagina",
-    "userBackUsers": "Terug naar gebruikerslijst"
+    "userBackUsers": "Terug naar gebruikerslijst",
+    "userBirthdate": "Geboortedatum"
   },
   "t404": {
     "title": "Fout 404",
@@ -81,7 +83,10 @@
     "tabVhsAlt": "Sorteren op voertuig",
     "tabDel": "Verwijderen",
     "emptyLogsMsg": "heeft nog geen navigatiegeschiedenis geregistreerd",
-    "backToMain": "Terug naar hoofdmenu"
+    "backToMain": "Terug naar hoofdmenu",
+    "record": "record",
+    "records": "records",
+    "cumulatedKms": "gecumuleerde kilometers"
   },
   "ligneHistorique": {
     "title": "Regel wijzigen van ",
@@ -114,7 +119,9 @@
     "del": "Verwijderen",
     "emptyTotal": "heeft nog geen voertuigen bestuurd",
     "addVh": "Nieuw voertuig toevoegen",
-    "backHome": "Terug naar hoofdmenu"
+    "backHome": "Terug naar hoofdmenu",
+    "record": "record",
+    "records": "records"
   },
   "modifierVehicule": {
     "title": "Wijzigen",
@@ -148,7 +155,9 @@
     "delete": "Verwijderen",
     "noUsers": "Geen gebruikers geregistreerd in het systeem",
     "addUser": "Nieuwe gebruiker toevoegen",
-    "backHome": "Terug naar hoofdmenu"
+    "backHome": "Terug naar hoofdmenu",
+    "user": "gebruiker",
+    "users": "gebruikers"
   },
   "motDePasse": {
     "title": "Wilt u uw wachtwoord wijzigen",
@@ -167,7 +176,9 @@
     "del": "Verwijderen",
     "empty": "Geen merken geregistreerd in het systeem",
     "add": "Nieuw merk toevoegen",
-    "backHome": "Terug naar hoofdmenu"
+    "backHome": "Terug naar hoofdmenu",
+    "brand": "merk",
+    "brands": "merken"
   },
   "marque": {
     "modify": "Wijzigen",

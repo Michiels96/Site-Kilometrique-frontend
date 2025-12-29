@@ -40,7 +40,7 @@ export class InscriptionComponent implements OnInit, OnDestroy {
       password: ['', Validators.required],
       name: ['', Validators.required],
       lastname: ['', Validators.required],
-      age: ['']
+      date_naissance: ['']
     });
   }
 
@@ -48,7 +48,7 @@ export class InscriptionComponent implements OnInit, OnDestroy {
     const formValue = this.inscriptionForm.value;
     //trouver l'utilisateur et voir si il existe, si oui, on change son flag 'connecte' à 1
     let utilisateur: Utilisateur;
-    if(formValue['age'] == ''){
+    if(formValue['date_naissance'] == ''){
       utilisateur = new Utilisateur(
         formValue['email'],
         formValue['password'],
@@ -62,7 +62,7 @@ export class InscriptionComponent implements OnInit, OnDestroy {
         formValue['password'],
         formValue['name'],
         formValue['lastname'],
-        formValue['age']
+        formValue['date_naissance']
       );
     }
 
@@ -72,7 +72,7 @@ export class InscriptionComponent implements OnInit, OnDestroy {
           alert("cet email n'est plus disponible");
         }
         else{
-          if(formValue['age'] == ''){
+          if(formValue['date_naissance'] == ''){
             this.utilisateurService.inscription(utilisateur, false)
             .then((response) => {
                 if(response['status'] == "OK"){

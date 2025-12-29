@@ -20,7 +20,8 @@
     "age": "Age",
     "submitRegister": "Register",
     "createUser": "Create user",
-    "backToUsers": "Back to users list"
+    "backToUsers": "Back to users list",
+    "birthdate": "Date of birth"
   },
   "accueil": {
     "adminStatus": "Admin",
@@ -56,7 +57,8 @@
     "userAdminStatus": "Is admin",
     "userModify": "Modify",
     "userBackHome": "Back home",
-    "userBackUsers": "Return to the list of users"
+    "userBackUsers": "Return to the list of users",
+    "userBirthdate": "Date of birth"
   },
   "t404": {
     "title": "404 error",
@@ -81,7 +83,10 @@
     "tabVhsAlt": "Sort by vehicle",
     "tabDel": "Delete",
     "emptyLogsMsg": "has not yet recorded browsing history.",
-    "backToMain": "Back to home menu"
+    "backToMain": "Back to home menu",
+    "record": "record",
+    "records": "records",
+    "cumulatedKms": "cumulated kilometers"
   },
   "ligneHistorique": {
     "title": "Edit the log of ",
@@ -114,7 +119,9 @@
     "del": "Delete",
     "emptyTotal": "has not driven any vehicles yet",
     "addVh": "Add a new vehicle",
-    "backHome": "Back to the home menu"
+    "backHome": "Back to the home menu",
+    "record": "record",
+    "records": "records"
   },
   "modifierVehicule": {
     "title": "Modify",
@@ -148,7 +155,9 @@
     "delete": "Delete",
     "noUsers": "No user registered in the system",
     "addUser": "Add a new user",
-    "backHome": "Back to the home menu"
+    "backHome": "Back to the home menu",
+    "user": "user",
+    "users": "users"
   },
   "motDePasse": {
     "title": "Do you want to change your password",
@@ -167,7 +176,9 @@
     "del": "Delete",
     "empty": "No brand registered in the system",
     "add": "Add a new brand",
-    "backHome": "Back to the home menu"
+    "backHome": "Back to the home menu",
+    "brand": "brand",
+    "brands": "brands"
   },
   "marque": {
     "modify": "Modify",

@@ -9,19 +9,20 @@
       
   
       <div style="display: inline-flex; float: right;">
-        <ul class="navbar-nav me-auto mb-2 mb-md-0 logo">
-          <li class="nav-item" *ngIf="language == 'fr'" (click)="changeLanguage()" style="cursor: pointer;" title="Cliquez pour changer de langue">
-            <img src="../../assets/svg/fr.svg" alt="Français"/>
-          </li>
-          <li class="nav-item" *ngIf="language == 'en'" (click)="changeLanguage()" style="cursor: pointer;" title="Cliquez pour changer de langue">
-            <img src="../../assets/svg/en.svg" alt="English"/>
-          </li>
-          <li class="nav-item" *ngIf="language == 'nl'" (click)="changeLanguage()" style="cursor: pointer;" title="Cliquez pour changer de langue">
-            <img src="../../assets/svg/nl.svg" alt="Nederlands"/>
-          </li>
-        </ul>
+        <div class="dropdown" style="display: inline-flex; float: right; margin-right: 10px;">
+          <button class="btn btn-link p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <img *ngIf="language == 'fr'" src="../../assets/svg/fr.svg" alt="Français" style="width: 30px;"/>
+            <img *ngIf="language == 'en'" src="../../assets/svg/en.svg" alt="English" style="width: 30px;"/>
+            <img *ngIf="language == 'nl'" src="../../assets/svg/nl.svg" alt="Nederlands" style="width: 30px;"/>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" (click)="changeLanguage('fr')"><img src="../../assets/svg/fr.svg" style="width: 20px; margin-right: 8px;"/> Français</a></li>
+            <li><a class="dropdown-item" (click)="changeLanguage('en')"><img src="../../assets/svg/en.svg" style="width: 20px; margin-right: 8px;"/> English</a></li>
+            <li><a class="dropdown-item" (click)="changeLanguage('nl')"><img src="../../assets/svg/nl.svg" style="width: 20px; margin-right: 8px;"/> Nederlands</a></li>
+          </ul>
+        </div>
 
-        <ul class="navbar-nav me-auto mb-2 mb-md-0" *ngIf="!connecte && this.componentAffiche != 'component404'" style="width: 30px; height: 30px;font-family: source_sans_proregular;font-size: 20px;">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0" *ngIf="!connecte && this.componentAffiche != 'component404'" style="height: 30px;font-family: source_sans_proregular;font-size: 20px;">
           <li class="nav-item" *ngIf="componentAffiche !== 'componentConnexion'">
             <a class="nav-link active" aria-current="page" routerLink="/connexion" (click)="this.componentAffiche = 'componentConnexion'">{{ 'nav.connection' | translate }}</a>
           </li>

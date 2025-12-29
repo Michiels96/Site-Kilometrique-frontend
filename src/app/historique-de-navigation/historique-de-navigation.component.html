@@ -87,8 +87,8 @@
     </div>
 </div>
 <div>
-    <div *ngIf="nbLignes>0" id="statNbLignes">{{total_logs}}<span *ngIf="nbLignes>1">s</span></div>
-    <div *ngIf="utilisateurSelectionne != null && nbLignes>0" id="statNbLignes">{{total_kms}}</div>
+    <div *ngIf="nbLignes>0" id="statNbLignes">{{total_logs}} {{ 'historique.record' | translate }}<span *ngIf="nbLignes>1">{{ 's' }}</span></div>
+    <div *ngIf="utilisateurSelectionne != null && nbLignes>0" id="statNbLignes">{{total_kms}} {{ 'historique.cumulatedKms' | translate }}</div>
     <div *ngIf="utilisateurSelectionne != null && nbLignes==0" id="statNbLignes">{{utilisateurSelectionne['prenom']}} {{utilisateurSelectionne['nom']}} ({{utilisateurSelectionne['email']}}) {{ 'historique.emptyLogsMsg' | translate }}</div>
 </div>
 <div id="backBar" routerLink="/accueil">

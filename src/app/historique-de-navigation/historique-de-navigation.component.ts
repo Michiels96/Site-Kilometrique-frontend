@@ -61,6 +61,10 @@ export class HistoriqueDeNavigationComponent implements OnInit, OnDestroy {
         this.lignesTriees = this.lignes.slice(this.limit, this.limit+50);
         //this.nbLignes = this.lignes.length;
         this.nbLignes = this.ligneService.getNbLignesTotales();
+        this.total_logs = this.nbLignes;
+        // Trouver le maximum de nbKilometresCumules (le plus récent)
+        const maxCumul = this.lignes.length > 0 ? Math.max(...this.lignes.map(l => parseFloat(l.nbKilometresCumules) || 0)) : 0;
+        this.total_kms = maxCumul;
           }
     );
   }

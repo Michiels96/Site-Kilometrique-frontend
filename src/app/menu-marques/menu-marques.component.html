@@ -30,7 +30,7 @@
         </tr>
     </tbody>
 </table>
-<div *ngIf="nbMarques>0" id="statNbMarques">{{brands_total}}<span *ngIf="nbMarques>1">s</span></div>
+<div *ngIf="nbMarques>0" id="statNbMarques">{{brands_total}} {{ 'marques.brand' | translate }}<span *ngIf="nbMarques>1">{{ 's' }}</span></div>
 <div *ngIf="nbMarques==0" id="statNbMarques">{{ 'marques.empty' | translate }}</div>
 
 <div class="boutonAjouter">

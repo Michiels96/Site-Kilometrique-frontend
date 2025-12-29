@@ -32,7 +32,8 @@ export class MenuMarquesComponent implements OnInit, OnDestroy {
     this.marquesSubscription = this.marqueService.marqueSubject.subscribe(
       (marques: any[]) => {
         this.marques = marques;
-        this.nbMarques = this.marques.length+1;
+        this.nbMarques = this.marques.length;
+        this.brands_total = this.nbMarques;
           }
     );
     this.marqueService.emitListeMarquesSubject();

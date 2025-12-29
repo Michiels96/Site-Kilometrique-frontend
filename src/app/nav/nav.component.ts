@@ -36,9 +36,18 @@ export class NavComponent implements OnInit {
     this.language = this.languageService.getSelectedLanguage();
   }
 
-  changeLanguage(newLang: string){
-    this.languageService.changeLanguage(newLang);
-    this.language = newLang;
+  changeLanguage(newLang?: string){
+    if (newLang) {
+      this.languageService.changeLanguage(newLang);
+      this.language = newLang;
+    } else {
+      const langs = ["fr", "en", "nl"];
+      const currentIndex = langs.indexOf(this.language);
+      const nextIndex = (currentIndex + 1) % langs.length;
+      const nextLang = langs[nextIndex];
+      this.languageService.changeLanguage(nextLang);
+      this.language = nextLang;
+    }
   }
 
   modifierProfil(){

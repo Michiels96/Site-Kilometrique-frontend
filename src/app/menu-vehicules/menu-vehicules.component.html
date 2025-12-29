@@ -44,7 +44,7 @@
         </tr>
     </tbody>
 </table>
-<div *ngIf="nbVehicules>0" id="statNbVehicules">{{ nbVehicules }}<span *ngIf="nbVehicules>1">s</span></div>
+<div *ngIf="nbVehicules>0" id="statNbVehicules">{{ nbVehicules }} {{ 'vehicule.record' | translate }}<span *ngIf="nbVehicules>1">{{ 's' }}</span></div>
 <div *ngIf="utilisateurSelectionne != null && nbVehicules==0" id="statNbVehicules">{{utilisateurSelectionne['nom']}} {{utilisateurSelectionne['prenom']}} ({{utilisateurSelectionne['email']}}) {{ 'vehicule.emptyTotal' | translate }}</div>
 <div class="boutonAjouter">
     <button class="w-100 btn btn-lg btn-primary" (click)="nouveauVehicule()">{{ 'vehicule.addVh' | translate }}</button>

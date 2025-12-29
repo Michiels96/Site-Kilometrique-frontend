@@ -52,7 +52,7 @@
         </tr>
     </tbody>
 </table>
-<div *ngIf="nbUtilisateurs>0" id="statNbUtilisateurs">{{ nbUtilisateurs }}</div>
+<div *ngIf="nbUtilisateurs>0" id="statNbUtilisateurs">{{ nbUtilisateurs }} {{ 'menuUtilisateurs.user' | translate }}<span *ngIf="nbUtilisateurs>1">{{ 's' }}</span></div>
 <div *ngIf="nbUtilisateurs==0" id="statNbUtilisateurs">{{ 'menuUtilisateurs.noUsers' | translate }}</div>
 <div class="boutonAjouter">
     <button class="w-100 btn btn-lg btn-primary" (click)="nouvelUtilisateur()">{{ 'menuUtilisateurs.addUser' | translate }}</button>

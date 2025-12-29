@@ -44,7 +44,7 @@ export class ProfilComponent implements OnInit {
       email: [this.profilAModifier['email'], [Validators.required, Validators.email]],
       nom: [this.profilAModifier['nom'], Validators.required],
       prenom: [this.profilAModifier['prenom'], Validators.required],
-      age: [this.profilAModifier['age']],
+      date_naissance: [this.profilAModifier['date_naissance']],
       nbKilometresCumules: [this.profilAModifier['nbKilometresCumules']],
       estConnecte: [this.profilAModifier['estConnecte']],
       estAdmin: [this.profilAModifier['estAdmin']]
@@ -66,7 +66,7 @@ export class ProfilComponent implements OnInit {
 
   onSubmitForm() {
     const formValue = this.profilForm.value;
-    let avecAge = false;
+    let avecDateNaissance = false;
     
 
     if(formValue['email'] != this.profilAModifier['email']){
@@ -78,13 +78,13 @@ export class ProfilComponent implements OnInit {
     if(formValue['prenom'] != this.profilAModifier['prenom']){
       this.profilModifie = true;
     }
-    if(formValue['age'] != '' && formValue['age'] != this.profilAModifier['age']){
+    if(formValue['date_naissance'] != '' && formValue['date_naissance'] != this.profilAModifier['date_naissance']){
       this.profilModifie = true;
-      avecAge = true;
+      avecDateNaissance = true;
     }
-    if(this.profilAModifier['age'] != null && formValue['age'] == ''){
+    if(this.profilAModifier['date_naissance'] != null && formValue['date_naissance'] == ''){
       this.profilModifie = true;
-      avecAge = true;
+      avecDateNaissance = true;
     }
     if(this.modifierUtilisateur){
       if(formValue['nbKilometresCumules'] != this.profilAModifier['nbKilometresCumules']){
@@ -110,7 +110,7 @@ export class ProfilComponent implements OnInit {
           this.profilAModifier['password'],
           formValue['nom'],
           formValue['prenom'],
-          formValue['age'],
+          formValue['date_naissance'],
           formValue['nbKilometresCumules'],
           formValue['estConnecte'],
           formValue['estAdmin']
@@ -123,7 +123,7 @@ export class ProfilComponent implements OnInit {
           this.profilAModifier['password'],
           formValue['nom'],
           formValue['prenom'],
-          formValue['age'],
+          formValue['date_naissance'],
           this.profilAModifier['nbKilometresCumules'],
           this.profilAModifier['estConnecte'],
           this.profilAModifier['estAdmin']
@@ -137,8 +137,8 @@ export class ProfilComponent implements OnInit {
             alert("Cet email n'est plus disponible");
           }
           else{
-            if(avecAge){
-              this.utilisateurService.modifierUtilisateur(utilisateurModifie, true, false)
+            if(avecDateNaissance){
+              this.utilisateurService.modifierUtilisateur(utilisateurModifie, avecDateNaissance, false)
                 .then((resp) => {
                   this.statistiqueService.majKilometresCumules(utilisateurModifie.id_utilisateur)
                   .then(()=>{
@@ -153,7 +153,7 @@ export class ProfilComponent implements OnInit {
                 });
             }
             else{
-              this.utilisateurService.modifierUtilisateur(utilisateurModifie, false, false)
+              this.utilisateurService.modifierUtilisateur(utilisateurModifie, avecDateNaissance, false)
                 .then((resp) => {
                   this.statistiqueService.majKilometresCumules(utilisateurModifie.id_utilisateur)
                     .then(()=>{
@@ -171,8 +171,8 @@ export class ProfilComponent implements OnInit {
         });
       }
       else{
-        if(avecAge){
-          this.utilisateurService.modifierUtilisateur(utilisateurModifie, true, false)
+        if(avecDateNaissance){
+          this.utilisateurService.modifierUtilisateur(utilisateurModifie, avecDateNaissance, false)
             .then((resp) => {
               this.statistiqueService.majKilometresCumules(utilisateurModifie.id_utilisateur)
                 .then(()=>{
@@ -187,7 +187,7 @@ export class ProfilComponent implements OnInit {
             });
         }
         else{
-          this.utilisateurService.modifierUtilisateur(utilisateurModifie, false, false)
+          this.utilisateurService.modifierUtilisateur(utilisateurModifie, avecDateNaissance, false)
             .then((resp) => {
               this.statistiqueService.majKilometresCumules(utilisateurModifie.id_utilisateur)
                 .then(()=>{

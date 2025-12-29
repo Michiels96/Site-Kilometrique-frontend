@@ -69,7 +69,7 @@ export class TelechargerFichierComponent implements OnInit, OnDestroy {
         resp[0]['password'],
         resp[0]['nom'],
         resp[0]['prenom'],
-        resp[0]['age'],
+        resp[0]['date_naissance'],
         resp[0]['nbKilometresCumules'],
         resp[0]['estConnecte'],
         resp[0]['estAdmin']
@@ -94,7 +94,7 @@ export class TelechargerFichierComponent implements OnInit, OnDestroy {
       var date = new Date();
       let year = date.getFullYear();
       let month = (date.getMonth()+1)+"";
-      let day = (date.getDate()-1)+"";
+      let day = (date.getDate())+"";
       let hour = (date.getHours())+"";
       let minute = (date.getMinutes())+"";
       let second = (date.getSeconds())+"";

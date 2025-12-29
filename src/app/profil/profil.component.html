@@ -28,8 +28,8 @@
     </div>
 
     <div class="mb-3">
-        <label for="age" class="form-label">{{ 'profil.userAge' | translate }}</label>
-        <input type="number" class="form-control" id="age" placeholder="age" formControlName="age">
+        <label for="date_naissance" class="form-label">{{ 'profil.userBirthdate' | translate }}</label>
+        <input type="date" class="form-control" id="date_naissance" formControlName="date_naissance">
     </div>
 
     <div class="mb-3" *ngIf="modifierUtilisateur">

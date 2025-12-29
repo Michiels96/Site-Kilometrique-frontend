@@ -5,7 +5,7 @@ export class Utilisateur {
     password: string;
     nom: string;
     prenom: string;
-    age: number;
+    date_naissance: string;
     nbKilometresCumules: number;
     estConnecte: boolean;
     estAdmin: boolean;
@@ -32,7 +32,7 @@ export class Utilisateur {
       password: string,
       nom: string,
       prenom: string,
-      age: number,
+      date_naissance: string,
     );
 
     public constructor(
@@ -41,7 +41,7 @@ export class Utilisateur {
       password: string,
       nom: string,
       prenom: string,
-      age: number,
+      date_naissance: string,
       nbKilometresCumules: number,
       estConnecte: boolean,
       estAdmin: boolean
@@ -57,7 +57,7 @@ export class Utilisateur {
         this.password = '';
         this.nom = '';
         this.prenom = '';
-        this.age = -1;
+        this.date_naissance = '';
         this.nbKilometresCumules = 0;
         this.estConnecte = false;
         this.estAdmin = false;
@@ -70,7 +70,7 @@ export class Utilisateur {
 
         this.nom = '';
         this.prenom = '';
-        this.age = -1;
+        this.date_naissance = '';
         this.nbKilometresCumules = 0;
         this.estConnecte = false;
         this.estAdmin = false;
@@ -83,7 +83,7 @@ export class Utilisateur {
         this.nom = args[2];
         this.prenom = args[3];
 
-        this.age = -1;
+        this.date_naissance = '';
         this.nbKilometresCumules = 0;
         this.estConnecte = false;
         this.estAdmin = false;
@@ -95,7 +95,7 @@ export class Utilisateur {
         this.password = args[1];
         this.nom = args[2];
         this.prenom = args[3];
-        this.age = args[4];
+        this.date_naissance = args[4];
 
         this.nbKilometresCumules = 0;
         this.estConnecte = false;
@@ -107,7 +107,7 @@ export class Utilisateur {
         this.password = args[2];
         this.nom = args[3];
         this.prenom = args[4];
-        this.age = args[5];
+        this.date_naissance = args[5];
         this.nbKilometresCumules = args[6];
         this.estConnecte = args[7];
         this.estAdmin = args[8];
@@ -121,7 +121,7 @@ export class Utilisateur {
     //   public password: string,
     //   public nom: string,
     //   public prenom: string,
-    //   public age: number,
+    //   public date_naissance: string,
     //   public nb_kilometres_cumules: number,
     //   public connecte: boolean
     // ) {}
