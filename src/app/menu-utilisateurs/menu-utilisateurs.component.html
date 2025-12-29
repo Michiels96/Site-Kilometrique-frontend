@@ -1,33 +1,33 @@
-<h2 (click)="rafraichir()" class="titre noselect">{{users_title}}</h2>
+<h2 (click)="rafraichir()" class="titre noselect">{{ 'menuUtilisateurs.title' | translate }}</h2>
 <table class="table">
     <thead>
         <tr>
             <th scope="col" class="noselect" *ngIf="triId == ''" (click)="demandeDeTriId()">#</th>
-            <th scope="col" class="noselect" style="width: 50px;" *ngIf="triId == 'ASC'" (click)="demandeDeTriId()">#<img style="padding-left: 5px" src="../../assets/svg/tri/sort-numeric-down.svg" alt="{{nbr_sort}} #"/></th>
-            <th scope="col" class="noselect" style="width: 50px;" *ngIf="triId == 'DESC'" (click)="demandeDeTriId()">#<img style="padding-left: 5px" src="../../assets/svg/tri/sort-numeric-up-alt.svg" alt="{{nbr_sort}} #"/></th>
-            <th scope="col" class="noselect" *ngIf="triEmail == ''" (click)="demandeDeTriEmail()">{{users_email}}</th>
-            <th scope="col" class="noselect" style="width: 50px;" *ngIf="triEmail == 'ASC'" (click)="demandeDeTriEmail()">{{users_email}}<img style="padding-left: 5px" src="../../assets/svg/tri/sort-alpha-down.svg" alt="{{users_email_sort}}"/></th>
-            <th scope="col" class="noselect" style="width: 50px;" *ngIf="triEmail == 'DESC'" (click)="demandeDeTriEmail()">{{users_email}}<img style="padding-left: 5px" src="../../assets/svg/tri/sort-alpha-up-alt.svg" alt="{{users_email_sort}}"/></th>
-            <th scope="col" class="noselect" *ngIf="triNom == ''" (click)="demandeDeTriNom()">{{users_lastname}}</th>
-            <th scope="col" class="noselect" *ngIf="triNom == 'ASC'" (click)="demandeDeTriNom()">{{users_lastname}}<img style="padding-left: 5px" src="../../assets/svg/tri/sort-alpha-down.svg" alt="{{users_lastname_sort}}"/></th>
-            <th scope="col" class="noselect" *ngIf="triNom == 'DESC'" (click)="demandeDeTriNom()">{{users_lastname}}<img style="padding-left: 5px" src="../../assets/svg/tri/sort-alpha-up-alt.svg" alt="{{users_lastname_sort}}"/></th>
-            <th scope="col" class="noselect" *ngIf="triPrenom == ''" (click)="demandeDeTriPrenom()">{{users_firstname}}</th>
-            <th scope="col" class="noselect" *ngIf="triPrenom == 'ASC'" (click)="demandeDeTriPrenom()">{{users_firstname}}<img style="padding-left: 5px" src="../../assets/svg/tri/sort-alpha-down.svg" alt="{{users_firstname_sort}}"/></th>
-            <th scope="col" class="noselect" *ngIf="triPrenom == 'DESC'" (click)="demandeDeTriPrenom()">{{users_firstname}}<img style="padding-left: 5px" src="../../assets/svg/tri/sort-alpha-up-alt.svg" alt="{{users_firstname_sort}}"/></th>
-            <th scope="col" class="noselect" *ngIf="triAge == ''" (click)="demandeDeTriAge()">{{users_age}}</th>
-            <th scope="col" class="noselect" style="width: 70px;" *ngIf="triAge == 'ASC'" (click)="demandeDeTriAge()">{{users_age}}<img style="padding-left: 5px" src="../../assets/svg/tri/sort-numeric-down.svg" alt="{{users_age_sort}}"/></th>
-            <th scope="col" class="noselect" style="width: 70px;" *ngIf="triAge == 'DESC'" (click)="demandeDeTriAge()">{{users_age}}<img style="padding-left: 5px" src="../../assets/svg/tri/sort-numeric-up-alt.svg" alt="{{users_age_sort}}"/></th>
-            <th scope="col" class="noselect" *ngIf="triNbKilometresCumules == ''" (click)="demandeDeTriNbKilometresCumules()">{{users_cumulatedkms}}</th>
-            <th scope="col" class="noselect" *ngIf="triNbKilometresCumules == 'ASC'" (click)="demandeDeTriNbKilometresCumules()">{{users_cumulatedkms}}<img style="padding-left: 5px" src="../../assets/svg/tri/sort-numeric-down.svg" alt="{{users_cumulatedkms_sort}}"/></th>
-            <th scope="col" class="noselect" *ngIf="triNbKilometresCumules == 'DESC'" (click)="demandeDeTriNbKilometresCumules()">{{users_cumulatedkms}}<img style="padding-left: 5px" src="../../assets/svg/tri/sort-numeric-up-alt.svg" alt="{{users_cumulatedkms_sort}}"/></th>
-            <th scope="col" class="noselect" *ngIf="triEstConnecte == ''" (click)="demandeDeTriEstConnecte()">{{users_loggedin_status}}</th>
-            <th scope="col" class="noselect" style="width: 115px;" *ngIf="triEstConnecte == 'ASC'" (click)="demandeDeTriEstConnecte()">{{users_loggedin_status}}<img style="padding-left: 5px" src="../../assets/svg/tri/sort-alpha-down.svg" alt="{{users_loggedin_status_sort}}"/></th>
-            <th scope="col" class="noselect" style="width: 115px;" *ngIf="triEstConnecte == 'DESC'" (click)="demandeDeTriEstConnecte()">{{users_loggedin_status}}<img style="padding-left: 5px" src="../../assets/svg/tri/sort-alpha-up-alt.svg" alt="{{users_loggedin_status_sort}}"/></th>
-            <th scope="col" class="noselect" *ngIf="triEstAdmin == ''" (click)="demandeDeTriEstAdmin()">{{users_is_admin}}</th>
-            <th scope="col" class="noselect" style="width: 160px;" *ngIf="triEstAdmin == 'ASC'" (click)="demandeDeTriEstAdmin()">{{users_is_admin}}<img style="padding-left: 5px" src="../../assets/svg/tri/sort-alpha-down.svg" alt="{{users_is_admin_sort}}"/></th>
-            <th scope="col" class="noselect" style="width: 160px;" *ngIf="triEstAdmin == 'DESC'" (click)="demandeDeTriEstAdmin()">{{users_is_admin}}<img style="padding-left: 5px" src="../../assets/svg/tri/sort-alpha-up-alt.svg" alt="{{users_is_admin_sort}}"/></th>
+            <th scope="col" class="noselect" style="width: 50px;" *ngIf="triId == 'ASC'" (click)="demandeDeTriId()">#<img style="padding-left: 5px" src="../../assets/svg/tri/sort-numeric-down.svg" alt="{{ 'menuUtilisateurs.nbrSort' | translate }} #"/></th>
+            <th scope="col" class="noselect" style="width: 50px;" *ngIf="triId == 'DESC'" (click)="demandeDeTriId()">#<img style="padding-left: 5px" src="../../assets/svg/tri/sort-numeric-up-alt.svg" alt="{{ 'menuUtilisateurs.nbrSort' | translate }} #"/></th>
+            <th scope="col" class="noselect" *ngIf="triEmail == ''" (click)="demandeDeTriEmail()">{{ 'menuUtilisateurs.email' | translate }}</th>
+            <th scope="col" class="noselect" style="width: 50px;" *ngIf="triEmail == 'ASC'" (click)="demandeDeTriEmail()">{{ 'menuUtilisateurs.email' | translate }}<img style="padding-left: 5px" src="../../assets/svg/tri/sort-alpha-down.svg" alt="{{ 'menuUtilisateurs.emailSort' | translate }}"/></th>
+            <th scope="col" class="noselect" style="width: 50px;" *ngIf="triEmail == 'DESC'" (click)="demandeDeTriEmail()">{{ 'menuUtilisateurs.email' | translate }}<img style="padding-left: 5px" src="../../assets/svg/tri/sort-alpha-up-alt.svg" alt="{{ 'menuUtilisateurs.emailSort' | translate }}"/></th>
+            <th scope="col" class="noselect" *ngIf="triNom == ''" (click)="demandeDeTriNom()">{{ 'menuUtilisateurs.lastname' | translate }}</th>
+            <th scope="col" class="noselect" *ngIf="triNom == 'ASC'" (click)="demandeDeTriNom()">{{ 'menuUtilisateurs.lastname' | translate }}<img style="padding-left: 5px" src="../../assets/svg/tri/sort-alpha-down.svg" alt="{{ 'menuUtilisateurs.lastnameSort' | translate }}"/></th>
+            <th scope="col" class="noselect" *ngIf="triNom == 'DESC'" (click)="demandeDeTriNom()">{{ 'menuUtilisateurs.lastname' | translate }}<img style="padding-left: 5px" src="../../assets/svg/tri/sort-alpha-up-alt.svg" alt="{{ 'menuUtilisateurs.lastnameSort' | translate }}"/></th>
+            <th scope="col" class="noselect" *ngIf="triPrenom == ''" (click)="demandeDeTriPrenom()">{{ 'menuUtilisateurs.firstname' | translate }}</th>
+            <th scope="col" class="noselect" *ngIf="triPrenom == 'ASC'" (click)="demandeDeTriPrenom()">{{ 'menuUtilisateurs.firstname' | translate }}<img style="padding-left: 5px" src="../../assets/svg/tri/sort-alpha-down.svg" alt="{{ 'menuUtilisateurs.firstnameSort' | translate }}"/></th>
+            <th scope="col" class="noselect" *ngIf="triPrenom == 'DESC'" (click)="demandeDeTriPrenom()">{{ 'menuUtilisateurs.firstname' | translate }}<img style="padding-left: 5px" src="../../assets/svg/tri/sort-alpha-up-alt.svg" alt="{{ 'menuUtilisateurs.firstnameSort' | translate }}"/></th>
+            <th scope="col" class="noselect" *ngIf="triAge == ''" (click)="demandeDeTriAge()">{{ 'menuUtilisateurs.age' | translate }}</th>
+            <th scope="col" class="noselect" style="width: 70px;" *ngIf="triAge == 'ASC'" (click)="demandeDeTriAge()">{{ 'menuUtilisateurs.age' | translate }}<img style="padding-left: 5px" src="../../assets/svg/tri/sort-numeric-down.svg" alt="{{ 'menuUtilisateurs.ageSort' | translate }}"/></th>
+            <th scope="col" class="noselect" style="width: 70px;" *ngIf="triAge == 'DESC'" (click)="demandeDeTriAge()">{{ 'menuUtilisateurs.age' | translate }}<img style="padding-left: 5px" src="../../assets/svg/tri/sort-numeric-up-alt.svg" alt="{{ 'menuUtilisateurs.ageSort' | translate }}"/></th>
+            <th scope="col" class="noselect" *ngIf="triNbKilometresCumules == ''" (click)="demandeDeTriNbKilometresCumules()">{{ 'menuUtilisateurs.cumulatedKms' | translate }}</th>
+            <th scope="col" class="noselect" *ngIf="triNbKilometresCumules == 'ASC'" (click)="demandeDeTriNbKilometresCumules()">{{ 'menuUtilisateurs.cumulatedKms' | translate }}<img style="padding-left: 5px" src="../../assets/svg/tri/sort-numeric-down.svg" alt="{{ 'menuUtilisateurs.cumulatedKmsSort' | translate }}"/></th>
+            <th scope="col" class="noselect" *ngIf="triNbKilometresCumules == 'DESC'" (click)="demandeDeTriNbKilometresCumules()">{{ 'menuUtilisateurs.cumulatedKms' | translate }}<img style="padding-left: 5px" src="../../assets/svg/tri/sort-numeric-up-alt.svg" alt="{{ 'menuUtilisateurs.cumulatedKmsSort' | translate }}"/></th>
+            <th scope="col" class="noselect" *ngIf="triEstConnecte == ''" (click)="demandeDeTriEstConnecte()">{{ 'menuUtilisateurs.loggedinStatus' | translate }}</th>
+            <th scope="col" class="noselect" style="width: 115px;" *ngIf="triEstConnecte == 'ASC'" (click)="demandeDeTriEstConnecte()">{{ 'menuUtilisateurs.loggedinStatus' | translate }}<img style="padding-left: 5px" src="../../assets/svg/tri/sort-alpha-down.svg" alt="{{ 'menuUtilisateurs.loggedinStatusSort' | translate }}"/></th>
+            <th scope="col" class="noselect" style="width: 115px;" *ngIf="triEstConnecte == 'DESC'" (click)="demandeDeTriEstConnecte()">{{ 'menuUtilisateurs.loggedinStatus' | translate }}<img style="padding-left: 5px" src="../../assets/svg/tri/sort-alpha-up-alt.svg" alt="{{ 'menuUtilisateurs.loggedinStatusSort' | translate }}"/></th>
+            <th scope="col" class="noselect" *ngIf="triEstAdmin == ''" (click)="demandeDeTriEstAdmin()">{{ 'menuUtilisateurs.isAdmin' | translate }}</th>
+            <th scope="col" class="noselect" style="width: 160px;" *ngIf="triEstAdmin == 'ASC'" (click)="demandeDeTriEstAdmin()">{{ 'menuUtilisateurs.isAdmin' | translate }}<img style="padding-left: 5px" src="../../assets/svg/tri/sort-alpha-down.svg" alt="{{ 'menuUtilisateurs.isAdminSort' | translate }}"/></th>
+            <th scope="col" class="noselect" style="width: 160px;" *ngIf="triEstAdmin == 'DESC'" (click)="demandeDeTriEstAdmin()">{{ 'menuUtilisateurs.isAdmin' | translate }}<img style="padding-left: 5px" src="../../assets/svg/tri/sort-alpha-up-alt.svg" alt="{{ 'menuUtilisateurs.isAdminSort' | translate }}"/></th>
             <th *ngIf="nbUtilisateurs > 0">
-                <button type="button" class="btn btn-danger" (click)="auMoinsUnASupprimer()" [disabled]="utilisateursASupprimer.length == 0">{{users_delete}}</button>
+                <button type="button" class="btn btn-danger" (click)="auMoinsUnASupprimer()" [disabled]="utilisateursASupprimer.length == 0">{{ 'menuUtilisateurs.delete' | translate }}</button>
             </th>
         </tr>
     </thead>
@@ -52,12 +52,12 @@
         </tr>
     </tbody>
 </table>
-<div *ngIf="nbUtilisateurs>0" id="statNbUtilisateurs">{{users_nb_users}}</div>
-<div *ngIf="nbUtilisateurs==0" id="statNbUtilisateurs">{{users_no_users}}</div>
+<div *ngIf="nbUtilisateurs>0" id="statNbUtilisateurs">{{ nbUtilisateurs }}</div>
+<div *ngIf="nbUtilisateurs==0" id="statNbUtilisateurs">{{ 'menuUtilisateurs.noUsers' | translate }}</div>
 <div class="boutonAjouter">
-    <button class="w-100 btn btn-lg btn-primary" (click)="nouvelUtilisateur()">{{users_add_user}}</button>
+    <button class="w-100 btn btn-lg btn-primary" (click)="nouvelUtilisateur()">{{ 'menuUtilisateurs.addUser' | translate }}</button>
 </div>
 <div id="backBar" routerLink="/accueil">
-    <h4>{{users_back_home}}</h4>
-    <img src="../../assets/svg/arrow-left-square-fill-back-to-accueil.svg" alt="{{users_back_home}}"/>
+    <h4>{{ 'menuUtilisateurs.backHome' | translate }}</h4>
+    <img src="../../assets/svg/arrow-left-square-fill-back-to-accueil.svg" alt="{{ 'menuUtilisateurs.backHome' | translate }}"/>
 </div>

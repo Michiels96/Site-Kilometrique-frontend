@@ -6,8 +6,8 @@ import { Utilisateur } from '../models/Utilisateur.model';
 import { StatistiqueService } from '../services/statistique.service';
 import { UtilisateurService } from '../services/utilisateur.service';
 import { LanguageService } from '../services/language.service';
+import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
-import { ReloadService } from '../services/component-reload.service';
 
 @Component({
   selector: 'app-inscription',
@@ -15,31 +15,13 @@ import { ReloadService } from '../services/component-reload.service';
   styleUrls: ['./inscription.component.css']
 })
 export class InscriptionComponent implements OnInit, OnDestroy {
-  private reloadSubscription: Subscription;
   inscriptionForm: FormGroup;
   nouvelUtilisateur: boolean = false;
 
-  // language terms
-  register: string;
-  email: string;
-  password: string;
-  name: string;
-  lastname: string;
-  age: string;
-  submitRegister: string;
-  createUser: string;
-  backToUsers: string;
-
-  constructor(private formBuilder: FormBuilder, private router: Router, private reloadService: ReloadService, private utilisateurService: UtilisateurService, private statistiqueService: StatistiqueService, private languageService: LanguageService) { }
+  constructor(private formBuilder: FormBuilder, private router: Router, private utilisateurService: UtilisateurService, private statistiqueService: StatistiqueService, private languageService: LanguageService, private translateService: TranslateService) { }
 
   ngOnInit(): void {
     Emitters.componentAffiche.emit("componentInscription");
-    // Observable to reload from 'nav' component when there is a language change
-    this.reloadSubscription = this.reloadService.getReloadObservable().subscribe((reload) => {
-      if (reload) {
-        this.setLanguageTerms();
-      }
-    });
     //ajouter une nouvelle marque
     if(sessionStorage.getItem('utilisateurAAjouter') != null){
       this.nouvelUtilisateur = true;
@@ -47,41 +29,9 @@ export class InscriptionComponent implements OnInit, OnDestroy {
     this.initForm();
   }
 
-  setLanguageTerms(){
-    let french_lib = this.languageService.getFrenchLib();
-    if (this.languageService.getSelectedLanguage() == 'fr'){
-      this.register = french_lib['inscription']['register'];
-      this.email = french_lib['inscription']['emailAddress'];
-      this.password = french_lib['inscription']['password'];
-      this.name = french_lib['inscription']['name'];
-      this.lastname = french_lib['inscription']['lastname'];
-      this.age = french_lib['inscription']['age'];
-      this.submitRegister = french_lib['inscription']['submitRegister'];
-      this.createUser = french_lib['inscription']['createUser'];
-      this.backToUsers = french_lib['inscription']['backToUsers'];
-    }
-
-    let english_lib = this.languageService.getEnglishLib();
-    if (this.languageService.getSelectedLanguage() == 'en'){
-      this.register = english_lib['inscription']['register'];
-      this.email = english_lib['inscription']['emailAddress'];
-      this.password = english_lib['inscription']['password'];
-      this.name = english_lib['inscription']['name'];
-      this.lastname = english_lib['inscription']['lastname'];
-      this.age = english_lib['inscription']['age'];
-      this.submitRegister = english_lib['inscription']['submitRegister'];
-      this.createUser = english_lib['inscription']['createUser'];
-      this.backToUsers = english_lib['inscription']['backToUsers'];
-    }
-  }
-
   ngOnDestroy(): void{
     Emitters.componentAffiche.emit("");
     sessionStorage.removeItem('utilisateurAAjouter');
-    // delete the observable to avoid component memory leak
-    if (this.reloadSubscription) {
-      this.reloadSubscription.unsubscribe();
-    }
   }
 
   initForm() {

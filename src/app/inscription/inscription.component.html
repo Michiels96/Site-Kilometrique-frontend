@@ -1,34 +1,34 @@
 <form [formGroup]="inscriptionForm" (ngSubmit)="onSubmitForm()" id="formInscription">
-    <h1 class="h3 mb-3 fw-normal">{{register}}</h1>
+    <h1 class="h3 mb-3 fw-normal">{{ 'inscription.register' | translate }}</h1>
 
     <div class="mb-3">
-        <label for="email" class="form-label">{{email}}*</label>
+        <label for="email" class="form-label">{{ 'inscription.emailAddress' | translate }}*</label>
         <input type="email" class="form-control" id="email" placeholder="albert@hotmail.com" formControlName="email">
     </div>
 
     <div class="mb-3">
-        <label for="password" class="form-label">{{password}}*</label>
-        <input type="password" class="form-control" id="{{password}}" placeholder="{{password}}" formControlName="password">
+        <label for="password" class="form-label">{{ 'inscription.password' | translate }}*</label>
+        <input type="password" class="form-control" id="{{ 'inscription.password' | translate }}" placeholder="{{ 'inscription.password' | translate }}" formControlName="password">
     </div>
 
     <div class="mb-3">
-        <label for="nom" class="form-label">{{name}}*</label>
-        <input type="text" class="form-control" id="name" placeholder="{{name}}" value="" formControlName="name">
+        <label for="nom" class="form-label">{{ 'inscription.name' | translate }}*</label>
+        <input type="text" class="form-control" id="name" placeholder="{{ 'inscription.name' | translate }}" value="" formControlName="name">
     </div>
 
     <div class="mb-3">
-        <label for="prenom" class="form-label">{{lastname}}*</label>
-        <input type="text" class="form-control" id="lastname" placeholder="{{lastname}}" formControlName="lastname">
+        <label for="prenom" class="form-label">{{ 'inscription.lastname' | translate }}*</label>
+        <input type="text" class="form-control" id="lastname" placeholder="{{ 'inscription.lastname' | translate }}" formControlName="lastname">
     </div>
 
     <div class="mb-3">
-        <label for="age" class="form-label">{{age}}</label>
-        <input type="number" class="form-control" id="age" placeholder="{{age}}" formControlName="age">
+        <label for="age" class="form-label">{{ 'inscription.age' | translate }}</label>
+        <input type="number" class="form-control" id="age" placeholder="{{ 'inscription.age' | translate }}" formControlName="age">
     </div>
-    <button class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="inscriptionForm.invalid"><span *ngIf="!nouvelUtilisateur">{{submitRegister}}</span><span *ngIf="nouvelUtilisateur">{{createUser}}</span></button>
+    <button class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="inscriptionForm.invalid"><span *ngIf="!nouvelUtilisateur">{{ 'inscription.submitRegister' | translate }}</span><span *ngIf="nouvelUtilisateur">{{ 'inscription.createUser' | translate }}</span></button>
 </form>
 
 <div *ngIf="nouvelUtilisateur" id="backBar" routerLink="/utilisateurs">
-    <h4>{{backToUsers}}</h4>
-    <img src="../../assets/svg/arrow-left-square-fill-back-to-accueil.svg" alt="{{backToUsers}}"/>
+    <h4>{{ 'inscription.backToUsers' | translate }}</h4>
+    <img src="../../assets/svg/arrow-left-square-fill-back-to-accueil.svg" alt="{{ 'inscription.backToUsers' | translate }}"/>
 </div>

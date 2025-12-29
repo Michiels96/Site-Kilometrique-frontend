@@ -5,8 +5,8 @@ import { Emitters } from '../emitters/emitters';
 import { Utilisateur } from '../models/Utilisateur.model';
 import { StatistiqueService } from '../services/statistique.service';
 import { UtilisateurService } from '../services/utilisateur.service';
-import { ReloadService } from '../services/component-reload.service';
 import { LanguageService } from '../services/language.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-menu-statistiques',
@@ -14,30 +14,6 @@ import { LanguageService } from '../services/language.service';
   styleUrls: ['./menu-statistiques.component.css']
 })
 export class MenuStatistiquesComponent implements OnInit, OnDestroy {
-  private reloadSubscription: Subscription;
-
-  // language terms
-  stats_title: string;
-  stats_user: string;
-  stats_add_stat: string;
-  stats_add_date_sort: string;
-  stats_add_date_sort_legend: string;
-  stats_modify_date_sort: string;
-  stats_delete: string;
-  stats_add_date: string;
-  stats_modify_date: string;
-  stats_empty_msg: string;
-  stats_back_home: string;
-  thereIs: string;
-  year: string;
-  monthPlus: string;
-  month: string;
-  day: string;
-  days: string;
-  today: string;
-  delStats: string;
-  errDelStats: string;
-
 
   // Administrator 'select' input
   utilisateurs:any = [{}];
@@ -56,92 +32,40 @@ export class MenuStatistiquesComponent implements OnInit, OnDestroy {
 
   statistiquesASupprimer = [];
 
+  // Missing properties
+  reloadSubscription: Subscription;
+  thereIs: string = "Il y a ";
+  year: string = " an, ";
+  monthPlus: string = " mois et ";
+  month: string = " mois";
+  day: string = " jour";
+  days: string = " jours";
+  today: string = "Aujourd'hui";
+  delStats: string = "Etes-vous sûr de vouloir supprimer ces statistiques ?";
+  errDelStats: string = "Erreur de suppression des statistiques";
 
-  constructor(private statistiqueService: StatistiqueService, private utilisateurService: UtilisateurService, private router: Router, private reloadService: ReloadService, private languageService: LanguageService) { }
+  constructor(private statistiqueService: StatistiqueService, private utilisateurService: UtilisateurService, private router: Router, private languageService: LanguageService, private translateService: TranslateService) { }
 
   ngOnInit(): void {
     Emitters.componentAffiche.emit("componentStatistiques");
-    this.reloadSubscription = this.reloadService.getReloadObservable().subscribe((reload) => {
-      if (reload) {
-        this.setLanguageTerms();
-      }
-    });
     this.utilisateurService.getUtilisateursFromServer();
     this.utilisateurSubscription = this.utilisateurService.utilisateursSubject.subscribe(
       (utilisateurs: any[]) => {
         this.utilisateurs = utilisateurs;
-        //this.chargerListVehiculesUtilisateur(this.utilisateurs[0]['id_utilisateur']);
-        //console.log(this.utilisateurs)
         this.chargerListeStatistiquesUtilisateur(this.utilisateurService.getInfoUtilisateur().id_utilisateur+"");
       }
     );
 
     this.statistiqueSubscription = this.statistiqueService.statistiquesSubject.subscribe(
       (statistiques: any[]) => {
-        //this.statistiques = statistiques;
         this.statistiquesTriees = statistiques;
         this.nbStatistiques = this.statistiquesTriees.length;
-        this.setLanguageTerms();
       }
     );
   }
 
-  setLanguageTerms(){
-    let french_lib = this.languageService.getFrenchLib();
-    if (this.languageService.getSelectedLanguage() == 'fr'){
-      this.stats_title = french_lib['statistiques']['stats_title'];
-      this.stats_user = french_lib['statistiques']['stats_user'];
-      this.stats_add_stat = french_lib['statistiques']['stats_add_stat'];
-      this.stats_add_date_sort = french_lib['statistiques']['stats_add_date_sort'];
-      this.stats_add_date_sort_legend = french_lib['statistiques']['stats_add_date_sort_legend'];
-      this.stats_modify_date_sort = french_lib['statistiques']['stats_modify_date_sort'];
-      this.stats_delete = french_lib['statistiques']['stats_delete'];
-      this.stats_add_date = french_lib['statistiques']['stats_add_date'];
-      this.stats_modify_date = french_lib['statistiques']['stats_modify_date'];
-      this.stats_empty_msg = french_lib['statistiques']['stats_empty_msg'];
-      this.stats_back_home = french_lib['statistiques']['stats_back_home'];
-      this.thereIs = french_lib['statistiques']['thereIs'];
-      this.year = french_lib['statistiques']['year'];
-      this.monthPlus = french_lib['statistiques']['monthPlus'];
-      this.month = french_lib['statistiques']['month'];
-      this.day = french_lib['statistiques']['day'];
-      this.days = french_lib['statistiques']['days'];
-      this.today = french_lib['statistiques']['today'];
-      this.delStats = french_lib['statistiques']['delStats'];
-      this.errDelStats = french_lib['statistiques']['errDelStats'];
-    }
-
-    let english_lib = this.languageService.getEnglishLib();
-    if (this.languageService.getSelectedLanguage() == 'en'){
-      this.stats_title = english_lib['statistiques']['stats_title'];
-      this.stats_user = english_lib['statistiques']['stats_user'];
-      this.stats_add_stat = english_lib['statistiques']['stats_add_stat'];
-      this.stats_add_date_sort = english_lib['statistiques']['stats_add_date_sort'];
-      this.stats_add_date_sort_legend = english_lib['statistiques']['stats_add_date_sort_legend'];
-      this.stats_modify_date_sort = english_lib['statistiques']['stats_modify_date_sort'];
-      this.stats_delete = english_lib['statistiques']['stats_delete'];
-      this.stats_add_date = english_lib['statistiques']['stats_add_date'];
-      this.stats_modify_date = english_lib['statistiques']['stats_modify_date'];
-      this.stats_empty_msg = english_lib['statistiques']['stats_empty_msg'];
-      this.stats_back_home = english_lib['statistiques']['stats_back_home'];
-      this.thereIs = english_lib['statistiques']['thereIs'];
-      this.year = english_lib['statistiques']['year'];
-      this.monthPlus = english_lib['statistiques']['monthPlus'];
-      this.month = english_lib['statistiques']['month'];
-      this.day = english_lib['statistiques']['day'];
-      this.days = english_lib['statistiques']['days'];
-      this.today = english_lib['statistiques']['today'];
-      this.delStats = english_lib['statistiques']['delStats'];
-      this.errDelStats = english_lib['statistiques']['errDelStats'];
-    }
-  }
-
   ngOnDestroy(): void{
     Emitters.componentAffiche.emit("");
-    // delete the observable to avoid component memory leak
-    if (this.reloadSubscription) {
-      this.reloadSubscription.unsubscribe();
-    }
   }
 
   rafraichir(){

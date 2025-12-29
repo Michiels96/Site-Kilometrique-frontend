@@ -1,6 +1,6 @@
-<h2 class="titre noselect">{{down_title}}</h2>
+<h2 class="titre noselect">{{ 'telechargement.title' | translate }}</h2>
 <div style="padding-top: 15px;max-width: 300px;margin-left: 20px;" *ngIf="checkAdminStatus()">
-    <h4>{{down_user}} :</h4>
+    <h4>{{ 'telechargement.user' | translate }} :</h4>
     <select class="form-select" aria-label="Default select example" style="margin-bottom: 15px;" [(ngModel)]="selectedOption" #selectList (change)="chargerInfoUtilisateur(selectList.value)">
         <option *ngFor="let utilisateur of utilisateurs" [selected]="utilisateurSelectionne != null && utilisateurSelectionne.id_utilisateur === utilisateur.id_utilisateur" value="{{utilisateur['id_utilisateur']}}">{{utilisateur['id_utilisateur']}} - {{utilisateur['email']}}, {{utilisateur['nom']}} {{utilisateur['prenom']}}</option>
     </select>
@@ -9,23 +9,23 @@
 <form [formGroup]="telechargerForm" (ngSubmit)="onSubmitForm()" id="formTelecharger">
     <div class="form-check form-switch">
         <input class="form-check-input" type="checkbox" id="switchHistoriqueDeNav" formControlName="avecHistoNav">
-        <label class="form-check-label" for="switchHistoriqueDeNav">{{down_with_out_history}}</label>
+        <label class="form-check-label" for="switchHistoriqueDeNav">{{ 'telechargement.withOutHistory' | translate }}</label>
     </div>
     <div class="form-check form-switch">
         <input class="form-check-input" type="checkbox" id="switchVehicules" formControlName="avecVehicule">
-        <label class="form-check-label" for="switchVehicules">{{down_with_out_vhs}}</label>
+        <label class="form-check-label" for="switchVehicules">{{ 'telechargement.withOutVhs' | translate }}</label>
     </div>
     <div class="form-check form-switch">
         <input class="form-check-input" type="checkbox" id="switchStatistiques" formControlName="avecStat">
-        <label class="form-check-label" for="switchStatistiques">{{down_with_out_stats}}</label>
+        <label class="form-check-label" for="switchStatistiques">{{ 'telechargement.withOutStats' | translate }}</label>
     </div>
     <div style="padding-left:65px;padding-right:65px;margin-top:30px;">
-        <button class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="telechargerForm.invalid">{{download}}</button>
+        <button class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="telechargerForm.invalid">{{ 'telechargement.download' | translate }}</button>
     </div>
 </form>
 
 
 <div id="backBar" routerLink="/accueil">
-    <h4>{{down_back_home}}</h4>
-    <img src="../../assets/svg/arrow-left-square-fill-back-to-accueil.svg" alt="{{down_back_home}}"/>
+    <h4>{{ 'telechargement.backHome' | translate }}</h4>
+    <img src="../../assets/svg/arrow-left-square-fill-back-to-accueil.svg" alt="{{ 'telechargement.backHome' | translate }}"/>
 </div>

@@ -1,5 +1,5 @@
-<div style="text-align: left;margin-bottom: 15px;" class="noselect" *ngIf="checkAdminStatus()"><span id="status">{{admin_status}}</span></div>
-<h2 class="noselect">{{message}}</h2>
+<div style="text-align: left;margin-bottom: 15px;" class="noselect" *ngIf="checkAdminStatus()"><span id="status">{{ 'accueil.adminStatus' | translate }}</span></div>
+<h2 class="noselect"></h2>
 <div class="container marketing">
     <!-- Three columns of text below the carousel -->
     <div class="row">
@@ -14,45 +14,45 @@
 
         <div data-aos="fade-right" data-aos-duration="1000" data-aos-mirror="true" data-aos-anchor-placement="top-center" class="col-lg-4">
             <img style="padding-bottom: 15px;" src="../../assets/svg/journal-bookmark.svg" alt="historique de navigation"/>
-            <h2>{{nav_history_menu_title}}</h2>
-            <p>{{nav_history_menu_legend}}</p>
-            <p><a class="btn btn-secondary" routerLink="/lignes">{{nav_history_menu_button}}</a></p>
+            <h2>{{ 'accueil.navHistoryMenuTitle' | translate }}</h2>
+            <p>{{ 'accueil.navHistoryMenuLegend' | translate }}</p>
+            <p><a class="btn btn-secondary" routerLink="/lignes">{{ 'accueil.navHistoryMenuButton' | translate }}</a></p>
         </div>
 
         <div data-aos="fade-left" data-aos-duration="1000" data-aos-mirror="true" data-aos-anchor-placement="top-center" class="col-lg-4">
             <img style="padding-bottom: 10px;" src="../../assets/svg/steering-wheel.svg" alt="vehicules"/>
-            <h2>{{vehicles_menu_title}}</h2>
-            <p style="font-family: source_sans_proregular;">{{vehicles_menu_legend}}</p>
-            <p><a class="btn btn-secondary" routerLink="/vehicules" style="font-family: source_sans_proregular;">{{vehicles_menu_button}}</a></p>
+            <h2>{{ 'accueil.vehiclesMenuTitle' | translate }}</h2>
+            <p style="font-family: source_sans_proregular;">{{ 'accueil.vehiclesMenuLegend' | translate }}</p>
+            <p><a class="btn btn-secondary" routerLink="/vehicules" style="font-family: source_sans_proregular;">{{ 'accueil.vehiclesMenuButton' | translate }}</a></p>
         </div>
 
         <div data-aos="fade-right" data-aos-duration="1000" data-aos-mirror="true" data-aos-anchor-placement="top-center" class="col-lg-4">
             <img src="../../assets/svg/marque.svg" alt="marques"/>
-            <h2>{{brands_menu_title}}</h2>
-            <p style="font-family: source_sans_proregular;">{{brands_menu_legend}}</p>
-            <p><a class="btn btn-secondary" routerLink="/marques" style="font-family: source_sans_proregular;">{{brands_menu_button}}</a></p>
+            <h2>{{ 'accueil.brandsMenuTitle' | translate }}</h2>
+            <p style="font-family: source_sans_proregular;">{{ 'accueil.brandsMenuLegend' | translate }}</p>
+            <p><a class="btn btn-secondary" routerLink="/marques" style="font-family: source_sans_proregular;">{{ 'accueil.brandsMenuButton' | translate }}</a></p>
         </div>
 
         <div data-aos="fade-left" data-aos-duration="1000" data-aos-mirror="true" data-aos-anchor-placement="top-center" class="col-lg-4" *ngIf="checkAdminStatus()">
             <img src="../../assets/svg/people.svg" alt="utilisateurs"/>
-            <h2>{{users_menu_title}}</h2>
-            <p style="font-family: source_sans_proregular;">{{users_menu_legend}}</p>
-            <p><a class="btn btn-secondary" routerLink="/utilisateurs" style="font-family: source_sans_proregular;">{{users_menu_button}}</a></p>
+            <h2>{{ 'accueil.usersMenuTitle' | translate }}</h2>
+            <p style="font-family: source_sans_proregular;">{{ 'accueil.usersMenuLegend' | translate }}</p>
+            <p><a class="btn btn-secondary" routerLink="/utilisateurs" style="font-family: source_sans_proregular;">{{ 'accueil.usersMenuButton' | translate }}</a></p>
         </div>
 
         <div data-aos="fade-right" data-aos-duration="1000" data-aos-mirror="true" data-aos-anchor-placement="top-center" class="col-lg-4">
             <img src="../../assets/svg/book.svg" alt="statistiques"/>
-            <h2>{{stats_menu_title}}</h2>
-            <p style="font-family: source_sans_proregular;">{{stats_menu_legend}}</p>
-            <p><a class="btn btn-secondary" routerLink="/statistiques" style="font-family: source_sans_proregular;">{{stats_menu_button}}</a></p>
+            <h2>{{ 'accueil.statsMenuTitle' | translate }}</h2>
+            <p style="font-family: source_sans_proregular;">{{ 'accueil.statsMenuLegend' | translate }}</p>
+            <p><a class="btn btn-secondary" routerLink="/statistiques" style="font-family: source_sans_proregular;">{{ 'accueil.statsMenuButton' | translate }}</a></p>
         </div>
 
         <div data-aos="fade-left" data-aos-duration="1000" data-aos-mirror="true" data-aos-anchor-placement="top-center" class="col-lg-4">
             <img src="../../assets/svg/file-earmark-arrow-down.svg" alt="fichier" style="margin-bottom: 15px;"/>
-            <h2>{{down_menu_title}}</h2>
-            <p style="font-family: source_sans_proregular;">{{down_menu_legend}}</p>
-            <p><a class="btn btn-secondary" routerLink="/download" style="font-family: source_sans_proregular;">{{down_menu_button}}</a></p>
+            <h2>{{ 'accueil.downMenuTitle' | translate }}</h2>
+            <p style="font-family: source_sans_proregular;">{{ 'accueil.downMenuLegend' | translate }}</p>
+            <p><a class="btn btn-secondary" routerLink="/download" style="font-family: source_sans_proregular;">{{ 'accueil.downMenuButton' | translate }}</a></p>
         </div>
     </div>
 </div><!-- /.container -->
-<div style="text-align: center; font-family: source_sans_proregular;">{{footer}} <a href="https://www.flaticon.com/fr/auteurs/photo3idea-studio" title="photo3idea_studio">photo3idea_studio</a><br/> from <a href="https://www.flaticon.com/fr/" title="Flaticon">www.flaticon.com</a></div>
+<div style="text-align: center; font-family: source_sans_proregular;">{{ 'accueil.footer' | translate }} <a href="https://www.flaticon.com/fr/auteurs/photo3idea-studio" title="photo3idea_studio">photo3idea_studio</a><br/> from <a href="https://www.flaticon.com/fr/" title="Flaticon">www.flaticon.com</a></div>

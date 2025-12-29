@@ -4,6 +4,7 @@ import { Emitters } from '../emitters/emitters';
 import { Utilisateur } from '../models/Utilisateur.model';
 import { UtilisateurService } from '../services/utilisateur.service';
 import { LanguageService } from '../services/language.service';
+import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { ReloadService } from '../services/component-reload.service';
 
@@ -19,7 +20,7 @@ export class FourOhFourComponent implements OnInit, OnDestroy {
   t404_title: string;
   t404_legend: string;
 
-  constructor(private utilisateurService: UtilisateurService, private router: Router, private reloadService: ReloadService, private languageService: LanguageService) { }
+  constructor(private utilisateurService: UtilisateurService, private router: Router, private reloadService: ReloadService, private languageService: LanguageService, private translateService: TranslateService) { }
 
   ngOnInit(): void {
     Emitters.componentAffiche.emit("component404");
@@ -53,16 +54,18 @@ export class FourOhFourComponent implements OnInit, OnDestroy {
   }
 
   setLanguageTerms(){
-    let french_lib = this.languageService.getFrenchLib();
+    this.translateService.get('404.t404_title').subscribe((res: string) => {
+      this.t404_title = res;
+    });
+
+    this.translateService.get('404.t404_legend').subscribe((res: string) => {
+      this.t404_legend = res;
+    });
+
     if (this.languageService.getSelectedLanguage() == 'fr'){
-      this.t404_title = french_lib['404']['t404_title'];
-      this.t404_legend = french_lib['404']['t404_legend'];
     }
 
-    let english_lib = this.languageService.getEnglishLib();
     if (this.languageService.getSelectedLanguage() == 'en'){
-      this.t404_title = english_lib['404']['t404_title'];
-      this.t404_legend = english_lib['404']['t404_legend'];
     }
   }
 
