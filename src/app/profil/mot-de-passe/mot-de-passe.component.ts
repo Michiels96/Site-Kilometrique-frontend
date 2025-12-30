@@ -72,7 +72,7 @@ export class MotDePasseComponent implements OnInit, OnDestroy {
 
       this.utilisateurService.modifierUtilisateur(utilisateurModifie, false, true)
         .then((resp) => {
-            //alert("profil modifié!");
+
             if(this.modifierUtilisateur){
               this.router.navigate(['/utilisateurs']);
             }

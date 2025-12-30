@@ -36,7 +36,7 @@ import { TelechargerFichierComponent } from "./telecharger-fichier/telecharger-f
 import { DownloadService } from "./services/download.service";
 import { LanguageService } from "./services/language.service";
 
-// Custom TranslateLoader for ngx-translate v17
+
 export class CustomTranslateLoader implements TranslateLoader {
   constructor(private http: HttpClient) {}
 

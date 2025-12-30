@@ -23,7 +23,7 @@ export class TypeVehiculeService{
       this.IPBackend = ipService.getIPBackend();
   }
 
-  // informe tous les components abboné au service que un de ses attibuts à été maj.
+
   emitListeTypesSubject(){
     this.typeVehiculeSubject.next(this.types.slice());
   }
@@ -31,19 +31,19 @@ export class TypeVehiculeService{
   getTypesFromServer(){
     this.emitListeTypesSubject();
 
-    // Sera utile quand les types viendront de la DB
-    // let query = this.IPBackend+"/types/";
-    // this.httpClient
-    //   .get<any[]>(query, this.headers)
-    //   .subscribe(
-    //     (resp) => {
-    //       this.types = resp;
-    //       this.emitListeTypesSubject();
-    //     },
-    //     (error) => {
-    //       console.log('Erreur ! : ' + JSON.stringify(error));
-    //     }
-    //   );
+
+
+
+
+
+
+
+
+
+
+
+
+
   }
 
 }

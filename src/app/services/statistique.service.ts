@@ -18,7 +18,7 @@ export class StatistiqueService{
       this.IPBackend = ipService.getIPBackend();
   }
 
-  // informe tous les components abboné au service que un de ses attibuts à été maj.
+
   emitListeStatistiquesSubject(){
     this.statistiquesSubject.next(this.statistiques.slice());
   }
@@ -49,28 +49,34 @@ export class StatistiqueService{
 
 
 
-  // getByNomUnique(nomUnique: string){
-  //   let query = this.IPBackend+"/stati/nomUnique/";
 
-  //   const headers = {
-  //       headers: new HttpHeaders({ 
-  //         'Authorization': localStorage.getItem('sessionToken')
-  //       })
-  //     };
 
-  //   let params = new HttpParams().set('nom_unique', nomUnique);
 
-  //   return this.httpClient
-  //       .get<any[]>(query, {headers: headers.headers, params: params})
-  //       .toPromise();
-  // }
+
+
+
+
+
+
+
+
+
+
+
+
 
   ajouterStatistique(statistique:Statistique, id_utlisateur:number){
     let query = this.IPBackend+"/statistiques/";
     let body = {'description': statistique.description, 'utilisateur': id_utlisateur};
 
+    const authorizationHeader = {
+      headers: new HttpHeaders({
+        "Authorization": localStorage.getItem("sessionToken")
+      })
+    };
+
     return this.httpClient
-        .post<any[]>(query, body)
+        .post<any[]>(query, body, authorizationHeader)
         .toPromise();
   }
 
@@ -97,7 +103,7 @@ export class StatistiqueService{
     };
     let query = this.IPBackend+"/statistiques/";
     let body = {'id_utilisateur': id_utilisateur, 'id_statistique': statistique.id_statistique, 'description': statistique.description, 'date': statistique.dateDAjout};
-    //console.log(body)
+
     return this.httpClient
       .put<any[]>(query, body, headers)
       .toPromise();
@@ -140,13 +146,13 @@ export class StatistiqueService{
       params = new HttpParams()
       .set('type', 'ASC')
       .set('id_utilisateur', id_utilisateur);
-      //query += "ASC";
+
     }
     else{
       params = new HttpParams()
       .set('type', 'DESC')
       .set('id_utilisateur', id_utilisateur);
-      //query += "DESC";
+
     }
     
 
@@ -157,7 +163,7 @@ export class StatistiqueService{
     };
     this.httpClient
       .get<any[]>(query, {headers: headers.headers, params: params})
-      //.get<any[]>(query, headers)
+
       .subscribe(
         (resp) => {
           this.statistiques = resp;
@@ -175,12 +181,12 @@ export class StatistiqueService{
     let params;
     if(type == "ASC"){
       params = new HttpParams().set('type', 'ASC').set('id_utilisateur', id_utilisateur);
-      //query += "ASC";
+
     }
     else{
       params = new HttpParams()
       .set('type', 'DESC').set('id_utilisateur', id_utilisateur);
-      //query += "DESC";
+
     }
     
 
@@ -191,7 +197,7 @@ export class StatistiqueService{
     };
     this.httpClient
       .get<any[]>(query, {headers: headers.headers, params: params})
-      //.get<any[]>(query, headers)
+
       .subscribe(
         (resp) => {
           this.statistiques = resp;
@@ -204,155 +210,155 @@ export class StatistiqueService{
   }
   
   
-  // triParId(type: string, id_utilisateur: number){
-  //   let query = this.IPBackend+"/vehicules/utilisateur/tri/id/";
 
-  //   let params;
-  //   if(type == "ASC"){
-  //     params = new HttpParams().set('type', 'ASC').set('id_utilisateur', id_utilisateur);
-  //     //query += "ASC";
-  //   }
-  //   else{
-  //     params = new HttpParams()
-  //     .set('type', 'DESC').set('id_utilisateur', id_utilisateur);
-  //     //query += "DESC";
-  //   }
+
+
+
+
+
+
+
+
+
+
+
+
     
 
-  //   const headers = {
-  //     headers: new HttpHeaders({ 
-  //       'Authorization': localStorage.getItem('sessionToken')
-  //     })
-  //   };
-  //   this.httpClient
-  //     .get<any[]>(query, {headers: headers.headers, params: params})
-  //     //.get<any[]>(query, headers)
-  //     .subscribe(
-  //       (resp) => {
-  //         this.vehicules = resp;
-  //         this.emitListeVehiculesSubject();
-  //       },
-  //       (error) => {
-  //         console.log('Erreur ! : ' + JSON.stringify(error));
-  //       }
-  //     );
-  // }
 
-  // triParNomUnique(type: string, id_utilisateur: number){
-  //   let query = this.IPBackend+"/vehicules/utilisateur/tri/nom_unique/";
 
-  //   let params;
-  //   if(type == "ASC"){
-  //     params = new HttpParams().set('type', 'ASC').set('id_utilisateur', id_utilisateur);
-  //   }
-  //   else{
-  //     params = new HttpParams()
-  //     .set('type', 'DESC').set('id_utilisateur', id_utilisateur);
-  //   }
 
-  //   const headers = {
-  //     headers: new HttpHeaders({ 
-  //       'Authorization': localStorage.getItem('sessionToken')
-  //     })
-  //   };
-  //   this.httpClient
-  //   .get<any[]>(query, {headers: headers.headers, params: params})
-  //     .subscribe(
-  //       (resp) => {
-  //         this.vehicules = resp;
-  //         this.emitListeVehiculesSubject();
-  //       },
-  //       (error) => {
-  //         console.log('Erreur ! : ' + JSON.stringify(error));
-  //       }
-  //     );
-  // }
 
-  // triParMarque(type: string, id_utilisateur: number){
-  //   let query = this.IPBackend+"/vehicules/utilisateur/tri/marque/";
 
-  //   let params;
-  //   if(type == "ASC"){
-  //     params = new HttpParams().set('type', 'ASC').set('id_utilisateur', id_utilisateur);
-  //   }
-  //   else{
-  //     params = new HttpParams().set('type', 'DESC').set('id_utilisateur', id_utilisateur);
-  //   }
 
-  //   const headers = {
-  //     headers: new HttpHeaders({ 
-  //       'Authorization': localStorage.getItem('sessionToken')
-  //     })
-  //   };
-  //   this.httpClient
-  //     .get<any[]>(query, {headers: headers.headers, params: params})
-  //     .subscribe(
-  //       (resp) => {
-  //         this.vehicules = resp;
-  //         this.emitListeVehiculesSubject();
-  //       },
-  //       (error) => {
-  //         console.log('Erreur ! : ' + JSON.stringify(error));
-  //       }
-  //     );
-  // }
 
-  // triParType(type: string, id_utilisateur: number){
-  //   let query = this.IPBackend+"/vehicules/utilisateur/tri/type/";
 
-  //   let params;
-  //   if(type == "ASC"){
-  //     params = new HttpParams().set('type', 'ASC').set('id_utilisateur', id_utilisateur);
-  //   }
-  //   else{
-  //     params = new HttpParams().set('type', 'DESC').set('id_utilisateur', id_utilisateur);
-  //   }
 
-  //   const headers = {
-  //     headers: new HttpHeaders({ 
-  //       'Authorization': localStorage.getItem('sessionToken')
-  //     })
-  //   };
-  //   this.httpClient
-  //     .get<any[]>(query, {headers: headers.headers, params: params})
-  //     .subscribe(
-  //       (resp) => {
-  //         this.vehicules = resp;
-  //         this.emitListeVehiculesSubject();
-  //       },
-  //       (error) => {
-  //         console.log('Erreur ! : ' + JSON.stringify(error));
-  //       }
-  //     );
-  // }
 
-  // triParDetail(type: string, id_utilisateur: number){
-  //   let query = this.IPBackend+"/vehicules/utilisateur/tri/detail/";
 
-  //   let params;
-  //   if(type == "ASC"){
-  //     params = new HttpParams().set('type', 'ASC').set('id_utilisateur', id_utilisateur);
-  //   }
-  //   else{
-  //     params = new HttpParams().set('type', 'DESC').set('id_utilisateur', id_utilisateur);
-  //   }
 
-  //   const headers = {
-  //     headers: new HttpHeaders({ 
-  //       'Authorization': localStorage.getItem('sessionToken')
-  //     })
-  //   };
-  //   this.httpClient
-  //     .get<any[]>(query, {headers: headers.headers, params: params})
-  //     .subscribe(
-  //       (resp) => {
-  //         this.vehicules = resp;
-  //         this.emitListeVehiculesSubject();
-  //       },
-  //       (error) => {
-  //         console.log('Erreur ! : ' + JSON.stringify(error));
-  //       }
-  //     );
-  // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

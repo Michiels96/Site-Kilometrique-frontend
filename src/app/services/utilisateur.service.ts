@@ -25,7 +25,7 @@ export class UtilisateurService {
         this.IPBackend = ipService.getIPBackend();
     }
 
-    // informe tous les components abboné au service que un de ses attibuts à été maj.
+
     emitListeUtilisateursSubject(){
         this.utilisateursSubject.next(this.utilisateurs.slice());
     }
@@ -62,7 +62,7 @@ export class UtilisateurService {
             resp['user']['utilisateur']['password'],
             resp['user']['utilisateur']['nom'],
             resp['user']['utilisateur']['prenom'],
-            resp['user']['utilisateur']['age'],
+            resp['user']['utilisateur']['date_naissance'],
             resp['user']['utilisateur']['nb_kilometres_cumule'],
             resp['user']['utilisateur']['estConnecte'],
             resp['user']['utilisateur']['estAdmin']
@@ -79,11 +79,34 @@ export class UtilisateurService {
         return this.utilisateurConnecte;
     }
 
-    getByEmail(utilisateur: Utilisateur){
-        let query = this.IPBackend+"/utilisateurs/email/"+utilisateur.email;
+
+    checkEmailAvailability(email: string){
+        let query = this.IPBackend+"/utilisateurs/email/check/"+email;
 
         return this.httpClient
-            .get<any[]>(query, this.headers)
+            .get<any>(query)
+            .toPromise();
+    }
+
+
+    getByEmailPublic(email: string){
+        let query = this.IPBackend+"/utilisateurs/email/"+email;
+
+        return this.httpClient
+            .get<any[]>(query)
+            .toPromise();
+    }
+
+    getByEmail(utilisateur: Utilisateur){
+        let query = this.IPBackend+"/utilisateurs/email/"+utilisateur.email;
+        const authorizationHeader = {
+            headers: new HttpHeaders({ 
+              "Authorization": localStorage.getItem("sessionToken")
+            })
+          };
+
+        return this.httpClient
+            .get<any[]>(query, authorizationHeader)
             .toPromise();
     }
 
@@ -165,8 +188,13 @@ export class UtilisateurService {
     checkToken(token: string){
       let query = this.IPBackend+"/utilisateurs/connexion/token";
       let body = {'token': token};
+      const authorizationHeader = {
+        headers: new HttpHeaders({ 
+          "Authorization": token
+        })
+      };
       return this.httpClient
-          .post<any[]>(query, body)
+          .post<any[]>(query, body, authorizationHeader)
           .toPromise();
     }
 
@@ -239,13 +267,13 @@ export class UtilisateurService {
         params = new HttpParams()
         .set('type', 'ASC')
         .set('id_utilisateur', this.utilisateurConnecte.id_utilisateur);
-        //query += "ASC";
+
       }
       else{
         params = new HttpParams()
         .set('type', 'DESC')
         .set('id_utilisateur', this.utilisateurConnecte.id_utilisateur);
-        //query += "DESC";
+
       }
       
   

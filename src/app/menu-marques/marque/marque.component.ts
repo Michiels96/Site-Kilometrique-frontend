@@ -24,12 +24,12 @@ export class MarqueComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     Emitters.componentAffiche.emit("componentMarque");
-    // modifier une marque
+
     if(sessionStorage.getItem('marqueAModifier') != null){
       this.marqueAModifier = JSON.parse(sessionStorage.getItem('marqueAModifier'));
       this.initFormModification();
     }
-    //ajouter une nouvelle marque
+
     if(sessionStorage.getItem('marqueAAjouter') != null){
       this.nouvelleMarque = true;
       this.initFormCreation();
@@ -58,7 +58,7 @@ export class MarqueComponent implements OnInit, OnDestroy {
   }
 
   onSubmitForm(){
-    // le cas d'une modification
+
     if(!this.nouvelleMarque){
       const formValue = this.marqueForm.value;
       if(formValue['nom'] != this.marqueAModifier['nom_unique']){
@@ -82,7 +82,7 @@ export class MarqueComponent implements OnInit, OnDestroy {
           });
       }
     }
-    // le cas d'une création
+
     else{
       const formValue = this.marqueForm.value;
       let nouvelleMarque = new Marque(

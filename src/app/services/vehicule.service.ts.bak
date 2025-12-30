@@ -33,6 +33,8 @@ export class VehiculeService{
     };
 
     let params = new HttpParams()
+    .set('id_utilisateur', id_utilisateur)
+    .set('utilisateur', this.utilisateurService.getInfoUtilisateur().id_utilisateur);
     
     this.httpClient
       .get<any[]>(query, {headers: headers.headers, params: params})
@@ -135,11 +137,15 @@ export class VehiculeService{
     if(type == "ASC"){
       params = new HttpParams()
       .set('type', 'ASC')
+      .set('id_utilisateur', id_utilisateur)
+      .set('utilisateur', this.utilisateurService.getInfoUtilisateur().id_utilisateur);
 
     }
     else{
       params = new HttpParams()
       .set('type', 'DESC')
+      .set('id_utilisateur', id_utilisateur)
+      .set('utilisateur', this.utilisateurService.getInfoUtilisateur().id_utilisateur);
 
     }
     
@@ -169,10 +175,14 @@ export class VehiculeService{
     if(type == "ASC"){
       params = new HttpParams()
       .set('type', 'ASC')
+      .set('id_utilisateur', id_utilisateur)
+      .set('utilisateur', this.utilisateurService.getInfoUtilisateur().id_utilisateur);
     }
     else{
       params = new HttpParams()
       .set('type', 'DESC')
+      .set('id_utilisateur', id_utilisateur)
+      .set('utilisateur', this.utilisateurService.getInfoUtilisateur().id_utilisateur);
     }
 
     const headers = {
@@ -200,10 +210,14 @@ export class VehiculeService{
     if(type == "ASC"){
       params = new HttpParams()
       .set('type', 'ASC')
+      .set('id_utilisateur', id_utilisateur)
+      .set('utilisateur', this.utilisateurService.getInfoUtilisateur().id_utilisateur);
     }
     else{
       params = new HttpParams()
       .set('type', 'DESC')
+      .set('id_utilisateur', id_utilisateur)
+      .set('utilisateur', this.utilisateurService.getInfoUtilisateur().id_utilisateur);
     }
 
     const headers = {
@@ -231,10 +245,14 @@ export class VehiculeService{
     if(type == "ASC"){
       params = new HttpParams()
       .set('type', 'ASC')
+      .set('id_utilisateur', id_utilisateur)
+      .set('utilisateur', this.utilisateurService.getInfoUtilisateur().id_utilisateur);
     }
     else{
       params = new HttpParams()
       .set('type', 'DESC')
+      .set('id_utilisateur', id_utilisateur)
+      .set('utilisateur', this.utilisateurService.getInfoUtilisateur().id_utilisateur);
     }
 
     const headers = {
@@ -262,10 +280,14 @@ export class VehiculeService{
     if(type == "ASC"){
       params = new HttpParams()
       .set('type', 'ASC')
+      .set('id_utilisateur', id_utilisateur)
+      .set('utilisateur', this.utilisateurService.getInfoUtilisateur().id_utilisateur);
     }
     else{
       params = new HttpParams()
       .set('type', 'DESC')
+      .set('id_utilisateur', id_utilisateur)
+      .set('utilisateur', this.utilisateurService.getInfoUtilisateur().id_utilisateur);
     }
 
     const headers = {

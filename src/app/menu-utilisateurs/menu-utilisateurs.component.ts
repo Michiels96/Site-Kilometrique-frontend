@@ -17,7 +17,7 @@ export class MenuUtilisateursComponent implements OnInit, OnDestroy {
   utilisateurSubscription: Subscription;
   nbUtilisateurs: number = 0;
 
-  // tri (ASC/DESC)
+
   triId: string = "";
   triEmail: string = "";
   triNom: string = "";
@@ -42,7 +42,7 @@ export class MenuUtilisateursComponent implements OnInit, OnDestroy {
         this.nbUtilisateurs = utilisateurs.length;
           }
     );
-    //this.utilisateurService.emitListeUtilisateursSubject();
+
   }
 
   ngOnDestroy(): void{
@@ -102,17 +102,17 @@ export class MenuUtilisateursComponent implements OnInit, OnDestroy {
     this.triNbKilometresCumules = "";
     this.triEstConnecte = "";
     this.triEstAdmin = "";
-    //descending
+
     if(this.triId == ""){
       this.triId = "DESC";
       this.utilisateurService.triParId("DESC");
     }
-    //ascending
+
     else if(this.triId == "DESC"){
       this.triId = "ASC";
       this.utilisateurService.triParId("ASC");
     }
-    //descending
+
     else{
       this.triId = "DESC";
       this.utilisateurService.triParId("DESC");

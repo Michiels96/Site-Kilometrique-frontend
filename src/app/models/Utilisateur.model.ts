@@ -115,21 +115,21 @@ export class Utilisateur {
     }
 
 
-    // constructor(
-    //   public id_utilisateur: number,
-    //   public email: string,
-    //   public password: string,
-    //   public nom: string,
-    //   public prenom: string,
-    //   public date_naissance: string,
-    //   public nb_kilometres_cumules: number,
-    //   public connecte: boolean
-    // ) {}
 
-    // constructor(
-    //   public email: string,
-    //   public password: string,
-    // ) {}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   }

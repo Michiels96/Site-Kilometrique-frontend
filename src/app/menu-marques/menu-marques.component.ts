@@ -18,7 +18,7 @@ export class MenuMarquesComponent implements OnInit, OnDestroy {
   nbMarques: number;
   brands_total: number = 0;
 
-  // tri (ASC/DESC)
+
   triId: string = "";
   triNomUnique: string = "";
   triNbVehicules: string = "";
@@ -97,17 +97,17 @@ export class MenuMarquesComponent implements OnInit, OnDestroy {
   demandeDeTriId(){
     this.triNomUnique = "";
     this.triNbVehicules = "";
-    //descending
+
     if(this.triId == ""){
       this.triId = "DESC";
       this.marqueService.triParId("DESC", this.utilisateurService.getInfoUtilisateur().id_utilisateur);
     }
-    //ascending
+
     else if(this.triId == "DESC"){
       this.triId = "ASC";
       this.marqueService.triParId("ASC", this.utilisateurService.getInfoUtilisateur().id_utilisateur);
     }
-    //descending
+
     else{
       this.triId = "DESC";
       this.marqueService.triParId("DESC", this.utilisateurService.getInfoUtilisateur().id_utilisateur);

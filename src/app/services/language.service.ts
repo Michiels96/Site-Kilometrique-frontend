@@ -5,14 +5,14 @@ import { TranslateService } from '@ngx-translate/core';
 export class LanguageService {
 
     constructor(private translateService: TranslateService) { 
-        // Initialize with language from localStorage or default to French
+
         const lang = this.getSelectedLanguage();
         this.translateService.use(lang);
     }
 
     getSelectedLanguage(): string {
         if (localStorage.getItem('lang') == null) {
-            // set French as default language
+
             localStorage.setItem('lang', 'fr');
             return 'fr';
         }

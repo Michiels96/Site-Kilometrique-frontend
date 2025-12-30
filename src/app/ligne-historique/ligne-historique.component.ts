@@ -38,7 +38,7 @@ export class LigneHistoriqueComponent implements OnInit, OnDestroy {
         this.vehicules = vehicules;
       }
     );
-    // modifier une ligne d'historique
+
     if(sessionStorage.getItem('ligneAModifier') != null){
       this.ligneAModifier = JSON.parse(sessionStorage.getItem('ligneAModifier'));
 
@@ -50,9 +50,9 @@ export class LigneHistoriqueComponent implements OnInit, OnDestroy {
       
       this.initFormModification();
     }
-    //ajouter une ligne d'historique
+
     if(sessionStorage.getItem('ligneAAjouter') != null){
-      // ligneAAjouter contient l'id de l'utilisateur
+
       this.idUtilisateurDesVehicules = +sessionStorage.getItem('ligneAAjouter');
       this.vehiculeService.getVehiculesFromServer(this.idUtilisateurDesVehicules);
       this.nouvelleLigne = true;
@@ -126,7 +126,7 @@ export class LigneHistoriqueComponent implements OnInit, OnDestroy {
         this.ligneForm.get('nbKilometres').setValue('');
       }
       this.ligneForm.controls['nbKilometresDepart'].setValidators([Validators.required]);
-      //this.ligneForm.controls['nbKilometresDArivee'].setValidators([Validators.required]);
+
       this.ligneForm.controls['nbKilometres'].clearValidators();
       this.ligneForm.controls['nbKilometresDepart'].updateValueAndValidity();
       this.ligneForm.controls['nbKilometresDArivee'].updateValueAndValidity();
@@ -145,7 +145,7 @@ export class LigneHistoriqueComponent implements OnInit, OnDestroy {
   }
 
   onSubmitForm(){
-    // le cas d'une modification
+
     if(!this.nouvelleLigne){
       const formValue = this.ligneForm.value;
       let nbKilometres = formValue['nbKilometres'];
@@ -154,7 +154,7 @@ export class LigneHistoriqueComponent implements OnInit, OnDestroy {
       }
       if(formValue['nbKilometres'] != this.ligneAModifier['nbKilometres'] && formValue['nbKilometres'] != ''){
         this.ligneModifiee = true;
-        //nbKilometres = formValue['nbKilometres'];
+
       }
       if(formValue['nbKilometresDArivee'] != ''){
         this.ligneModifiee = true;
@@ -170,7 +170,7 @@ export class LigneHistoriqueComponent implements OnInit, OnDestroy {
       let date = this.ligneAModifier['date'].substring(0,(this.ligneAModifier['date'].indexOf("T")));
       if(formValue['date'] != date){
         this.ligneModifiee = true;
-        //console.log("date "+date+" et "+formValue['date'])
+
       }
       if(this.ligneModifiee){
         let ligneModifiee = new Ligne(
@@ -183,7 +183,7 @@ export class LigneHistoriqueComponent implements OnInit, OnDestroy {
         );
         this.ligneService.modifierLigne(ligneModifiee, this.idUtilisateurDesVehicules)
           .then((resp) => {
-            //recalculer les kilomètres cumulés
+
             this.ligneService.majKilometresCumules(this.idUtilisateurDesVehicules)
               .then((resp) => {
                 if(resp['status'] == "ok"){
@@ -202,14 +202,14 @@ export class LigneHistoriqueComponent implements OnInit, OnDestroy {
           });
       }
     }
-    // le cas d'une création
+
     else{
       const formValue = this.ligneForm.value;
       let nouvelleLigne;
       let nbKilometres;
       let nbKilometresDepart = 0;
       if(this.numberOrRange){
-        // permet d'enregistrer le kilometrage au début et de pouvoir le ré-éditer par après
+
         if(formValue['nbKilometresDArivee'] == ''){
           nbKilometres = 0;
           nbKilometresDepart = formValue['nbKilometresDepart'];
@@ -244,7 +244,7 @@ export class LigneHistoriqueComponent implements OnInit, OnDestroy {
       }
       this.ligneService.ajouterLigne(nouvelleLigne, this.idUtilisateurDesVehicules)
         .then((resp) => {
-          //recalculer les kilomètres cumulés
+
           this.ligneService.majKilometresCumules(this.idUtilisateurDesVehicules)
             .then((resp) => {
               if(resp['status'] == "ok"){
@@ -253,7 +253,7 @@ export class LigneHistoriqueComponent implements OnInit, OnDestroy {
                     this.statistiqueService.majKilometresCumules(this.idUtilisateurDesVehicules)
                       .then((resp) => {
                         if(resp['status'] == "ok"){
-                          //sessionStorage.removeItem('ligneAAjouter');
+
                           this.ligneService.getLignesFromServer(this.idUtilisateurDesVehicules);
                           this.router.navigate(['/lignes']);
                         }

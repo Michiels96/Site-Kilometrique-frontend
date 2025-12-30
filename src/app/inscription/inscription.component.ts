@@ -22,7 +22,7 @@ export class InscriptionComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     Emitters.componentAffiche.emit("componentInscription");
-    //ajouter une nouvelle marque
+
     if(sessionStorage.getItem('utilisateurAAjouter') != null){
       this.nouvelUtilisateur = true;
     }
@@ -44,17 +44,20 @@ export class InscriptionComponent implements OnInit, OnDestroy {
     });
   }
 
-  onSubmitForm() {
+  async onSubmitForm(){
     const formValue = this.inscriptionForm.value;
-    //trouver l'utilisateur et voir si il existe, si oui, on change son flag 'connecte' à 1
     let utilisateur: Utilisateur;
+    let avecAge = false;
+
     if(formValue['date_naissance'] == ''){
       utilisateur = new Utilisateur(
         formValue['email'],
         formValue['password'],
         formValue['name'],
-        formValue['lastname']
+        formValue['lastname'],
+        null
       );
+      avecAge = false;
     }
     else{
       utilisateur = new Utilisateur(
@@ -64,57 +67,53 @@ export class InscriptionComponent implements OnInit, OnDestroy {
         formValue['lastname'],
         formValue['date_naissance']
       );
+      avecAge = true;
     }
 
-    this.utilisateurService.getByEmail(utilisateur)
-      .then((response) => {
-        if(response.length > 0){
-          alert("cet email n'est plus disponible");
+    try {
+
+      const response = await this.utilisateurService.checkEmailAvailability(utilisateur.email);
+      if(!response.available){
+        alert("Cet email est déjà utilisé");
+        return;
+      }
+
+
+      const inscriptionResponse = await this.utilisateurService.inscription(utilisateur, avecAge);
+
+      if(inscriptionResponse['status'] == "OK"){
+
+        await this.statistiqueService.creerStatistiques(utilisateur.email, -1);
+
+        if(this.nouvelUtilisateur){
+          this.utilisateurService.getUtilisateursFromServer();
+          this.router.navigate(["/utilisateurs"]);
         }
         else{
-          if(formValue['date_naissance'] == ''){
-            this.utilisateurService.inscription(utilisateur, false)
-            .then((response) => {
-                if(response['status'] == "OK"){
-                  this.statistiqueService.creerStatistiques(utilisateur.email, -1)
-                  .then(()=>{
-                    if(this.nouvelUtilisateur){
-                      this.utilisateurService.getUtilisateursFromServer();
-                      this.router.navigate(["/utilisateurs"]);
-                    }
-                    else{
-                      alert("Inscrit!");
-                      this.router.navigate(["/connexion"]);
-                    }
-                  });
-                }
-                else{
-                  console.log("erreur inscription: "+JSON.stringify(response));
-                }
-            }).catch((err) => {console.log("Erreur : "+err)});
-          }
-          else{
-            this.utilisateurService.inscription(utilisateur, true)
-            .then((response) => {
-              if(response['status'] == "OK"){
-                this.statistiqueService.creerStatistiques(utilisateur.email, -1)
-                  .then(()=>{
-                    if(this.nouvelUtilisateur){
-                      this.utilisateurService.getUtilisateursFromServer();
-                      this.router.navigate(["/utilisateurs"]);
-                    }
-                    else{
-                      alert("Inscrit!");
-                      this.router.navigate(["/connexion"]);
-                    }
-                  });
-              }
-              else{
-                console.log("erreur inscription: "+JSON.stringify(response));
-              }
-            }).catch((err) => {console.log("Erreur : "+err)});
-          }
+          alert("Inscription réussie!");
+          this.router.navigate(["/connexion"]);
         }
-      });
+      }
+      else{
+        console.log("Erreur inscription: "+JSON.stringify(inscriptionResponse));
+        alert("Erreur lors de l'inscription");
+      }
     }
+    catch(error: any) {
+      console.error('Erreur lors de l\'inscription:', error);
+
+      if(error.status === 409){
+        alert("Cet email est déjà utilisé");
+      }
+      else if(error.status === 500){
+        alert("Erreur serveur, veuillez réessayer plus tard");
+      }
+      else if(error.status === 0){
+        alert("Impossible de contacter le serveur");
+      }
+      else{
+        alert("Erreur lors de l'inscription: " + (error.error?.error || error.message || "Erreur inconnue"));
+      }
+    }
+  }
 }

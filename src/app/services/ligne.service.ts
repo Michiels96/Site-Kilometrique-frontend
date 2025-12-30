@@ -20,7 +20,7 @@ export class LigneService{
       this.IPBackend = ipService.getIPBackend();
   }
 
-  // informe tous les components abboné au service que un de ses attibuts à été maj.
+
   emitListeLignesSubject(){
     this.lignesSubject.next(this.lignes.slice());
   }
@@ -97,8 +97,14 @@ export class LigneService{
         'date': ligne.date
       };
     }
+    const authorizationHeader = {
+      headers: new HttpHeaders({
+        "Authorization": localStorage.getItem("sessionToken")
+      })
+    };
+
     return this.httpClient
-        .post<any[]>(query, body)
+        .post<any[]>(query, body, authorizationHeader)
         .toPromise();
   }
 
@@ -156,12 +162,12 @@ export class LigneService{
     let params;
     if(type == "ASC"){
       params = new HttpParams().set('type', 'ASC').set('id_utilisateur', id_utilisateur);
-      //query += "ASC";
+
     }
     else{
       params = new HttpParams()
       .set('type', 'DESC').set('id_utilisateur', id_utilisateur);
-      //query += "DESC";
+
     }
     
 
@@ -172,7 +178,7 @@ export class LigneService{
     };
     this.httpClient
       .get<any[]>(query, {headers: headers.headers, params: params})
-      //.get<any[]>(query, headers)
+
       .subscribe(
         (resp) => {
           this.lignes = resp;
@@ -190,12 +196,12 @@ export class LigneService{
     let params;
     if(type == "ASC"){
       params = new HttpParams().set('type', 'ASC').set('id_utilisateur', id_utilisateur);
-      //query += "ASC";
+
     }
     else{
       params = new HttpParams()
       .set('type', 'DESC').set('id_utilisateur', id_utilisateur);
-      //query += "DESC";
+
     }
     
 
@@ -206,7 +212,7 @@ export class LigneService{
     };
     this.httpClient
       .get<any[]>(query, {headers: headers.headers, params: params})
-      //.get<any[]>(query, headers)
+
       .subscribe(
         (resp) => {
           this.lignes = resp;
@@ -224,12 +230,12 @@ export class LigneService{
     let params;
     if(type == "ASC"){
       params = new HttpParams().set('type', 'ASC').set('id_utilisateur', id_utilisateur);
-      //query += "ASC";
+
     }
     else{
       params = new HttpParams()
       .set('type', 'DESC').set('id_utilisateur', id_utilisateur);
-      //query += "DESC";
+
     }
     
 
@@ -240,7 +246,7 @@ export class LigneService{
     };
     this.httpClient
       .get<any[]>(query, {headers: headers.headers, params: params})
-      //.get<any[]>(query, headers)
+
       .subscribe(
         (resp) => {
           this.lignes = resp;
@@ -258,12 +264,12 @@ export class LigneService{
     let params;
     if(type == "ASC"){
       params = new HttpParams().set('type', 'ASC').set('id_utilisateur', id_utilisateur);
-      //query += "ASC";
+
     }
     else{
       params = new HttpParams()
       .set('type', 'DESC').set('id_utilisateur', id_utilisateur);
-      //query += "DESC";
+
     }
     
 
@@ -274,7 +280,7 @@ export class LigneService{
     };
     this.httpClient
       .get<any[]>(query, {headers: headers.headers, params: params})
-      //.get<any[]>(query, headers)
+
       .subscribe(
         (resp) => {
           this.lignes = resp;
@@ -292,12 +298,12 @@ export class LigneService{
     let params;
     if(type == "ASC"){
       params = new HttpParams().set('type', 'ASC').set('id_utilisateur', id_utilisateur);
-      //query += "ASC";
+
     }
     else{
       params = new HttpParams()
       .set('type', 'DESC').set('id_utilisateur', id_utilisateur);
-      //query += "DESC";
+
     }
     
 
@@ -308,7 +314,7 @@ export class LigneService{
     };
     this.httpClient
       .get<any[]>(query, {headers: headers.headers, params: params})
-      //.get<any[]>(query, headers)
+
       .subscribe(
         (resp) => {
           this.lignes = resp;
@@ -326,12 +332,12 @@ export class LigneService{
     let params;
     if(type == "ASC"){
       params = new HttpParams().set('type', 'ASC').set('id_utilisateur', id_utilisateur);
-      //query += "ASC";
+
     }
     else{
       params = new HttpParams()
       .set('type', 'DESC').set('id_utilisateur', id_utilisateur);
-      //query += "DESC";
+
     }
     
 
@@ -342,7 +348,7 @@ export class LigneService{
     };
     this.httpClient
       .get<any[]>(query, {headers: headers.headers, params: params})
-      //.get<any[]>(query, headers)
+
       .subscribe(
         (resp) => {
           this.lignes = resp;

@@ -64,7 +64,7 @@ export class NavComponent implements OnInit {
         this.connecte = false;
         this.utilisateurService.setInfoUtilisateur(null);
         Emitters.connexionEmitter.emit(false);
-        //window.location.reload();
+
         this.router.navigate(['/connexion']);
       }
     });

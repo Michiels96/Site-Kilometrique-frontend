@@ -18,7 +18,7 @@ export class TelechargerFichierComponent implements OnInit, OnDestroy {
 
   telechargerForm: FormGroup;
 
-  // Pour le select (uniquement dispo pour un administrateur)
+
   utilisateurs:any = [{}];
   utilisateurSubscription: Subscription;
   selectedOption: string;
@@ -86,10 +86,10 @@ export class TelechargerFichierComponent implements OnInit, OnDestroy {
 
     this.downloadService.downloadFile(this.utilisateurSelectionne.id_utilisateur, avecHistorique, avecVehicules, avecStatistiques)
     .then((data) => {
-      //console.log(data)
+
       var blob = new Blob([data+""], {type: "text/plain;charset=utf-8",endings:'native'});
-      //blob.text().then((res) => console.log(JSON.stringify(res)));
-      //console.log(blob)
+
+
       
       var date = new Date();
       let year = date.getFullYear();

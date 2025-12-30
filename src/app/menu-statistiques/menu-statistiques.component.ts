@@ -15,7 +15,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class MenuStatistiquesComponent implements OnInit, OnDestroy {
 
-  // Administrator 'select' input
+
   utilisateurs:any = [{}];
   utilisateurSubscription: Subscription;
   selectedOption: string;
@@ -26,13 +26,13 @@ export class MenuStatistiquesComponent implements OnInit, OnDestroy {
   statistiqueSubscription: Subscription;
   nbStatistiques: number;
 
-  // tri (ASC/DESC)
+
   triDate: string = "";
   boutonChange: boolean;
 
   statistiquesASupprimer = [];
 
-  // Missing properties
+
   reloadSubscription: Subscription;
   thereIs: string = "Il y a ";
   year: string = " an, ";
@@ -159,7 +159,7 @@ export class MenuStatistiquesComponent implements OnInit, OnDestroy {
   dateDiff(startingDate, endingDate) {
     var startDate = new Date(new Date(startingDate).toISOString().substr(0, 10));
     if (!endingDate) {
-        endingDate = new Date().toISOString().substr(0, 10);    // need date in YYYY-MM-DD format
+        endingDate = new Date().toISOString().substr(0, 10);
     }
     var endDate = new Date(endingDate);
     if (startDate > endDate) {

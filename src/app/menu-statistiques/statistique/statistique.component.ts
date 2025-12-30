@@ -26,16 +26,16 @@ export class StatistiqueComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     Emitters.componentAffiche.emit("componentStatistique");
-    // modifier une statistique
+
     if(sessionStorage.getItem('statistiqueAModifier') != null){
       this.statistiqueAModifier = JSON.parse(sessionStorage.getItem('statistiqueAModifier'));
       this.initFormModification();
     }
-    //ajouter une statistique
+
     if(sessionStorage.getItem('statistiqueAAjouter') != null){
-      // ligneAAjouter contient l'id de l'utilisateur
+
       this.idUtilisateurDesStatistiques = +sessionStorage.getItem('statistiqueAAjouter');
-      // this.vehiculeService.getVehiculesFromServer(this.idUtilisateurDesVehicules);
+
       this.nouvelleStatistique = true;
       this.initFormCreation();
     }
@@ -93,7 +93,7 @@ export class StatistiqueComponent implements OnInit, OnDestroy {
   }
 
   onSubmitForm(){
-    // le cas d'une modification
+
     if(!this.nouvelleStatistique){
       const formValue = this.statistiqueForm.value;
       if(formValue['description'] != this.statistiqueAModifier['description']){
@@ -106,7 +106,7 @@ export class StatistiqueComponent implements OnInit, OnDestroy {
       let date = this.statistiqueAModifier['dateDAjout'].substring(0,(this.statistiqueAModifier['dateDAjout'].indexOf("T")));
       if(formValue['date'] != date){
         this.statistiqueModifiee = true;
-        //console.log("date "+date+" et "+formValue['date'])
+
       }
 
       if(this.statistiqueModifiee){
@@ -114,7 +114,7 @@ export class StatistiqueComponent implements OnInit, OnDestroy {
           this.statistiqueAModifier['id_statistique'],
           this.statistiqueAModifier['utilisateur'],
           formValue['description'],
-          //formValue['date']+"T00:00:00.000Z",
+
           formValue['date'],
           this.statistiqueAModifier['dateDeModification']
         );
@@ -127,7 +127,7 @@ export class StatistiqueComponent implements OnInit, OnDestroy {
           });
       }
     }
-    // le cas d'une création
+
     else{
       const formValue = this.statistiqueForm.value;
       let nouvelleStatistique = new Statistique(

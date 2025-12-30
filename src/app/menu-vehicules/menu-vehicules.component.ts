@@ -22,13 +22,13 @@ export class MenuVehiculesComponent implements OnInit, OnDestroy {
 
   vehiculesASupprimer = [];
 
-  // Pour le select (uniquement dispo pour un administrateur)
+
   utilisateurs:any = [{}];
   utilisateurSubscription: Subscription;
   selectedOption: string;
   utilisateurSelectionne: Utilisateur = null;
 
-  // tri (ASC/DESC)
+
   triId: string = "";
   triType: string = "";
   triNomUnique: string = "";
@@ -44,11 +44,11 @@ export class MenuVehiculesComponent implements OnInit, OnDestroy {
     this.utilisateurSubscription = this.utilisateurService.utilisateursSubject.subscribe(
       (utilisateurs: any[]) => {
         this.utilisateurs = utilisateurs;
-        //this.chargerListVehiculesUtilisateur(this.utilisateurs[0]['id_utilisateur']);
+
         this.chargerListeVehiculesUtilisateur(this.utilisateurService.getInfoUtilisateur().id_utilisateur+"");
       }
     );
-    //this.utilisateurService.emitListeUtilisateursSubject();
+
 
     this.vehiculeSubscription = this.vehiculeService.vehiculesSubject.subscribe(
       (vehicules: any[]) => {
@@ -56,12 +56,12 @@ export class MenuVehiculesComponent implements OnInit, OnDestroy {
         this.nbVehicules = this.vehicules.length;
       }
     );
-    //this.vehiculeService.emitListeVehiculesSubject();
+
   }
 
   ngOnDestroy(): void{
     Emitters.componentAffiche.emit("");
-    // delete the observable to avoid component memory leak
+
   }
  
   onEvent(event) {
@@ -144,17 +144,17 @@ export class MenuVehiculesComponent implements OnInit, OnDestroy {
     this.triMarque = "";
     this.triType = "";
     this.triDetail = "";
-    //descending
+
     if(this.triId == ""){
       this.triId = "DESC";
       this.vehiculeService.triParId("DESC", this.utilisateurSelectionne.id_utilisateur);
     }
-    //ascending
+
     else if(this.triId == "DESC"){
       this.triId = "ASC";
       this.vehiculeService.triParId("ASC", this.utilisateurSelectionne.id_utilisateur);
     }
-    //descending
+
     else{
       this.triId = "DESC";
       this.vehiculeService.triParId("DESC", this.utilisateurSelectionne.id_utilisateur);

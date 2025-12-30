@@ -59,7 +59,7 @@ export class ProfilComponent implements OnInit {
   }
 
   modifierMdp(){
-    //sessionStorage.setItem('profilAModifier', JSON.stringify(this.profilAModifier));
+
     this.modifierMDP = true;
     this.router.navigate(['/profil/motdepasse']);
   }
@@ -142,7 +142,7 @@ export class ProfilComponent implements OnInit {
                 .then((resp) => {
                   this.statistiqueService.majKilometresCumules(utilisateurModifie.id_utilisateur)
                   .then(()=>{
-                    //alert("profil modifié!");
+
                     if(this.modifierUtilisateur){
                       this.router.navigate(['/utilisateurs']);
                     }
@@ -157,7 +157,7 @@ export class ProfilComponent implements OnInit {
                 .then((resp) => {
                   this.statistiqueService.majKilometresCumules(utilisateurModifie.id_utilisateur)
                     .then(()=>{
-                      //alert("profil modifié!");
+
                       if(this.modifierUtilisateur){
                         this.router.navigate(['/utilisateurs']);
                       }
@@ -176,7 +176,7 @@ export class ProfilComponent implements OnInit {
             .then((resp) => {
               this.statistiqueService.majKilometresCumules(utilisateurModifie.id_utilisateur)
                 .then(()=>{
-                  //alert("profil modifié!");
+
                   if(this.modifierUtilisateur){
                     this.router.navigate(['/utilisateurs']);
                   }
@@ -191,7 +191,7 @@ export class ProfilComponent implements OnInit {
             .then((resp) => {
               this.statistiqueService.majKilometresCumules(utilisateurModifie.id_utilisateur)
                 .then(()=>{
-                  //alert("profil modifié!");
+
                   if(this.modifierUtilisateur){
                     this.router.navigate(['/utilisateurs']);
                   }

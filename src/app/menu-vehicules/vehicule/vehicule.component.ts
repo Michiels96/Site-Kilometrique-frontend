@@ -49,13 +49,13 @@ export class VehiculeComponent implements OnInit, OnDestroy {
       }
     );
     this.typeVehiculeService.getTypesFromServer();
-    //this.typeVehiculeService.emitListeTypesSubject();
-    // modifier un vehicule
+
+
     if(sessionStorage.getItem('vehiculeAModifier') != null){
       this.vehiculeAModifier = JSON.parse(sessionStorage.getItem('vehiculeAModifier'));
       this.initFormModification();
     }
-    //ajouter un vehicule
+
     if(sessionStorage.getItem('vehiculeAAjouter') != null){
       this.idUtilisateurNouveauVehicule = JSON.parse(sessionStorage.getItem('vehiculeAAjouter'));
       this.initFormCreation();
@@ -90,7 +90,7 @@ export class VehiculeComponent implements OnInit, OnDestroy {
   }
 
   onSubmitForm(){
-    // le cas d'une modification
+
     if(this.idUtilisateurNouveauVehicule == -1){
       const formValue = this.vehiculeForm.value;
 
@@ -140,7 +140,7 @@ export class VehiculeComponent implements OnInit, OnDestroy {
         }
       }
     }
-    // le cas d'une création
+
     else{
       const formValue = this.vehiculeForm.value;
       let nouveauVehicule = new Vehicule(
@@ -161,8 +161,8 @@ export class VehiculeComponent implements OnInit, OnDestroy {
             this.vehiculeService.ajouterVehicule(nouveauVehicule, this.idUtilisateurNouveauVehicule)
               .then((response) => {
                 if(response['status'] == "OK"){
-                  //console.log("inscrit")
-                  //alert("Inscrit!");
+
+
                   this.marqueService.getMarquesFromServer(this.utilisateurService.getInfoUtilisateur().id_utilisateur);
                   this.router.navigate(["/vehicules"]);
                 }

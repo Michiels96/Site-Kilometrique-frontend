@@ -22,7 +22,7 @@ export class MarqueService{
       this.getMarquesFromServer(utilisateurService.getInfoUtilisateur().id_utilisateur);
   }
 
-  // informe tous les components abboné au service que un de ses attibuts à été maj.
+
   emitListeMarquesSubject(){
     this.marqueSubject.next(this.marques.slice());
   }
@@ -64,8 +64,14 @@ export class MarqueService{
         'id_utilisateur': id_utilisateur,
         'nom_unique': marque.nom_unique, 
     };
+    const authorizationHeader = {
+      headers: new HttpHeaders({
+        "Authorization": localStorage.getItem("sessionToken")
+      })
+    };
+
     return this.httpClient
-        .post<any[]>(query, body)
+        .post<any[]>(query, body, authorizationHeader)
         .toPromise();
   }
 

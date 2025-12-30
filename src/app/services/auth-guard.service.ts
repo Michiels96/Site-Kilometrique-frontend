@@ -23,7 +23,7 @@ export class AuthGuard implements CanActivate {
           let user = new Utilisateur(
             resp['user'][0]['id_utilisateur'],
             resp['user'][0]['email'],
-            //resp['user'][0]['password'],
+
             null,
             resp['user'][0]['nom'],
             resp['user'][0]['prenom'],
@@ -34,14 +34,14 @@ export class AuthGuard implements CanActivate {
           );
           localStorage.setItem('sessionToken', resp['newToken']);
           this.utilisateurService.setInfoUtilisateur(user);
-          //sessionStorage.setItem('utilisateur', JSON.stringify(user));
+
           Emitters.connexionEmitter.emit(true);
           return true;
         }).catch(err => this.logout(err));
   }
 
   logout(err){
-    //console.log("Erreur "+JSON.stringify(err))
+
     Emitters.connexionEmitter.emit(false);
     this.clearCache();
     return this.router.navigate(['/connexion']);

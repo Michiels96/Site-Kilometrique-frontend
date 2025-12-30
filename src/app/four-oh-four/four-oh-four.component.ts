@@ -16,7 +16,7 @@ import { ReloadService } from '../services/component-reload.service';
 export class FourOhFourComponent implements OnInit, OnDestroy {
   private reloadSubscription: Subscription;
 
-  // language terms
+
   t404_title: string;
   t404_legend: string;
 
@@ -24,7 +24,7 @@ export class FourOhFourComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     Emitters.componentAffiche.emit("component404");
-    // Observable to reload from 'nav' component when there is a language change
+
     this.reloadSubscription = this.reloadService.getReloadObservable().subscribe((reload) => {
       if (reload) {
         this.setLanguageTerms();
@@ -36,7 +36,7 @@ export class FourOhFourComponent implements OnInit, OnDestroy {
           let user = new Utilisateur(
             resp['user'][0]['id_utilisateur'],
             resp['user'][0]['email'],
-            //resp['user'][0]['password'],
+
             null,
             resp['user'][0]['nom'],
             resp['user'][0]['prenom'],
@@ -71,7 +71,7 @@ export class FourOhFourComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void{
     Emitters.componentAffiche.emit("");
-    // delete the observable to avoid component memory leak
+
     if (this.reloadSubscription) {
       this.reloadSubscription.unsubscribe();
     }
@@ -86,8 +86,8 @@ export class FourOhFourComponent implements OnInit, OnDestroy {
         sessionStorage.clear();
         this.utilisateurService.setInfoUtilisateur(null);
         Emitters.connexionEmitter.emit(false);
-        //window.location.reload();
-        //this.router.navigate(['/connexion']);
+
+
       }
     });
   }

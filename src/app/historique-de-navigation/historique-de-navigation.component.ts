@@ -22,13 +22,13 @@ export class HistoriqueDeNavigationComponent implements OnInit, OnDestroy {
 
   total_logs: number = 0;
   total_kms: number = 0;
-  // Pour le select (uniquement dispo pour un administrateur)
+
   utilisateurs:any = [{}];
   utilisateurSubscription: Subscription;
   selectedOption: string;
   utilisateurSelectionne: Utilisateur = null;
 
-  // tri (ASC/DESC)
+
   triId: string = "";
   triVehicule: string = "";
   triNbKilometres: string = "";
@@ -48,21 +48,21 @@ export class HistoriqueDeNavigationComponent implements OnInit, OnDestroy {
     this.utilisateurSubscription = this.utilisateurService.utilisateursSubject.subscribe(
       (utilisateurs: any[]) => {
         this.utilisateurs = utilisateurs;
-        //this.chargerListVehiculesUtilisateur(this.utilisateurs[0]['id_utilisateur']);
-        //console.log(this.utilisateurs)
+
+
         this.chargerListeLignesUtilisateur(this.utilisateurService.getInfoUtilisateur().id_utilisateur+"");
       }
     );
-    //this.utilisateurService.emitListeUtilisateursSubject();
+
     
     this.ligneSubscription = this.ligneService.lignesSubject.subscribe(
       (lignes: any[]) => {
         this.lignes = lignes;
         this.lignesTriees = this.lignes.slice(this.limit, this.limit+50);
-        //this.nbLignes = this.lignes.length;
+
         this.nbLignes = this.ligneService.getNbLignesTotales();
         this.total_logs = this.nbLignes;
-        // Trouver le maximum de nbKilometresCumules (le plus récent)
+
         const maxCumul = this.lignes.length > 0 ? Math.max(...this.lignes.map(l => parseFloat(l.nbKilometresCumules) || 0)) : 0;
         this.total_kms = maxCumul;
           }
@@ -105,7 +105,7 @@ export class HistoriqueDeNavigationComponent implements OnInit, OnDestroy {
         resp[0]['estAdmin']
       );
       this.ligneService.getNbLignesFromServer(this.utilisateurSelectionne.id_utilisateur);
-      //this.ligneService.getLignesFromServer(this.utilisateurSelectionne.id_utilisateur);
+
     });
   }
 
@@ -209,26 +209,26 @@ export class HistoriqueDeNavigationComponent implements OnInit, OnDestroy {
     this.triNbKilometresCumules = "";
     this.triDescription = "";
     this.triDate = "";
-    //descending
+
     if(this.triId == ""){
       this.triId = "ASC";
-      //this.ligneService.triParId("ASC", this.utilisateurSelectionne.id_utilisateur);
+
       this.lignesTriees.sort(function(ligne1, ligne2){
         return ligne1['id_ligne']-ligne2['id_ligne'];
       });
     }
-    //ascending
+
     else if(this.triId == "ASC"){
       this.triId = "DESC";
-      //this.ligneService.triParId("DESC", this.utilisateurSelectionne.id_utilisateur);
+
       this.lignesTriees.sort(function(ligne1, ligne2){
         return ligne2['id_ligne']-ligne1['id_ligne'];
     });
     }
-    //descending
+
     else{
       this.triId = "ASC";
-      //this.ligneService.triParId("ASC", this.utilisateurSelectionne.id_utilisateur);
+
       this.lignesTriees.sort(function(ligne1, ligne2){
         return ligne1['id_ligne']-ligne2['id_ligne'];
       });
@@ -243,7 +243,7 @@ export class HistoriqueDeNavigationComponent implements OnInit, OnDestroy {
     this.triDate = "";
     if(this.triVehicule == ""){
       this.triVehicule = "ASC";
-      //this.ligneService.triParVehicule("ASC", this.utilisateurSelectionne.id_utilisateur);
+
       this.lignesTriees.sort(function(ligne1, ligne2){
         if(ligne1['vehicule'].localeCompare(ligne2['vehicule']) == 0){
           if(ligne1['date'].localeCompare(ligne2['date']) == 0){
@@ -260,7 +260,7 @@ export class HistoriqueDeNavigationComponent implements OnInit, OnDestroy {
     }
     else if(this.triVehicule == "ASC"){
       this.triVehicule = "DESC";
-      //this.ligneService.triParVehicule("DESC", this.utilisateurSelectionne.id_utilisateur);
+
       this.lignesTriees.sort(function(ligne1, ligne2){
         if(ligne2['vehicule'].localeCompare(ligne1['vehicule']) == 0){
           if(ligne2['date'].localeCompare(ligne1['date']) == 0){
@@ -277,7 +277,7 @@ export class HistoriqueDeNavigationComponent implements OnInit, OnDestroy {
     }
     else{
       this.triVehicule = "ASC";
-      //this.ligneService.triParVehicule("ASC", this.utilisateurSelectionne.id_utilisateur);
+
       this.lignesTriees.sort(function(ligne1, ligne2){
         if(ligne1['vehicule'].localeCompare(ligne2['vehicule']) == 0){
           if(ligne1['date'].localeCompare(ligne2['date']) == 0){
@@ -302,7 +302,7 @@ export class HistoriqueDeNavigationComponent implements OnInit, OnDestroy {
     this.triDate = "";
     if(this.triNbKilometres == ""){
       this.triNbKilometres = "ASC";
-      //this.ligneService.triParKilometres("ASC", this.utilisateurSelectionne.id_utilisateur);
+
       this.lignesTriees.sort(function(ligne1, ligne2){
         if(ligne1['nbKilometres'] == ligne2['nbKilometres']){
           if(ligne1['date'].localeCompare(ligne2['date']) == 0){
@@ -319,7 +319,7 @@ export class HistoriqueDeNavigationComponent implements OnInit, OnDestroy {
     }
     else if(this.triNbKilometres == "ASC"){
       this.triNbKilometres = "DESC";
-      //this.ligneService.triParKilometres("DESC", this.utilisateurSelectionne.id_utilisateur);
+
       this.lignesTriees.sort(function(ligne1, ligne2){
         if(ligne2['nbKilometres'] == ligne1['nbKilometres']){
           if(ligne2['date'].localeCompare(ligne1['date']) == 0){
@@ -336,7 +336,7 @@ export class HistoriqueDeNavigationComponent implements OnInit, OnDestroy {
     }
     else{
       this.triNbKilometres = "ASC";
-      //this.ligneService.triParKilometres("ASC", this.utilisateurSelectionne.id_utilisateur);
+
       this.lignesTriees.sort(function(ligne1, ligne2){
         if(ligne1['nbKilometres'] == ligne2['nbKilometres']){
           if(ligne1['date'].localeCompare(ligne2['date']) == 0){
@@ -361,21 +361,21 @@ export class HistoriqueDeNavigationComponent implements OnInit, OnDestroy {
     this.triDate = "";
     if(this.triNbKilometresCumules == ""){
       this.triNbKilometresCumules = "ASC";
-      //this.ligneService.triParKilometresCumules("ASC", this.utilisateurSelectionne.id_utilisateur);
+
       this.lignesTriees.sort(function(ligne1, ligne2){
         return ligne1['nbKilometresCumules']-ligne2['nbKilometresCumules'];
       });
     }
     else if(this.triNbKilometresCumules == "ASC"){
       this.triNbKilometresCumules = "DESC";
-      //this.ligneService.triParKilometresCumules("DESC", this.utilisateurSelectionne.id_utilisateur);
+
       this.lignesTriees.sort(function(ligne1, ligne2){
         return ligne2['nbKilometresCumules']-ligne1['nbKilometresCumules'];
       });
     }
     else{
       this.triNbKilometresCumules = "ASC";
-      //this.ligneService.triParKilometresCumules("ASC", this.utilisateurSelectionne.id_utilisateur);
+
       this.lignesTriees.sort(function(ligne1, ligne2){
         return ligne1['nbKilometresCumules']-ligne2['nbKilometresCumules'];
       });
@@ -390,7 +390,7 @@ export class HistoriqueDeNavigationComponent implements OnInit, OnDestroy {
     this.triDate = "";
     if(this.triDescription == ""){
       this.triDescription = "ASC";
-      //this.ligneService.triParDescription("ASC", this.utilisateurSelectionne.id_utilisateur);
+
       this.lignesTriees.sort(function(ligne1, ligne2){
         if(ligne1['description'].localeCompare(ligne2['description']) == 0){
           if(ligne1['date'].localeCompare(ligne2['date']) == 0){
@@ -407,7 +407,7 @@ export class HistoriqueDeNavigationComponent implements OnInit, OnDestroy {
     }
     else if(this.triDescription == "ASC"){
       this.triDescription = "DESC";
-      //this.ligneService.triParDescription("DESC", this.utilisateurSelectionne.id_utilisateur);
+
       this.lignesTriees.sort(function(ligne1, ligne2){
         if(ligne2['description'].localeCompare(ligne1['description']) == 0){
           if(ligne2['date'].localeCompare(ligne1['date']) == 0){
@@ -424,7 +424,7 @@ export class HistoriqueDeNavigationComponent implements OnInit, OnDestroy {
     }
     else{
       this.triDescription = "ASC";
-      //this.ligneService.triParDescription("ASC", this.utilisateurSelectionne.id_utilisateur);
+
       this.lignesTriees.sort(function(ligne1, ligne2){
         if(ligne1['description'].localeCompare(ligne2['description']) == 0){
           if(ligne1['date'].localeCompare(ligne2['date']) == 0){
@@ -449,7 +449,7 @@ export class HistoriqueDeNavigationComponent implements OnInit, OnDestroy {
     this.triDescription = "";
     if(this.triDate == ""){
       this.triDate = "ASC";
-      //this.ligneService.triParDate("ASC", this.utilisateurSelectionne.id_utilisateur);
+
       this.lignesTriees.sort(function(ligne1, ligne2){
         if(ligne1['date'].localeCompare(ligne2['date']) == 0){
           return ligne1['id_ligne'] - ligne2['id_ligne'];
@@ -461,7 +461,7 @@ export class HistoriqueDeNavigationComponent implements OnInit, OnDestroy {
     }
     else if(this.triDate == "ASC"){
       this.triDate = "DESC";
-      //this.ligneService.triParDate("DESC", this.utilisateurSelectionne.id_utilisateur);
+
       this.lignesTriees.sort(function(ligne1, ligne2){
         if(ligne2['date'].localeCompare(ligne1['date']) == 0){
           return ligne2['id_ligne'] - ligne1['id_ligne'];
@@ -473,7 +473,7 @@ export class HistoriqueDeNavigationComponent implements OnInit, OnDestroy {
     }
     else{
       this.triDate = "ASC";
-      //this.ligneService.triParDate("ASC", this.utilisateurSelectionne.id_utilisateur);
+
       this.lignesTriees.sort(function(ligne1, ligne2){
         if(ligne1['date'].localeCompare(ligne2['date']) == 0){
           return ligne1['id_ligne'] - ligne2['id_ligne'];

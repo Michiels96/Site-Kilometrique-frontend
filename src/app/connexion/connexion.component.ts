@@ -47,7 +47,7 @@ export class ConnexionComponent implements OnInit, OnDestroy {
   initForm() {
     this.connexionForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      //email: ['', [Validators.required]],
+
       password: ['', Validators.required]
     });
   }
@@ -55,35 +55,44 @@ export class ConnexionComponent implements OnInit, OnDestroy {
   onSubmitForm(){
     const formValue = this.connexionForm.value;
 
-    //trouver l'utilisateur et voir si il existe, si oui, on change son flag 'connecte' à 1
+
     let utilisateur = new Utilisateur(
       formValue['email'],
       formValue['password'],
     );
        
-    this.utilisateurService.getByEmail(utilisateur)
-      .then((response) => {
-        if(!response || response.length === 0){
-          //console.log(Mauvais email/mdp);
-          alert("Mauvais email/mdp");
-        }
-        else{
-          this.utilisateurService.checkPasswd(utilisateur, formValue['password'])
-            .then((resp) => {
-              if(resp['status'] == 'OK'){
-                //mettre son flag connecté a 1 et récuperer un token
-                utilisateur.id_utilisateur = response[0]['id_utilisateur'];
+    this.utilisateurService.checkPasswd(utilisateur, formValue['password'])
+      .then((resp) => {
+        if(resp['status'] == 'OK'){
+
+          this.utilisateurService.getByEmailPublic(utilisateur.email)
+            .then((userData) => {
+              if(userData && userData.length > 0){
+
+                utilisateur.id_utilisateur = userData[0]['id_utilisateur'];
                 this.utilisateurService.setConnecte(utilisateur, 1)
                   .then((token) => {
-                    //localStorage.setItem('sessionToken', JSON.stringify(token['token']).substring(1, JSON.stringify(token['token']).length-1));
+                    console.log('Token reçu:', token);
                     localStorage.setItem('sessionToken', token['token']);
-                    //this.utilisateurService.getUtilisateursFromServer();
                     this.router.navigate(["/accueil"]);
+                  })
+                  .catch((err) => {
+                    console.error('Erreur setConnecte:', err);
+                    alert("Erreur lors de la connexion: " + err.message);
                   });
               }
-            }).catch(() => alert("Mauvais email/mdp"));
+              else{
+                alert("Mauvais email/mdp");
+              }
+            })
+            .catch((err) => {
+              console.error('Erreur getByEmailPublic:', err);
+              alert("Erreur lors de la récupération des données: " + err.message);
+            });
         }
-      }
-    );
+      }).catch((err) => {
+        console.error('Erreur checkPasswd:', err);
+        alert("Mauvais email/mdp");
+      });
   }
 }
