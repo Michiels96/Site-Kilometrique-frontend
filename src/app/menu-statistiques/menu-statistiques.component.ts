@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Emitters } from '../emitters/emitters';
@@ -11,11 +12,10 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-menu-statistiques',
   templateUrl: './menu-statistiques.component.html',
-  styleUrls: ['./menu-statistiques.component.css']
+  styleUrls: ['./menu-statistiques.component.css'],
+  providers: [DatePipe]
 })
 export class MenuStatistiquesComponent implements OnInit, OnDestroy {
-
-
   utilisateurs:any = [{}];
   utilisateurSubscription: Subscription;
   selectedOption: string;
@@ -44,7 +44,7 @@ export class MenuStatistiquesComponent implements OnInit, OnDestroy {
   delStats: string = "Etes-vous sûr de vouloir supprimer ces statistiques ?";
   errDelStats: string = "Erreur de suppression des statistiques";
 
-  constructor(private statistiqueService: StatistiqueService, private utilisateurService: UtilisateurService, private router: Router, private languageService: LanguageService, private translateService: TranslateService) { }
+  constructor(private statistiqueService: StatistiqueService, private utilisateurService: UtilisateurService, private datePipe: DatePipe, private router: Router, private languageService: LanguageService, private translateService: TranslateService) { }
 
   ngOnInit(): void {
     Emitters.componentAffiche.emit("componentStatistiques");
@@ -226,23 +226,25 @@ export class MenuStatistiquesComponent implements OnInit, OnDestroy {
     this.router.navigate(['/statistiques/statistique']);
   }
 
-  modifierStatistique(statistique:any){
-    let timeOfdate = statistique['dateDAjout'].substring((statistique['dateDAjout'].indexOf("T")),statistique['dateDAjout'].length);
-    var convert = Date.parse(statistique['dateDAjout'])/1000;
-    var date = new Date(convert * 1000);
-    let year = date.getFullYear();
-    let month = (date.getMonth()+1)+"";
-    let day = (date.getDate())+"";
-    if(month.length == 1){
-      month = "0"+month;
-    }
-    if(day.length == 1){
-      day = "0"+day;
-    }
-    statistique['dateDAjout'] = year+"-"+month+"-"+day+timeOfdate;
-    sessionStorage.setItem('statistiqueAModifier', JSON.stringify(statistique));
+  modifierStatistique(statistique: any) {
+    const isoDate = statistique.dateDAjout.replace(' ', 'T');
+    const date = new Date(isoDate);
+
+    const formattedDate = this.datePipe.transform(
+      date,
+      'yyyy-MM-dd HH:mm:ss'
+    );
+
+    statistique.dateDAjout = formattedDate;
+
+    sessionStorage.setItem(
+      'statistiqueAModifier',
+      JSON.stringify(statistique)
+    );
+
     this.router.navigate(['/statistiques/statistique']);
   }
+
 
   demandeDeTriDateDAjout(){
     if(this.boutonChange){

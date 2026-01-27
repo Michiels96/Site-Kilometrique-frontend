@@ -82,13 +82,18 @@ export class FourOhFourComponent implements OnInit, OnDestroy {
     this.utilisateurService.setConnecte(utilisateur, 0)
     .then((resp) => {
       if(resp['status'] == "OK"){
-        localStorage.clear();
-        sessionStorage.clear();
-        this.utilisateurService.setInfoUtilisateur(null);
-        Emitters.connexionEmitter.emit(false);
-
-
+        console.log('Déconnexion réussie');
       }
+    })
+    .catch((error) => {
+      console.log('Erreur déconnexion (ignorée):', error);
+    })
+    .finally(() => {
+      // Dans tous les cas, nettoyer le localStorage
+      localStorage.clear();
+      sessionStorage.clear();
+      this.utilisateurService.setInfoUtilisateur(null);
+      Emitters.connexionEmitter.emit(false);
     });
   }
 }

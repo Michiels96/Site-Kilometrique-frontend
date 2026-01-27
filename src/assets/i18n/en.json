@@ -9,7 +9,10 @@
     "connection": "Sign in",
     "emailAddress": "Email",
     "password": "Password",
-    "submitConnection": "Sign in"
+    "submitConnection": "Sign in",
+    "tooManyAttempts": "Too many login attempts. Please try again in a few minutes.",
+    "wrongCredentials": "Wrong email/password",
+    "connectionError": "Connection error"
   },
   "inscription": {
     "register": "Register",
@@ -108,8 +111,8 @@
     "title": "Vehicles",
     "userMenu": "User",
     "numAlt": "Sort",
-    "name": "Unique Name",
-    "nameAlt": "Sort by unique name",
+    "name": "Name",
+    "nameAlt": "Sort by name",
     "brand": "Brand",
     "brandAlt": "Sort by brand",
     "type": "Type",
@@ -125,7 +128,7 @@
   },
   "modifierVehicule": {
     "title": "Modify",
-    "name": "Unique Name",
+    "name": "Name",
     "brand": "Brand",
     "brandChoice": "Choose the brand",
     "type": "Type",

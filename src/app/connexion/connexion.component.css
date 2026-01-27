@@ -1,4 +1,14 @@
 #formConnexion{
     max-width: 400px;
     margin: auto;
+    padding: 20px;
+}
+
+/* Centrer le formulaire dans la page */
+:host {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 60vh;
+    padding-top: 50px;
 }

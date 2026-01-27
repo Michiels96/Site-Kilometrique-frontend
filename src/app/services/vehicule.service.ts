@@ -49,7 +49,7 @@ export class VehiculeService{
 
 
 
-  getByNomUnique(nomUnique: string){
+  getByNom(nomUnique: string){
     let query = this.IPBackend+"/vehicules/nomUnique/";
 
     const headers = {
@@ -59,7 +59,7 @@ export class VehiculeService{
       };
 
     let params = new HttpParams()
-    .set('nom_unique', nomUnique)
+    .set('nom', nomUnique)
     ;
 
     return this.httpClient
@@ -73,7 +73,7 @@ export class VehiculeService{
     if(vehicule.detail == null){
         body = {
             'utilisateur': this.utilisateurService.getInfoUtilisateur().id_utilisateur,
-            'nom_unique': vehicule.nom_unique, 
+            'nom': vehicule.nom, 
             'id_utlisateur': id_utlisateur,
             'marque': vehicule.marque, 
             'type': vehicule.type
@@ -82,7 +82,7 @@ export class VehiculeService{
     else{
         body = {
             'utilisateur': this.utilisateurService.getInfoUtilisateur().id_utilisateur,
-            'nom_unique': vehicule.nom_unique, 
+            'nom': vehicule.nom, 
             'id_utlisateur': id_utlisateur,
             'marque': vehicule.marque, 
             'type': vehicule.type,
@@ -122,7 +122,7 @@ export class VehiculeService{
       })
     };
     let query = this.IPBackend+"/vehicules/";
-    let body = {'id_utilisateur': this.utilisateurService.getInfoUtilisateur().id_utilisateur, 'id_vehicule': vehicule.id_vehicule, 'nom_unique': vehicule.nom_unique, 'marque': vehicule.marque, 'type': vehicule.type, 'detail': vehicule.detail};
+    let body = {'id_utilisateur': this.utilisateurService.getInfoUtilisateur().id_utilisateur, 'id_vehicule': vehicule.id_vehicule, 'nom': vehicule.nom, 'marque': vehicule.marque, 'type': vehicule.type, 'detail': vehicule.detail};
     return this.httpClient
       .put<any[]>(query, body, headers)
       .toPromise();
@@ -163,7 +163,7 @@ export class VehiculeService{
   }
 
   triParNomUnique(type: string, id_utilisateur: number){
-    let query = this.IPBackend+"/vehicules/utilisateur/tri/nom_unique/";
+    let query = this.IPBackend+"/vehicules/utilisateur/tri/nom/";
 
     let params;
     if(type == "ASC"){

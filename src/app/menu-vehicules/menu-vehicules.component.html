@@ -32,7 +32,7 @@
     <tbody>
         <tr *ngFor="let vehicule of vehicules" (click)="modifierVehicule(vehicule)">
             <th scope="row">{{vehicule['id_vehicule']}}</th>
-            <td>{{vehicule['nom_unique']}}</td>
+            <td>{{vehicule['nom']}}</td>
             <td>{{vehicule['marque']}}</td>
             <td>{{vehicule['type']}}</td>
             <td>{{vehicule['detail']}}</td>

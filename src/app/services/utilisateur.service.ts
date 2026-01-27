@@ -154,12 +154,34 @@ export class UtilisateurService {
 
     setConnecte(utilisateur: Utilisateur, etat: number){
       let query = this.IPBackend+"/utilisateurs/connexion";
-      let body = {'id_utilisateur': utilisateur.id_utilisateur,'email': utilisateur.email,'estConnecte': etat};
+      let body: any = {
+        'id_utilisateur': utilisateur.id_utilisateur,
+        'email': utilisateur.email,
+        'estConnecte': etat
+      };
+      
+      // Si déconnexion (etat = 0), ajouter le token au body et headers
+      if(etat === 0){
+        const token = localStorage.getItem('sessionToken');
+        if(token){
+          body.token = token;
+          const headers = {
+            headers: new HttpHeaders({ 
+              'Authorization': token,
+              'Access-Control-Allow-Origin':'*'
+            })
+          };
+          return this.httpClient
+            .post<any[]>(query, body, headers)
+            .toPromise();
+        }
+      }
+      
+      // Pour connexion (etat = 1), utiliser les headers par défaut
       return this.httpClient
           .post<any[]>(query, body, this.headers)
           .toPromise();
     }
-
     inscription(utilisateur: Utilisateur, avecAge: boolean){
       let query = this.IPBackend+"/utilisateurs/";
       let body;

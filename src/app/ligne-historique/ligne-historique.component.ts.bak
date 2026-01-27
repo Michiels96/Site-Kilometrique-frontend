@@ -26,7 +26,6 @@ export class LigneHistoriqueComponent implements OnInit, OnDestroy {
   vehicules:any = [];
   vehiculeSubscription: Subscription;
   idUtilisateurDesVehicules:number;
-  vehiculeIdInitial: number; // ID du véhicule d'origine pour la comparaison
 
   numberOrRange: boolean = false;
 
@@ -34,78 +33,34 @@ export class LigneHistoriqueComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     Emitters.componentAffiche.emit("componentLigneHistorique");
-
-    // Initialiser le formulaire vide dès le départ (comme le mobile)
-    this.ligneForm = this.formBuilder.group({
-      id: [''],
-      vehicule: ['', Validators.required],
-      nbKilometres: ['', Validators.required],
-      nbKilometresDepart: [''],
-      nbKilometresDArivee: [''],
-      description: [''],
-      date: ['', Validators.required]
-    });
+    this.vehiculeSubscription = this.vehiculeService.vehiculesSubject.subscribe(
+      (vehicules: any[]) => {
+        this.vehicules = vehicules;
+      }
+    );
 
     if(sessionStorage.getItem('ligneAModifier') != null){
       this.ligneAModifier = JSON.parse(sessionStorage.getItem('ligneAModifier'));
-      console.log('📦 Ligne chargée depuis sessionStorage:', this.ligneAModifier);
-      console.log('📅 Date brute:', this.ligneAModifier['date']);
 
       this.vehiculeService.getByNom(this.ligneAModifier['vehicule'])
         .then((resp) => {
           this.idUtilisateurDesVehicules = resp[0]['utilisateur'];
-
-          // Charger les véhicules PUIS remplir le formulaire (comme le mobile)
-          this.loadVehicules(this.idUtilisateurDesVehicules).then(() => {
-            console.log('✅ Véhicules prêts, remplissage du formulaire...');
-            this.initFormModification();
-          });
+          this.vehiculeService.getVehiculesFromServer(this.idUtilisateurDesVehicules);
         });
+      
+      this.initFormModification();
     }
-    else if(sessionStorage.getItem('ligneAAjouter') != null){
-      this.idUtilisateurDesVehicules = +sessionStorage.getItem('ligneAAjouter');
-      this.nouvelleLigne = true;
 
-      // Charger les véhicules PUIS remplir le formulaire
-      this.loadVehicules(this.idUtilisateurDesVehicules).then(() => {
-        console.log('✅ Véhicules prêts, remplissage formulaire création...');
-        this.initFormCreation();
-      });
+    if(sessionStorage.getItem('ligneAAjouter') != null){
+
+      this.idUtilisateurDesVehicules = +sessionStorage.getItem('ligneAAjouter');
+      this.vehiculeService.getVehiculesFromServer(this.idUtilisateurDesVehicules);
+      this.nouvelleLigne = true;
+      this.initFormCreation();
     }
-    else {
+    if(sessionStorage.getItem('ligneAModifier') == null && sessionStorage.getItem('ligneAAjouter') == null){
       this.router.navigate(['/lignes']);
     }
-  }
-
-  loadVehicules(userId: number): Promise<void> {
-    return new Promise((resolve) => {
-      try {
-        console.log('📦 Début chargement véhicules...');
-        
-        // S'abonner une seule fois
-        const subscription = this.vehiculeService.vehiculesSubject.subscribe((vehicules: any[]) => {
-          if (vehicules && vehicules.length > 0) {
-            this.vehicules = vehicules;
-            console.log('✅ Véhicules chargés:', this.vehicules.length, 'véhicules');
-            subscription.unsubscribe();
-            resolve();
-          }
-        });
-
-        // Déclencher le chargement
-        this.vehiculeService.getVehiculesFromServer(userId);
-        
-        // Timeout de sécurité
-        setTimeout(() => {
-          subscription.unsubscribe();
-          resolve();
-        }, 5000);
-        
-      } catch (error) {
-        console.error('Erreur chargement véhicules:', error);
-        resolve();
-      }
-    });
   }
 
   ngOnDestroy(): void{
@@ -114,70 +69,17 @@ export class LigneHistoriqueComponent implements OnInit, OnDestroy {
   }
 
   initFormModification() {
-    let dateRaw = this.ligneAModifier['date'];
-    console.log('📅 Date brute pour formulaire:', dateRaw, 'Type:', typeof dateRaw);
-
-    let dateFormatted = '';
-
-    if (!dateRaw) {
-      console.error('❌ Pas de date dans ligneAModifier');
-      dateFormatted = new Date().toISOString().split('T')[0];
-    } else if (typeof dateRaw === 'string') {
-      // Extraire seulement la partie date (format: YYYY-MM-DD)
-      if (dateRaw.includes('T')) {
-        dateFormatted = dateRaw.split('T')[0];
-      } else if (dateRaw.includes(' ')) {
-        dateFormatted = dateRaw.split(' ')[0];
-      } else if (dateRaw.length >= 10) {
-        dateFormatted = dateRaw.substring(0, 10);
-      } else {
-        // Essayer de parser comme Date
-        const d = new Date(dateRaw);
-        if (!isNaN(d.getTime())) {
-          dateFormatted = d.toISOString().split('T')[0];
-        } else {
-          dateFormatted = dateRaw;
-        }
-      }
-    } else {
-      // Si c'est un objet Date ou timestamp
-      const d = new Date(dateRaw);
-      if (!isNaN(d.getTime())) {
-        dateFormatted = d.toISOString().split('T')[0];
-      }
-    }
-
-    console.log('✅ Date formatée pour input:', dateFormatted);
-
-    // Trouver l'ID du véhicule à partir du nom (comme dans le mobile)
-    let vehiculeId: number | undefined;
-
-    if (typeof this.ligneAModifier['vehicule'] === 'number') {
-      vehiculeId = this.ligneAModifier['vehicule'];
-      console.log('✅ Véhicule est déjà un ID:', vehiculeId);
-    } else if (typeof this.ligneAModifier['vehicule'] === 'string') {
-      const vehiculeTrouve = this.vehicules.find((v: any) => v.nom === this.ligneAModifier['vehicule']);
-      if (vehiculeTrouve) {
-        vehiculeId = vehiculeTrouve.id_vehicule;
-        console.log('✅ Véhicule trouvé par nom:', vehiculeTrouve.nom, '→ ID:', vehiculeId);
-      } else {
-        console.error('❌ Véhicule non trouvé:', this.ligneAModifier['vehicule']);
-      }
-    }
-
-    // Remplir le formulaire avec patchValue (formulaire déjà créé dans ngOnInit)
-    this.ligneForm.patchValue({
-      id: this.ligneAModifier['id_ligne'],
-      vehicule: vehiculeId,
-      nbKilometres: this.ligneAModifier['nbKilometres'],
-      nbKilometresDepart: this.ligneAModifier['nbKilometresDepart'],
-      description: this.ligneAModifier['description'],
-      date: dateFormatted
+    let date = this.ligneAModifier['date'];
+    date = date.substring(0,(date.indexOf("T")));
+    this.ligneForm = this.formBuilder.group({
+      id: [this.ligneAModifier['id_ligne'], Validators.required],
+      vehicule: [this.ligneAModifier['vehicule'], Validators.required],
+      nbKilometres: [this.ligneAModifier['nbKilometres'], Validators.required],
+      nbKilometresDepart: [this.ligneAModifier['nbKilometresDepart']],
+      nbKilometresDArivee: [''],
+      description: [this.ligneAModifier['description']],
+      date: [date, Validators.required]
     });
-
-    // Sauvegarder l'ID du véhicule initial pour la comparaison
-    this.vehiculeIdInitial = vehiculeId;
-    console.log('✅ Formulaire rempli:', this.ligneForm.value);
   }
 
   initFormCreation() {
@@ -192,37 +94,29 @@ export class LigneHistoriqueComponent implements OnInit, OnDestroy {
       day = "0"+day;
     }
     let actualDate = year+"-"+month+"-"+day;
-
-    // Remplir le formulaire avec patchValue (formulaire déjà créé dans ngOnInit)
-    this.ligneForm.patchValue({
-      date: actualDate
+    this.ligneForm = this.formBuilder.group({
+      vehicule: ['', Validators.required],
+      nbKilometres: ['', Validators.required],
+      nbKilometresDepart: [''],
+      nbKilometresDArivee: [''],
+      description: [''],
+      date: [actualDate, Validators.required]
     });
   }
 
   dateToString(dateToConvert:string){
-    if (!dateToConvert) return '';
-    
-    // Créer un objet Date à partir de la chaîne
-    let date = new Date(dateToConvert);
-    
-    // Vérifier si la date est valide
-    if (isNaN(date.getTime())) {
-      console.error('Date invalide:', dateToConvert);
-      return dateToConvert; // Retourner la chaîne originale si invalide
-    }
-    
+    var convert = Date.parse(dateToConvert)/1000;
+    var date = new Date(convert * 1000);
     let year = date.getFullYear();
-    let month = (date.getMonth() + 1) + "";
-    let day = date.getDate() + "";
-    
+    let month = (date.getMonth()+1)+"";
+    let day = (date.getDate()-1)+"";
     if(month.length == 1){
-      month = "0" + month;
+      month = "0"+month;
     }
     if(day.length == 1){
-      day = "0" + day;
+      day = "0"+day;
     }
-    
-    return day + "/" + month + "/" + year;
+    return day+"/"+month+"/"+year;
   }
 
   numberOrRangeFct(status:number){
@@ -255,8 +149,7 @@ export class LigneHistoriqueComponent implements OnInit, OnDestroy {
     if(!this.nouvelleLigne){
       const formValue = this.ligneForm.value;
       let nbKilometres = formValue['nbKilometres'];
-      // Comparer l'ID du véhicule actuel avec l'ID initial (pas avec le nom)
-      if(+formValue['vehicule'] != this.vehiculeIdInitial){
+      if(formValue['vehicule'] != this.ligneAModifier['vehicule']){
         this.ligneModifiee = true;
       }
       if(formValue['nbKilometres'] != this.ligneAModifier['nbKilometres'] && formValue['nbKilometres'] != ''){
@@ -280,15 +173,9 @@ export class LigneHistoriqueComponent implements OnInit, OnDestroy {
 
       }
       if(this.ligneModifiee){
-        // Envoyer l'ID du véhicule directement (plus fiable que le nom)
-        console.log('🔍 DEBUG formValue complet:', formValue);
-        console.log('🔍 DEBUG formValue[vehicule]:', formValue['vehicule'], 'Type:', typeof formValue['vehicule']);
-        const vehiculeId = +formValue['vehicule'];
-        console.log('🔍 DEBUG vehiculeId après conversion:', vehiculeId, 'Type:', typeof vehiculeId);
-        
         let ligneModifiee = new Ligne(
           this.ligneAModifier['id_ligne'],
-          vehiculeId,
+          formValue['vehicule'],
           nbKilometres,
           formValue['nbKilometresDepart'],
           formValue['description'],
@@ -340,7 +227,7 @@ export class LigneHistoriqueComponent implements OnInit, OnDestroy {
       }
       if(formValue['description'] == ''){
         nouvelleLigne = new Ligne(
-          +formValue['vehicule'],
+          formValue['vehicule'],
           nbKilometres,
           nbKilometresDepart,
           formValue['date']
@@ -348,7 +235,7 @@ export class LigneHistoriqueComponent implements OnInit, OnDestroy {
       }
       else{
         nouvelleLigne = new Ligne(
-          +formValue['vehicule'],
+          formValue['vehicule'],
           nbKilometres,
           nbKilometresDepart,
           formValue['description'],

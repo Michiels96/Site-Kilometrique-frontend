@@ -22,25 +22,46 @@ export class InscriptionComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     Emitters.componentAffiche.emit("componentInscription");
+    
+    // Vérifier si l'utilisateur est connecté
+    const token = localStorage.getItem('sessionToken');
+    if(token){
+      this.utilisateurService.checkToken(token)
+        .then((resp: any) => {
+          console.log('Utilisateur déjà connecté, redirection...');
+          if(resp && resp.newToken){
+            localStorage.setItem('sessionToken', resp.newToken);
+          }
+          this.router.navigate(['/']);
+        })
+        .catch(() => {
+          console.log('Token invalide, nettoyage...');
+          localStorage.clear();
+          sessionStorage.clear();
+        });
+      return;
+    }
 
     if(sessionStorage.getItem('utilisateurAAjouter') != null){
       this.nouvelUtilisateur = true;
     }
     this.initForm();
   }
-
   ngOnDestroy(): void{
     Emitters.componentAffiche.emit("");
     sessionStorage.removeItem('utilisateurAAjouter');
   }
 
   initForm() {
+    // Regex stricte pour email: doit avoir un @ et un domaine valide
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    
     this.inscriptionForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.pattern(emailRegex)]],
       password: ['', Validators.required],
       name: ['', Validators.required],
       lastname: ['', Validators.required],
-      date_naissance: ['']
+      date_naissance: ['', Validators.required]
     });
   }
 
@@ -115,5 +136,10 @@ export class InscriptionComponent implements OnInit, OnDestroy {
         alert("Erreur lors de l'inscription: " + (error.error?.error || error.message || "Erreur inconnue"));
       }
     }
+  }
+
+  // Méthode pour vérifier si on est en mode création par admin
+  isAdminCreatingUser(): boolean {
+    return this.nouvelUtilisateur || this.utilisateurService.getInfoUtilisateur() != null;
   }
 }

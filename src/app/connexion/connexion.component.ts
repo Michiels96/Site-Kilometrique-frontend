@@ -17,9 +17,9 @@ export class ConnexionComponent implements OnInit, OnDestroy {
   connexionForm: FormGroup;
 
   constructor(
-    private formBuilder: FormBuilder, 
-    private router: Router, 
-    private utilisateurService: UtilisateurService, 
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private utilisateurService: UtilisateurService,
     private languageService: LanguageService,
     private translateService: TranslateService
   ) {}
@@ -35,19 +35,31 @@ export class ConnexionComponent implements OnInit, OnDestroy {
     Emitters.componentAffiche.emit();
   }
 
+
   checkConnected(){
-    if(localStorage.getItem('sessionToken') != null){
-      this.utilisateurService.checkToken(localStorage.getItem('sessionToken'))
-        .then(() => {
+    const token = localStorage.getItem('sessionToken');
+    if(token != null){
+      // Vérifier le token ET estConnecte = 1 côté backend
+      this.utilisateurService.checkToken(token)
+        .then((resp: any) => {
+          // Token valide ET estConnecte = 1, rediriger vers l'accueil
+          console.log('Utilisateur déjà connecté (token valide + estConnecte=1), redirection...');
+          if(resp && resp.newToken){
+            localStorage.setItem('sessionToken', resp.newToken);
+          }
           this.router.navigate(['/']);
+        })
+        .catch((error) => {
+          // Token invalide OU estConnecte = 0, nettoyer et rester sur la page
+          console.log('Token invalide ou utilisateur déconnecté, nettoyage...');
+          localStorage.clear();
+          sessionStorage.clear();
         });
     }
   }
-
   initForm() {
     this.connexionForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
-
       password: ['', Validators.required]
     });
   }
@@ -55,12 +67,11 @@ export class ConnexionComponent implements OnInit, OnDestroy {
   onSubmitForm(){
     const formValue = this.connexionForm.value;
 
-
     let utilisateur = new Utilisateur(
       formValue['email'],
       formValue['password'],
     );
-       
+
     this.utilisateurService.checkPasswd(utilisateur, formValue['password'])
       .then((resp) => {
         if(resp['status'] == 'OK'){
@@ -78,21 +89,42 @@ export class ConnexionComponent implements OnInit, OnDestroy {
                   })
                   .catch((err) => {
                     console.error('Erreur setConnecte:', err);
-                    alert("Erreur lors de la connexion: " + err.message);
+                    this.handleConnectionError(err);
                   });
               }
               else{
-                alert("Mauvais email/mdp");
+                this.translateService.get('connexion.wrongCredentials').subscribe((text: string) => {
+                  alert(text);
+                });
               }
             })
             .catch((err) => {
               console.error('Erreur getByEmailPublic:', err);
-              alert("Erreur lors de la récupération des données: " + err.message);
+              this.handleConnectionError(err);
             });
         }
       }).catch((err) => {
         console.error('Erreur checkPasswd:', err);
-        alert("Mauvais email/mdp");
+        this.translateService.get('connexion.wrongCredentials').subscribe((text: string) => {
+          alert(text);
+        });
       });
+  }
+
+  handleConnectionError(err: any) {
+    // Vérifier si c'est une erreur 429 (Too Many Requests)
+    if (err && err.status === 429) {
+      this.translateService.get('connexion.tooManyAttempts').subscribe((text: string) => {
+        alert(text);
+      });
+    } else if (err && err.message) {
+      this.translateService.get('connexion.connectionError').subscribe((text: string) => {
+        alert(text + ": " + err.message);
+      });
+    } else {
+      this.translateService.get('connexion.connectionError').subscribe((text: string) => {
+        alert(text);
+      });
+    }
   }
 }

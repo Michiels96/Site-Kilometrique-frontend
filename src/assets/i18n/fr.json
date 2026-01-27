@@ -9,7 +9,10 @@
     "connection": "Page de connexion",
     "emailAddress": "Adresse Email",
     "password": "Mot de passe",
-    "submitConnection": "Connexion"
+    "submitConnection": "Connexion",
+    "tooManyAttempts": "Trop de tentatives de connexion. Veuillez réessayer dans quelques minutes.",
+    "wrongCredentials": "Mauvais email/mdp",
+    "connectionError": "Erreur lors de la connexion"
   },
   "inscription": {
     "register": "Page d'inscription",
@@ -108,8 +111,8 @@
     "title": "Véhicules",
     "userMenu": "Utilisateur",
     "numAlt": "tri",
-    "name": "Nom unique",
-    "nameAlt": "tri nom unique",
+    "name": "Nom",
+    "nameAlt": "tri par nom",
     "brand": "Marque",
     "brandAlt": "tri par marque",
     "type": "Type",
@@ -125,7 +128,7 @@
   },
   "modifierVehicule": {
     "title": "Modifier",
-    "name": "Nom unique",
+    "name": "Nom",
     "brand": "Marque",
     "brandChoice": "Choissisez la marque",
     "type": "Type",

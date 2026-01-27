@@ -9,7 +9,10 @@
     "connection": "Aanmelden",
     "emailAddress": "E-mailadres",
     "password": "Wachtwoord",
-    "submitConnection": "Aanmelden"
+    "submitConnection": "Aanmelden",
+    "tooManyAttempts": "Te veel aanmeldingspogingen. Probeer het over een paar minuten opnieuw.",
+    "wrongCredentials": "Verkeerde e-mail/wachtwoord",
+    "connectionError": "Verbindingsfout"
   },
   "inscription": {
     "register": "Registratiepagina",
@@ -108,8 +111,8 @@
     "title": "Voertuigen",
     "userMenu": "Gebruiker",
     "numAlt": "sorteren",
-    "name": "Unieke naam",
-    "nameAlt": "Sorteren op unieke naam",
+    "name": "Naam",
+    "nameAlt": "Sorteren op naam",
     "brand": "Merk",
     "brandAlt": "Sorteren op merk",
     "type": "Type",
@@ -125,7 +128,7 @@
   },
   "modifierVehicule": {
     "title": "Wijzigen",
-    "name": "Unieke naam",
+    "name": "Naam",
     "brand": "Merk",
     "brandChoice": "Kies het merk",
     "type": "Type",

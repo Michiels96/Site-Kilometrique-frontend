@@ -36,56 +36,33 @@ export class VehiculeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     Emitters.componentAffiche.emit("componentVehicule");
+    this.marqueSubscription = this.marqueService.marqueSubject.subscribe(
+      (marques: any[]) => {
+        this.marques = marques;
+      }
+    );
+    this.marqueService.getMarquesFromServer(this.utilisateurService.getInfoUtilisateur().id_utilisateur);
 
-    // Vérifier d'abord le mode (modification ou création)
+    this.typeSubscription = this.typeVehiculeService.typeVehiculeSubject.subscribe(
+      (types: any[]) => {
+        this.types = types;
+      }
+    );
+    this.typeVehiculeService.getTypesFromServer();
+
+
     if(sessionStorage.getItem('vehiculeAModifier') != null){
       this.vehiculeAModifier = JSON.parse(sessionStorage.getItem('vehiculeAModifier'));
-      // Initialiser immédiatement le formulaire pour éviter les erreurs de template
       this.initFormModification();
     }
 
     if(sessionStorage.getItem('vehiculeAAjouter') != null){
       this.idUtilisateurNouveauVehicule = JSON.parse(sessionStorage.getItem('vehiculeAAjouter'));
-      // Initialiser immédiatement le formulaire
       this.initFormCreation();
     }
-
     if(sessionStorage.getItem('vehiculeAModifier') == null && sessionStorage.getItem('vehiculeAAjouter') == null){
       this.router.navigate(['/vehicules']);
-      return;
     }
-
-    // Charger les marques
-    this.marqueSubscription = this.marqueService.marqueSubject.subscribe(
-      (marques: any[]) => {
-        this.marques = marques;
-
-        // Si en mode modification, réappliquer la valeur de la marque après chargement
-        if(this.vehiculeAModifier != null && this.vehiculeForm){
-          this.vehiculeForm.patchValue({
-            marque: this.vehiculeAModifier['marque']
-          });
-          console.log('Marque réappliquée:', this.vehiculeAModifier['marque']);
-          console.log('Marques disponibles:', this.marques.map(m => m.nom_unique));
-        }
-      }
-    );
-    this.marqueService.getMarquesFromServer(this.utilisateurService.getInfoUtilisateur().id_utilisateur);
-
-    // Charger les types
-    this.typeSubscription = this.typeVehiculeService.typeVehiculeSubject.subscribe(
-      (types: any[]) => {
-        this.types = types;
-
-        // Si en mode modification, réappliquer la valeur du type après chargement
-        if(this.vehiculeAModifier != null && this.vehiculeForm){
-          this.vehiculeForm.patchValue({
-            type: this.vehiculeAModifier['type']
-          });
-        }
-      }
-    );
-    this.typeVehiculeService.getTypesFromServer();
   }
 
   ngOnDestroy(): void{
@@ -96,14 +73,11 @@ export class VehiculeComponent implements OnInit, OnDestroy {
   initFormModification() {
     this.vehiculeForm = this.formBuilder.group({
       id: [this.vehiculeAModifier['id_vehicule'], Validators.required],
-      nom: [this.vehiculeAModifier['nom'] || this.vehiculeAModifier['nom_unique'], Validators.required],
+      nom: [this.vehiculeAModifier['nom_unique'], Validators.required],
       marque: [this.vehiculeAModifier['marque'], Validators.required],
       type: [this.vehiculeAModifier['type'], Validators.required],
       detail: [this.vehiculeAModifier['detail']]
     });
-
-    console.log('Formulaire initialisé avec nom:', this.vehiculeAModifier['nom'] || this.vehiculeAModifier['nom_unique']);
-    console.log('Formulaire initialisé avec marque:', this.vehiculeAModifier['marque']);
   }
 
   initFormCreation() {
@@ -120,7 +94,7 @@ export class VehiculeComponent implements OnInit, OnDestroy {
     if(this.idUtilisateurNouveauVehicule == -1){
       const formValue = this.vehiculeForm.value;
 
-      if(formValue['nom'] != (this.vehiculeAModifier['nom'] || this.vehiculeAModifier['nom_unique'])){
+      if(formValue['nom'] != this.vehiculeAModifier['nom_unique']){
         this.vehiculeModifiee = true;
       }
       if(formValue['marque'] != this.vehiculeAModifier['marque']){
@@ -140,13 +114,30 @@ export class VehiculeComponent implements OnInit, OnDestroy {
           formValue['type'],
           formValue['detail']
         );
-        // Pas besoin de vérifier l'unicité du nom, seul l'ID est unique
-        this.vehiculeService.modifierVehicule(vehiculeModifiee)
-          .then((resp) => {
-            sessionStorage.removeItem('vehiculeAModifier');
-            this.marqueService.getMarquesFromServer(this.utilisateurService.getInfoUtilisateur().id_utilisateur);
-            this.router.navigate(['/vehicules']);
-          });
+        if(vehiculeModifiee.nom_unique != this.vehiculeAModifier['nom_unique']){
+          this.vehiculeService.getByNomUnique(vehiculeModifiee.nom_unique)
+            .then((response) => {
+              if(response.length > 0){
+                alert("Ce nom n'est plus disponible");
+              }
+              else{
+                this.vehiculeService.modifierVehicule(vehiculeModifiee)
+                  .then((resp) => {
+                    sessionStorage.removeItem('vehiculeAModifier');
+                    this.marqueService.getMarquesFromServer(this.utilisateurService.getInfoUtilisateur().id_utilisateur);
+                    this.router.navigate(['/vehicules']);
+                  });
+              }
+            });
+        }
+        else{
+          this.vehiculeService.modifierVehicule(vehiculeModifiee)
+            .then((resp) => {
+              sessionStorage.removeItem('vehiculeAModifier');
+              this.marqueService.getMarquesFromServer(this.utilisateurService.getInfoUtilisateur().id_utilisateur);
+              this.router.navigate(['/vehicules']);
+            });
+        }
       }
     }
 
@@ -158,20 +149,29 @@ export class VehiculeComponent implements OnInit, OnDestroy {
         formValue['type'],
         formValue['detail']
       );
-      // Pas besoin de vérifier l'unicité du nom, seul l'ID est unique
-      if(formValue['detail'] == ''){
-        nouveauVehicule.detail = null;
-      }
-      this.vehiculeService.ajouterVehicule(nouveauVehicule, this.idUtilisateurNouveauVehicule)
+      this.vehiculeService.getByNomUnique(nouveauVehicule.nom_unique)
         .then((response) => {
-          if(response['status'] == "OK"){
-            this.marqueService.getMarquesFromServer(this.utilisateurService.getInfoUtilisateur().id_utilisateur);
-            this.router.navigate(["/vehicules"]);
+          if(response.length > 0){
+            alert("Ce nom n'est plus disponible");
           }
           else{
-            console.log("erreur d'inscription véhicule: "+JSON.stringify(response));
+            if(formValue['detail'] == ''){
+              nouveauVehicule.detail = null;
+            }
+            this.vehiculeService.ajouterVehicule(nouveauVehicule, this.idUtilisateurNouveauVehicule)
+              .then((response) => {
+                if(response['status'] == "OK"){
+
+
+                  this.marqueService.getMarquesFromServer(this.utilisateurService.getInfoUtilisateur().id_utilisateur);
+                  this.router.navigate(["/vehicules"]);
+                }
+                else{
+                  console.log("erreur d'inscription véhicule: "+JSON.stringify(response));
+                }
+              }).catch((err) => {console.log("Erreur : "+err)});
           }
-        }).catch((err) => {console.log("Erreur : "+err)});
+        });
     }
   }
 

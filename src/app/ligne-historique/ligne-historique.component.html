@@ -10,7 +10,7 @@
         <label for="vehicule" class="form-label">{{ 'ligneHistorique.vhs' | translate }}</label>
         <select id="vehicule" class="form-select" aria-label="Default select example" formControlName="vehicule" style="margin-bottom: 15px;">
             <option value="" disabled [selected]="nouvelleLigne" *ngIf="nouvelleLigne">{{ 'ligneHistorique.vhsLegend' | translate }}</option>
-            <option *ngFor="let vehicule of vehicules" value="{{vehicule['nom_unique']}}">{{vehicule['nom_unique']}}</option>
+            <option *ngFor="let vehicule of vehicules" value="{{vehicule['id_vehicule']}}">{{vehicule['nom']}}</option>
         </select>
     </div>
     <div class="mb-3" style="padding: 10px;" (click)="numberOrRangeFct(1)">

@@ -8,11 +8,6 @@ import { UtilisateurService } from "./utilisateur.service";
 
 @Injectable()
 export class MarqueService{
-  private headers = {
-    headers: new HttpHeaders({ 
-      'Authorization': localStorage.getItem('sessionToken')
-    })
-  };
   marqueSubject = new Subject<any[]>();
   private marques = [{}];
   private IPBackend: string;
@@ -30,8 +25,13 @@ export class MarqueService{
   getMarquesFromServer(id_utilisateur:number){
     let query = this.IPBackend+"/marques/";
     let params = new HttpParams().set('id_utilisateur', id_utilisateur);
+    const headers = {
+      headers: new HttpHeaders({ 
+        'Authorization': localStorage.getItem('sessionToken')
+      })
+    };
     this.httpClient
-      .get<any[]>(query, {headers: this.headers.headers, params})
+      .get<any[]>(query, {headers: headers.headers, params})
       .subscribe(
         (resp) => {
           this.marques = resp;

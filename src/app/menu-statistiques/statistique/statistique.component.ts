@@ -82,7 +82,7 @@ export class StatistiqueComponent implements OnInit, OnDestroy {
     var date = new Date(convert * 1000);
     let year = date.getFullYear();
     let month = (date.getMonth()+1)+"";
-    let day = (date.getDate()-1)+"";
+    let day = (date.getDate())+"";
     if(month.length == 1){
       month = "0"+month;
     }
@@ -93,7 +93,6 @@ export class StatistiqueComponent implements OnInit, OnDestroy {
   }
 
   onSubmitForm(){
-
     if(!this.nouvelleStatistique){
       const formValue = this.statistiqueForm.value;
       if(formValue['description'] != this.statistiqueAModifier['description']){

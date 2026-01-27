@@ -157,19 +157,8 @@ export class HistoriqueDeNavigationComponent implements OnInit, OnDestroy {
   }
 
   modifierLigne(ligne:any){
-    let timeOfdate = ligne['date'].substring((ligne['date'].indexOf("T")),ligne['date'].length);
-    var convert = Date.parse(ligne['date'])/1000;
-    var date = new Date(convert * 1000);
-    let year = date.getFullYear();
-    let month = (date.getMonth()+1)+"";
-    let day = (date.getDate())+"";
-    if(month.length == 1){
-      month = "0"+month;
-    }
-    if(day.length == 1){
-      day = "0"+day;
-    }
-    ligne['date'] = year+"-"+month+"-"+day+timeOfdate;
+    // Stocker la ligne telle quelle - pas besoin de reformater
+    console.log('📦 Stockage de la ligne pour modification:', ligne);
     sessionStorage.setItem('ligneAModifier', JSON.stringify(ligne));
     this.router.navigate(['/lignes/ligne']);
   }

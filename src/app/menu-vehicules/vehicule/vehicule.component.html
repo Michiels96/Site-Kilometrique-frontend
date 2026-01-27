@@ -1,5 +1,5 @@
 <form [formGroup]="vehiculeForm" (ngSubmit)="onSubmitForm()" id="formModifierVehicule">
-    <h1 class="h3 mb-3 fw-normal" *ngIf="vehiculeAModifier != null">{{ 'modifierVehicule.title' | translate }} <span style="font-style: italic;">{{vehiculeAModifier['nom_unique']}}</span> :</h1>
+    <h1 class="h3 mb-3 fw-normal" *ngIf="vehiculeAModifier != null">{{ 'modifierVehicule.title' | translate }} <span style="font-style: italic;">{{vehiculeAModifier['nom']}}</span> :</h1>
     <fieldset disabled *ngIf="vehiculeAModifier != null">
         <div class="mb-3">
             <label for="id_vehicule" class="form-label">Id</label>

@@ -51,22 +51,43 @@ export class NavComponent implements OnInit {
   }
 
   modifierProfil(){
-    sessionStorage.setItem('profilAModifier', JSON.stringify(this.utilisateurService.getInfoUtilisateur()));
-    this.router.navigate(['/profil']);
+    // Recharger les données fraîches depuis le backend pour avoir le bon format de date
+    const utilisateur = this.utilisateurService.getInfoUtilisateur();
+    this.utilisateurService.getById(utilisateur)
+      .then((response) => {
+        if(response && response.length > 0) {
+          sessionStorage.setItem('profilAModifier', JSON.stringify(response[0]));
+        } else {
+          // Fallback sur les données en cache si erreur
+          sessionStorage.setItem('profilAModifier', JSON.stringify(utilisateur));
+        }
+        this.router.navigate(['/profil']);
+      })
+      .catch(() => {
+        // En cas d'erreur, utiliser les données en cache
+        sessionStorage.setItem('profilAModifier', JSON.stringify(utilisateur));
+        this.router.navigate(['/profil']);
+      });
   }
 
   deconnexion(){
     this.utilisateurService.setConnecte(this.utilisateurService.getInfoUtilisateur(), 0)
     .then((resp) => {
       if(resp['status'] == "OK"){
-        localStorage.clear();
-        sessionStorage.clear();
-        this.connecte = false;
-        this.utilisateurService.setInfoUtilisateur(null);
-        Emitters.connexionEmitter.emit(false);
-
-        this.router.navigate(['/connexion']);
+        console.log('Déconnexion réussie');
       }
+    })
+    .catch((error) => {
+      console.log('Erreur déconnexion (ignorée):', error);
+    })
+    .finally(() => {
+      // Dans tous les cas, nettoyer le localStorage et rediriger
+      localStorage.clear();
+      sessionStorage.clear();
+      this.connecte = false;
+      this.utilisateurService.setInfoUtilisateur(null);
+      Emitters.connexionEmitter.emit(false);
+      this.router.navigate(['/connexion']);
     });
   }
 }

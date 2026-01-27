@@ -27,14 +27,19 @@
         <input type="text" class="form-control" id="prenom" placeholder="{{ 'profil.userLastname' | translate }}" formControlName="prenom">
     </div>
 
+    <fieldset disabled>
+        <div class="mb-3">
+            <label for="age" class="form-label">{{ 'profil.userAge' | translate }}</label>
+            <input type="number" id="age" class="form-control" formControlName="age">
+        </div>
+    </fieldset>
+
     <div class="mb-3">
         <label for="date_naissance" class="form-label">{{ 'profil.userBirthdate' | translate }}</label>
-        <input type="date" class="form-control" id="date_naissance" formControlName="date_naissance">
-    </div>
-
-    <div class="mb-3" *ngIf="modifierUtilisateur">
-        <label for="nbKilometresCumules" class="form-label">{{ 'profil.userTotalKms' | translate }}</label>
-        <input type="number" class="form-control" id="nbKilometresCumules" placeholder="{{ 'profil.userTotalKms' | translate }}" formControlName="nbKilometresCumules">
+        <input type="date" class="form-control" id="date_naissance" formControlName="date_naissance" [max]="getTodayDate()">
+        <div *ngIf="profilForm.get('date_naissance')?.hasError('futureDate') && profilForm.get('date_naissance')?.touched" class="text-danger">
+            La date de naissance ne peut pas être dans le futur
+        </div>
     </div>
 
     <div class="form-check form-switch noselect" *ngIf="modifierUtilisateur">
